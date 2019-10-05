@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Form, Icon, Input, Button, Checkbox, Divider } from 'antd';
+import { logIn } from '../../redux/actions'
 
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
@@ -10,6 +11,7 @@ class NormalLoginForm extends React.Component {
         console.log('Received values of form: ', values);
       }
     });
+    this.props.logIn()
   };
 
   render() {
@@ -54,4 +56,4 @@ class NormalLoginForm extends React.Component {
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
 
-export const LogIn = connect(state => ({ user: state.user }))(WrappedNormalLoginForm)
+export const LogIn = connect(state => ({ user: state.user }), { logIn })(WrappedNormalLoginForm)

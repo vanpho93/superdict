@@ -5,14 +5,17 @@ import { UserInfo } from './UserInfo'
 import { LogIn } from './LogIn'
 
 class UserTabComponent extends React.Component {
+  getView() {
+    if (this.props.user) return <UserInfo />
+    return <LogIn />
+  }
+
   render() {
     return (
       <div>
         <Row>
           <Col span={8}></Col>
-          <Col span={8}>
-            <LogIn />
-          </Col>
+          <Col span={8}>{this.getView()}</Col>
           <Col span={8}></Col>
         </Row>
       </div>

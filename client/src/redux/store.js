@@ -7,6 +7,8 @@ const defaultUser = {
 }
 
 const userReducer = (state = defaultUser, action) => {
+  if (action.type === 'LOG_OUT') return null
+  if (action.type === 'LOG_IN') return defaultUser
   return state
 }
 
