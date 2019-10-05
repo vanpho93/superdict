@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Form, Icon, Input, Button, Checkbox, Divider } from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { logIn } from '../../redux/actions'
 
 class NormalLoginForm extends React.Component {

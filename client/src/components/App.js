@@ -1,8 +1,6 @@
 import React from 'react';
-import { Menu, Icon, Layout } from 'antd';
+import { Menu, Icon } from 'antd';
 import { UserTab } from './UserTab';
-
-const { SubMenu } = Menu;
 
 export class App extends React.Component {
   state = {
