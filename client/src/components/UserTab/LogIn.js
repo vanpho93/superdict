@@ -6,12 +6,10 @@ import { logIn } from '../../redux/actions'
 class NormalLoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
+    this.props.form.validateFields((err, { email, password }) => {
+      if (err) throw err
+      this.props.logIn(email, password)
     });
-    this.props.logIn()
   };
 
   render() {
@@ -20,12 +18,12 @@ class NormalLoginForm extends React.Component {
       <Form onSubmit={this.handleSubmit} className="login-form" layout="vertical" style={{ width: 300, marginTop: 200 }}>
         <h1>Login to Superdict</h1>
         <Form.Item>
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+          {getFieldDecorator('email', {
+            rules: [{ required: true, message: 'Please input your email!' }],
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
+              placeholder="email"
             />,
           )}
         </Form.Item>
