@@ -1,8 +1,14 @@
 import React from 'react';
-import { Menu, Icon } from 'antd';
+import { connect } from 'react-redux'
+import { Menu, Icon, Spin } from 'antd';
 import { UserTab } from './UserTab';
+import { checkToken } from '../redux/actions'
 
-export class App extends React.Component {
+class AppComponent extends React.Component {
+  componentDidMount() {
+    if (!localStorage.getItem('token')) return
+    this.props.checkToken()
+  }
   state = {
     current: 'vocabulary',
   };
@@ -28,8 +34,10 @@ export class App extends React.Component {
             Exam
           </Menu.Item>
         </Menu>
-        <UserTab />
+        { this.props.isLoading ? <Spin size="large" /> : <UserTab /> }
       </div>
     );
   }
 }
+
+export const App = connect(state => ({ isLoading: state.loading.checkToken }), { checkToken })(AppComponent)

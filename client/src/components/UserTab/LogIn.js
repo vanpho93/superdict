@@ -43,7 +43,7 @@ class NormalLoginForm extends React.Component {
             valuePropName: 'checked',
             initialValue: true,
           })(<Checkbox>Remember me</Checkbox>)}
-          <Button type="primary" htmlType="submit" className="login-form-button">
+          <Button type="primary" htmlType="submit" className="login-form-button" loading={this.props.isLoading}>
             Log in
           </Button>
         </Form.Item>
@@ -54,4 +54,4 @@ class NormalLoginForm extends React.Component {
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
 
-export const LogIn = connect(state => ({ user: state.user }), { logIn })(WrappedNormalLoginForm)
+export const LogIn = connect(state => ({ user: state.user, isLoading: state.loading.login }), { logIn })(WrappedNormalLoginForm)
