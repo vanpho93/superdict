@@ -6,6 +6,7 @@ export async function up(knex: Knex): Promise<any> {
     addPrimaryKey(table, 'lesson_id')
     addCascadeForeignKey(table, 'user', { onDelete: 'CASCADE' })
     addCreated(table, knex)
+    table.string('name')
   })
   await addModified('lesson', knex)
 }
