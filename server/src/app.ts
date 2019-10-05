@@ -11,7 +11,7 @@ export const app = express()
 app.use(json())
 app.use(cors())
 
-app.get('/', (req, res) => res.send({ success: true, message: 'OK' }))
+app.use(express.static('./build'))
 
 routes.forEach(route => addRoute(app, route))
 
