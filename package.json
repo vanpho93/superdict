@@ -1,0 +1,20 @@
+{
+  "name": "vonic-payment",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vanpho93/api-server.git",
+  "author": "Pho Nguyen <vanpho02@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "cd scripts && ./prepare.sh",
+    "start": "cd database && npm run knex:latest && cd ../api-server && npm start",
+    "deploy": "git push origin -f --no-verify HEAD:development"
+  },
+  "engines": {
+    "node": "^8.10.12"
+  },
+  "cacheDirectories": [
+    "api-server/node_modules",
+    "database/node_modules"
+  ]
+}
