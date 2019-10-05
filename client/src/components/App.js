@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Menu, Icon, Spin } from 'antd';
+import { Menu, Icon, Spin, Divider } from 'antd';
 import { UserTab } from './UserTab';
 import { checkToken } from '../redux/actions'
 
@@ -9,6 +9,7 @@ class AppComponent extends React.Component {
     if (!localStorage.getItem('token')) return
     this.props.checkToken()
   }
+
   state = {
     current: 'vocabulary',
   };
@@ -16,6 +17,11 @@ class AppComponent extends React.Component {
   handleClick = e => {
     this.setState({ current: e.key });
   };
+
+  getView() {
+    if(this.props.isLoading) return <Divider style={{ marginTop: 300 }}><Spin size="large" /></Divider>
+    return <UserTab />
+  }
 
   render() {
     return (
@@ -34,7 +40,7 @@ class AppComponent extends React.Component {
             Exam
           </Menu.Item>
         </Menu>
-        { this.props.isLoading ? <Spin size="large" /> : <UserTab /> }
+        {this.getView()}
       </div>
     );
   }
