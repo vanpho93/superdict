@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<any> {
     addPrimaryKey(table, 'vocabulary_id')
     addCascadeForeignKey(table, 'user', { onDelete: 'CASCADE' })
     addCascadeForeignKey(table, 'lesson', { onDelete: 'CASCADE', notNullable: false })
-    addCascadeForeignKey(table, 'word_class', { onDelete: 'CASCADE' })
+    addCascadeForeignKey(table, 'word_type', { onDelete: 'CASCADE' })
     // detail
     table.string('word')
     table.string('pronunciation')
