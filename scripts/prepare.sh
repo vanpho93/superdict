@@ -1,2 +1,2 @@
 ./prepare-database.sh
-./prepare-api-server.sh
+./prepare-server.sh
