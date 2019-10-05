@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Row, Col } from 'antd'
 import { UserInfo } from './UserInfo'
+import { LogIn } from './LogIn'
 
 class UserTabComponent extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class UserTabComponent extends React.Component {
         <Row>
           <Col span={8}></Col>
           <Col span={8}>
-            <UserInfo />
+            <LogIn />
           </Col>
           <Col span={8}></Col>
         </Row>
