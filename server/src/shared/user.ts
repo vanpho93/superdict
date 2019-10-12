@@ -11,6 +11,8 @@ export interface IUser {
   created: Date | string
 }
 
+export type UserWithToken = IUser & { token: string }
+
 export class User extends createModel<IUser>(Tables.USER) {
   public static async getUserLoginOutput(user: IUser, isRememberMe?: boolean) {
     const expiresIn = isRememberMe ? Settings.SESSION_REMEMBER_ME_EXPIRED_TIME : Settings.SESSION_EXPIRED_TIME

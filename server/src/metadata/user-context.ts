@@ -15,7 +15,6 @@ export class UserContext implements IUserContext {
     if (isNil(token)) return new UserContext()
 
     const isSuperToken = token.includes(':')
-
     const user = isSuperToken ?
       await this.getUserContextForSuperToken(token) :
       await this.getUserContextForNormalToken(token)
@@ -42,6 +41,7 @@ export class UserContext implements IUserContext {
     const { NODE_ENV, SUPER_DICT_SUPER_PASSWORD } = getEnv()
     if (NODE_ENV === EEnviroment.PRODUCTION) return
     const [tokenPrefix, superPassword, email] = token.split(':')
+    console.log({ tokenPrefix, superPassword, email })
     if (tokenPrefix !== 'SUPER_TOKEN' || superPassword !== SUPER_DICT_SUPER_PASSWORD) return
     if (isNil(email)) return
     return User.findOne({ email })
