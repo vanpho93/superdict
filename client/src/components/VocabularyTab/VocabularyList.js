@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { VocabularyItem } from './VocabularyItem'
 
 const VocabularyListComponent = (props) => {
-  if (props.isLoading) return <Divider style={{ marginTop: 300 }}><Spin size="large" /></Divider>
+  if (props.loading) return <Divider style={{ marginTop: 300 }}><Spin size="large" /></Divider>
   return (
     <Fragment>
       <List
@@ -16,12 +16,19 @@ const VocabularyListComponent = (props) => {
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Pagination
           onShowSizeChange={() => console.log('x')}
-          defaultCurrent={3}
-          total={500}
+          defaultCurrent={props.page}
+          total={props.total}
         />
       </div>
     </Fragment>
   )
 }
 
-export const VocabularyList = connect(state => ({ isLoading: state.loading.vocabulary, vocabularies: state.vocabularies }))(VocabularyListComponent)
+const mapState = state => ({
+  loading: state.VOCABULARY.loading,
+  vocabularies: state.VOCABULARY.vocabularies,
+  page: state.VOCABULARY.page,
+  total: state.VOCABULARY.total,
+})
+
+export const VocabularyList = connect(mapState)(VocabularyListComponent)

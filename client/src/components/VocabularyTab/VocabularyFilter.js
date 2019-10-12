@@ -16,7 +16,7 @@ class VocabularyFilterComponent extends React.Component {
   render() {
     const dateFormat = 'YYYY-MM-DD';
     return (
-      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 20 }}>
         <DatePicker.RangePicker
           style={{ marginRight: 10 }}
           showTime={{ format: 'HH:mm' }}
