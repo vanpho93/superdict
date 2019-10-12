@@ -58,6 +58,8 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
     loading: false,
     vocabularies: action.vocabularies,
     page: action.page,
+    fromDate: action.fromDate,
+    toDate: action.toDate,
     total: action.total,
     pageSize: 10,
     mode: 'full' // 'collapse'
