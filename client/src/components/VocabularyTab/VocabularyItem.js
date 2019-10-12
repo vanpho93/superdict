@@ -1,3 +1,4 @@
+import { defaultTo } from 'lodash'
 import React, { Component } from 'react'
 import { Icon, Button } from 'antd'
 import './VocabularyItem.css'
@@ -17,7 +18,7 @@ export class VocabularyItem extends Component {
         <span>UK <Button shape="circle" icon="play-circle" size="small" style={{ borderColor: 'white' }} onClick={() => this.playAudio(vocabulary.americanSound)}/></span>
         <hr />
         <p>{vocabulary.meaning}:</p>
-        {vocabulary.examples.split('|').map((item, index) => <div key={index}><i className="example">{item}</i></div>)}
+        {defaultTo(vocabulary.examples, '').split('|').map((item, index) => <div key={index}><i className="example">{item}</i></div>)}
       </div>
     )
   }

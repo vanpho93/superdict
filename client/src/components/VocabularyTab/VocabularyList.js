@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { List, Divider, Spin, Pagination } from 'antd'
 import { connect } from 'react-redux'
+import { getVocabularies } from '../../redux/actions'
 import { VocabularyItem } from './VocabularyItem'
 
 const VocabularyListComponent = (props) => {
@@ -15,7 +16,7 @@ const VocabularyListComponent = (props) => {
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Pagination
-          onShowSizeChange={() => console.log('x')}
+          onChange={(page) => props.getVocabularies(undefined, undefined, undefined, page)}
           defaultCurrent={props.page}
           total={props.total}
         />
@@ -31,4 +32,4 @@ const mapState = state => ({
   total: state.VOCABULARY.total,
 })
 
-export const VocabularyList = connect(mapState)(VocabularyListComponent)
+export const VocabularyList = connect(mapState, { getVocabularies })(VocabularyListComponent)

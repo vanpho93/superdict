@@ -14,18 +14,20 @@ class VocabularyFilterComponent extends React.Component {
   }
 
   render() {
-    const dateFormat = 'YYYY-MM-DD';
+    const dateFormat = 'DD/MM/YYYY';
+    const startDate = new Date(Date.now() - 7 * 86400000).toLocaleDateString('en-GB')
+    const endDate = new Date().toLocaleDateString('en-GB')
     return (
       <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 20 }}>
         <DatePicker.RangePicker
           style={{ marginRight: 10 }}
           showTime={{ format: 'HH:mm' }}
-          defaultValue={[moment('2015-06-06', dateFormat), moment('2015-06-06', dateFormat)]}
+          defaultValue={[moment(startDate, dateFormat), moment(endDate, dateFormat)]}
           ranges={{
             Today: [moment(), moment()],
             'This Month': [moment().startOf('month'), moment().endOf('month')],
           }}
-          format="YYYY-MM-DD HH:mm"
+          format={dateFormat}
           placeholder={['Start Time', 'End Time']}
           onChange={this.onChange}
           onOk={this.onOk}

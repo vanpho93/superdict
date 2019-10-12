@@ -43,7 +43,7 @@ const defaultVocabularies = [
 
 const defaultVocabularyState = {
   loading: false,
-  vocabularies: defaultVocabularies,
+  vocabularies: [],
   page: 0,
   total: 0,
 }
@@ -54,8 +54,10 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
     ...state,
     loading: false,
     vocabularies: action.vocabularies,
-    page: 1,
+    page: action.page,
     total: action.total,
+    pageSize: 10,
+    mode: 'full' // 'collapse'
   }
   return state
 }
