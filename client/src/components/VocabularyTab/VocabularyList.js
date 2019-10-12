@@ -33,8 +33,8 @@ const VocabularyListComponent = (props) => {
     >
       <List.Item.Meta
         avatar={<Avatar src={item.avatar} />}
-        title={<a href={item.href}>{item.title}</a>}
-        description={item.description}
+        title={<a href={item.href}>{item.word}</a>}
+        description={item.pronunciation}
       />
       {item.content}
     </List.Item>
