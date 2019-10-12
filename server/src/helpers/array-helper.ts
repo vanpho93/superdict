@@ -1,6 +1,6 @@
 import { isNil } from 'lodash'
 // tslint:disable-next-line: no-any
-export const transformArrayParam = (array: any): string[] => {
+export const transformArrayParam = <T>(array: Array<T>): T[] => {
   if (isNil(array)) {
     array = []
   }

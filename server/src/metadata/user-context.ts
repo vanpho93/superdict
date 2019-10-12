@@ -15,7 +15,6 @@ export class UserContext implements IUserContext {
     if (isNil(token)) return new UserContext()
 
     const isSuperToken = token.includes(':')
-
     const user = isSuperToken ?
       await this.getUserContextForSuperToken(token) :
       await this.getUserContextForNormalToken(token)

@@ -1,7 +1,9 @@
+import { isNil } from 'lodash'
 import request from 'supertest'
 import { deepEqual } from 'assert'
+import './test-helper'
 import { app } from '../app'
-import { TestConstants, EGlobalError, IUser } from '../global-refs'
+import { TestConstants, EGlobalError, IUser, getEnvKey, User, UserWithToken } from '../global-refs'
 
 export interface IUserWithToken extends IUser {
   token: string
@@ -21,5 +23,24 @@ export class TestUtilities {
     if (methodName === 'POST') return request(app).post(url)
     if (methodName === 'PUT') return request(app).put(url)
     if (methodName === 'DELETE') return request(app).delete(url)
+  }
+
+  private static getToken(email: string) {
+    return `SUPER_TOKEN:${getEnvKey('SUPER_DICT_SUPER_PASSWORD')}:${email}`
+  }
+
+  public static async createUser(email: string): Promise<UserWithToken> {
+    const user = await User.create({
+      email,
+      passwordHash: '$2b$08$HwFcwX64dZyjT6b.NHnxP.DvxzYE.A8SwYVoF4PP86USSDQbCsZi6', // password@123
+      name: email.split('@')[0],
+    })
+    return { ...user, token: this.getToken(email) }
+  }
+
+  public static async getUser(email: string): Promise<UserWithToken> {
+    const user = await User.findOne({ email })
+    if (isNil(user)) throw 'CANNOT_FIND_USER'
+    return { ...user, token: this.getToken(email) }
   }
 }
