@@ -9,10 +9,9 @@ export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, {}
     return {
       ...this.rawInput,
       lessonIds: transformArrayParam(lessonIds),
-      fromLesson: defaultTo(this.rawInput.fromLesson, 0),
-      toLesson: defaultTo(this.rawInput.fromLesson, Constants.MAXIMUM_INTEGER_4_BYTES),
-      fromDate: defaultTo(this.rawInput.fromDate, 0),
-      toDate: defaultTo(this.rawInput.toDate, Date.now()),
+      fromDate: defaultTo(Number(this.rawInput.fromDate), 0),
+      toDate: defaultTo(Number(this.rawInput.toDate), Date.now()),
+      limit: Math.min(1000, defaultTo(this.rawInput.limit, 10)),
     }
   }
 
@@ -22,15 +21,15 @@ export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, {}
   }
 
   private async queryVocabulary() {
-    const { fromLesson, toLesson, fromDate, toDate, lessonIds } = this.input
+    const { fromDate, toDate, lessonIds, limit } = this.input
     const vocabularies = await Vocabulary.findAll({}, builder => {
-      builder.select(`${Tables.VOCABULARY}.*`, 'name')
-      builder.join(Tables.WORD_TYPE, `${Tables.WORD_TYPE}.wordTypeId`, `${Tables.VOCABULARY}.wordTypeId`)
-      builder.where({ userId: this.userContext.userId })
-      builder.where('lessonId', '>=', fromLesson)
-      builder.where('lessonId', '<=', toLesson)
-      builder.where(`${Tables.VOCABULARY}.created`, '>=', new Date(fromDate))
-      builder.where(`${Tables.VOCABULARY}.created`, '<=', new Date(toDate))
+      builder.select(`${Tables.VOCABULARY}.*`, 'name as type')
+        .join(Tables.WORD_TYPE, `${Tables.WORD_TYPE}.wordTypeId`, `${Tables.VOCABULARY}.wordTypeId`)
+        .where({ userId: this.userContext.userId })
+        .where(`${Tables.VOCABULARY}.created`, '>=', new Date(fromDate))
+        .where(`${Tables.VOCABULARY}.created`, '<=', new Date(toDate))
+        .limit(limit)
+        .orderBy('vocabularyId')
       if (isNotEmptyArray(lessonIds)) builder.whereIn('lessonId', lessonIds)
       return builder
     })

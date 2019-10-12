@@ -6,8 +6,8 @@ export const getVocabulariesRoute: IApiRoute<IGetVocabulariesInput> = {
   Service: GetVocabulariesService,
   path: '/vocabulary',
   mapper: req => {
-    const { fromLesson, toLesson, fromDate, toDate, lessonIds } = req.query
-    return { fromLesson, toLesson, fromDate, toDate, lessonIds }
+    const { fromDate, toDate, lessonIds, limit } = req.query
+    return { fromDate, toDate, lessonIds, limit }
   },
   method: 'GET',
 }
