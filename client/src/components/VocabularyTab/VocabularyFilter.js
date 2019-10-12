@@ -1,11 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { DatePicker, Button } from 'antd'
+import { DatePicker } from 'antd'
 import moment from 'moment'
 import { getVocabularies } from '../../redux/actions'
 
 class VocabularyFilterComponent extends React.Component {
   onChange = ([fromDate, toDate]) => {
+    console.log({
+      fromDate: fromDate.valueOf(),
+      toDate: toDate.valueOf(),
+      page: 1
+    })
     this.props.getVocabularies({
       fromDate: fromDate.valueOf(),
       toDate: toDate.valueOf(),
@@ -15,6 +20,7 @@ class VocabularyFilterComponent extends React.Component {
   
   render() {
     const { fromDate, toDate } = this.props
+    console.log({ fromDate, toDate })
     const dateFormat = 'DD/MM/YYYY';
     const startDate = new Date(fromDate).toLocaleDateString('en-GB')
     const endDate = new Date(toDate).toLocaleDateString('en-GB')

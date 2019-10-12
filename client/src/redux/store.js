@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { TimeHelper, ONE_DAY_IN_MILLISECOND } from '../helpers/time-helper'
 
@@ -9,6 +9,7 @@ const userReducer = (state = null, action) => {
   return state
 }
 
+/*
 const defaultVocabularies = [
   {
     "vocabularyId": 1,
@@ -41,14 +42,15 @@ const defaultVocabularies = [
     "type": "verb"
   }
 ]
+*/
 
 const defaultVocabularyState = {
   loading: false,
   vocabularies: [],
   page: 1,
   total: 0,
-  fromDate: TimeHelper.before(7 * ONE_DAY_IN_MILLISECOND, TimeHelper.getDate(Date.now()).startAt),
-  toDate: TimeHelper.getDate(Date.now()).startAt,
+  fromDate: TimeHelper.before(7 * ONE_DAY_IN_MILLISECOND, TimeHelper.getDate(Date.now()).startAt).getTime(),
+  toDate: TimeHelper.getDate(Date.now()).startAt.getTime(),
 }
 
 const vocabulariesReducer = (state = defaultVocabularyState, action) => {
@@ -81,4 +83,16 @@ const reducer = combineReducers({
   loading: loadingReducer,
 })
 
-export const store = createStore(reducer, applyMiddleware(ReduxThunk))
+const composeEnhancers =
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware(ReduxThunk),
+  // other store enhancers if any
+);
+
+export const store = createStore(reducer, enhancer)

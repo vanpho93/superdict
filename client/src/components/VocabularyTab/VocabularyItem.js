@@ -1,6 +1,6 @@
 import { defaultTo } from 'lodash'
 import React, { Component } from 'react'
-import { Icon, Button } from 'antd'
+import { Button } from 'antd'
 import './VocabularyItem.css'
 
 export class VocabularyItem extends Component {
