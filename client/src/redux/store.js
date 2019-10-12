@@ -8,9 +8,42 @@ const userReducer = (state = null, action) => {
   return state
 }
 
+const defaultVocabularies = [
+  {
+    "vocabularyId": 1,
+    "userId": 1,
+    "lessonId": null,
+    "wordTypeId": 1,
+    "word": "hello",
+    "pronunciation": "heˈloʊ",
+    "americanSound": "/media/english/us_pron/h/hel/hello/hello.mp3",
+    "britishSound": "/media/english/us_pron/h/hel/hello/hello.mp3",
+    "meaning": "used when meeting or greeting someone",
+    "examples": "Hello, Paul. I haven't seen you for ages.|I know her vaguely - we've exchanged hellos a few times.|I just thought I'd call by and say hello.",
+    "created": "2019-10-05T17:07:45.021Z",
+    "modified": "2019-10-05T17:07:45.021Z",
+    "type": "noun"
+  },
+  {
+    "vocabularyId": 2,
+    "userId": 1,
+    "lessonId": null,
+    "wordTypeId": 2,
+    "word": "see",
+    "pronunciation": "siː",
+    "americanSound": "/media/english/us_pron/c/c__/c____/c.mp3",
+    "britishSound": "/media/english/us_pron/c/c__/c____/c.mp3",
+    "meaning": "used when meeting or greeting someone",
+    "examples": "Hello, Paul. I haven't seen you for ages.|I know her vaguely - we've exchanged hellos a few times.|I just thought I'd call by and say hello.",
+    "created": "2019-10-05T17:07:45.021Z",
+    "modified": "2019-10-05T17:07:45.021Z",
+    "type": "verb"
+  }
+]
+
 const defaultVocabularyState = {
   loading: false,
-  vocabularies: [],
+  vocabularies: defaultVocabularies,
   page: 0,
   total: 0,
 }
