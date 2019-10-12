@@ -37,6 +37,20 @@ describe(TEST_TITLE, () => {
         created: getDate(2),
       },
       {
+        userId: user1.userId,
+        lessonId: 1,
+        word: 'two',
+        wordTypeId: 1,
+        created: getDate(2),
+      },
+      {
+        userId: user1.userId,
+        lessonId: 1,
+        word: 'two',
+        wordTypeId: 1,
+        created: getDate(2),
+      },
+      {
         userId: user2.userId,
         lessonId: 2,
         word: 'three',
@@ -60,15 +74,21 @@ describe(TEST_TITLE, () => {
       .query({
         fromDate: getDate(1).getTime(),
         toDate: getDate(2).getTime(),
+        page: 1,
+        pageSize: 2,
       })
     const expectedFields = ['userId', 'vocabularyId', 'created', 'modified', 'pronunciation', 'americanSound', 'britishSound', 'meaning', 'examples']
     const expectedResponse = {
       success: true,
       result:
-        [
-          { lessonId: 1, wordTypeId: 1, word: 'one', type: 'noun' },
-          { lessonId: 1, wordTypeId: 1, word: 'two', type: 'noun' },
-        ],
+      {
+        total: 4,
+        vocabularies:
+          [
+            { lessonId: 1, wordTypeId: 1, word: 'one', type: 'noun' },
+            { lessonId: 1, wordTypeId: 1, word: 'two', type: 'noun' },
+          ],
+      },
     }
     deepEqual(deepOmit(response.body, expectedFields), expectedResponse)
   })

@@ -1,0 +1,19 @@
+.VocabularyItem {
+  border: 1px solid #D4D4D4;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.VocabularyItem > h3 {
+  color: #595959;
+}
+
+hr {
+  border: 0.5px solid #EDEDED;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 13pt
+}

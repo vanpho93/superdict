@@ -2,7 +2,7 @@ import { defaultTo, isNil } from 'lodash'
 import Knex, { QueryBuilder, Transaction as KnexTransaction } from 'knex'
 import { knex, exist } from '../global-refs'
 
-interface IBuilderFunction {
+export interface IBuilderFunction {
   (queryBuilder: QueryBuilder): QueryBuilder
 }
 

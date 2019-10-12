@@ -6,7 +6,7 @@ import { VocabularyFilter } from './VocabularyFilter'
 
 class VocabularyTabComponent extends React.Component {
   componentDidMount() {
-    this.props.getVocabularies()
+    // this.props.getVocabularies()
   }
 
   render() {

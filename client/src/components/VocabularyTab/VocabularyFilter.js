@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { DatePicker } from 'antd'
+import { DatePicker, Button } from 'antd'
 import moment from 'moment'
 
 class VocabularyFilterComponent extends React.Component {
@@ -16,9 +16,9 @@ class VocabularyFilterComponent extends React.Component {
   render() {
     const dateFormat = 'YYYY-MM-DD';
     return (
-      <div style={{ padding: 20 }}>
-        <h1>Word filter</h1>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 20 }}>
         <DatePicker.RangePicker
+          style={{ marginRight: 10 }}
           showTime={{ format: 'HH:mm' }}
           defaultValue={[moment('2015-06-06', dateFormat), moment('2015-06-06', dateFormat)]}
           ranges={{
@@ -30,6 +30,7 @@ class VocabularyFilterComponent extends React.Component {
           onChange={this.onChange}
           onOk={this.onOk}
         />
+        <Button>Apply</Button>
       </div>
     );
   }
