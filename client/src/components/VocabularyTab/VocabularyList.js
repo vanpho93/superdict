@@ -1,18 +1,6 @@
-import { List, Avatar, Icon } from 'antd';
-import React from 'react';
-
-const listData = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'http://ant.design',
-    title: `ant design part ${i}`,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
+import { List, Avatar, Icon, Divider, Spin } from 'antd'
+import React from 'react'
+import { connect } from 'react-redux'
 
 const IconText = ({ type, text }) => (
   <span>
@@ -21,17 +9,12 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
-export const VocabularyList = () => <List
+const VocabularyListComponent = (props) => {
+  if (props.isLoading) return <Divider style={{ marginTop: 300 }}><Spin size="large" /></Divider>
+  return <List
   itemLayout="vertical"
   size="large"
-  pagination={{
-    onChange: page => {
-      console.log(page);
-    },
-    pageSize: 3,
-    position: 'bottom'
-  }}
-  dataSource={listData}
+  dataSource={props.vocabularies}
   renderItem={item => (
     <List.Item
       key={item.title}
@@ -57,3 +40,6 @@ export const VocabularyList = () => <List
     </List.Item>
   )}
 />
+}
+
+export const VocabularyList = connect(state => ({ isLoading: state.loading.vocabulary, vocabularies: state.vocabularies }))(VocabularyListComponent)

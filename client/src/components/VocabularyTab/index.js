@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Row, Col } from 'antd'
+import { getVocabularies } from '../../redux/actions'
 import { VocabularyList } from './VocabularyList'
 
 class VocabularyTabComponent extends React.Component {
+  componentDidMount() {
+    this.props.getVocabularies()
+  }
+
   render() {
     return (
       <div style={{ padding: 20 }}>
@@ -13,4 +17,4 @@ class VocabularyTabComponent extends React.Component {
   }
 }
 
-export const VocabularyTab = connect(state => ({ user: state.user }))(VocabularyTabComponent)
+export const VocabularyTab = connect(state => ({ user: state.user }), { getVocabularies })(VocabularyTabComponent)
