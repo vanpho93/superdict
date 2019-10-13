@@ -17,6 +17,10 @@ export class ExamStorage {
     }
   }
 
+  static isInExam(vocabulary) {
+    return this.getVocabularyIds().includes(vocabulary.vocabularyId)
+  }
+
   static addVocabularies(vocabularies) {
     const currentIds = this.getVocabularyIds()
     vocabularies.forEach(({ vocabularyId }) => {

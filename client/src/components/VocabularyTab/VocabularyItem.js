@@ -2,12 +2,18 @@ import { defaultTo } from 'lodash'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Button, Checkbox } from 'antd'
+import { ExamStorage } from '../../helpers/exam-storage'
 import './VocabularyItem.css'
 
 class VocabularyItemComponent extends Component {
   playAudio = (path) => {
     const url = `https://dictionary.cambridge.org${path}`
     new Audio(url).play()
+  }
+
+  toggleInExam = (vocabulary, event) => {
+    if (event.target.checked) return ExamStorage.addVocabularies([vocabulary])
+    return ExamStorage.removeVocabularies([vocabulary])
   }
 
   renderHeader() {
@@ -22,7 +28,12 @@ class VocabularyItemComponent extends Component {
         <div>
           <b style={{ fontSize: getFontSize(), marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i>
         </div>
-        <Checkbox>Review</Checkbox>
+        <Checkbox
+          checked={ExamStorage.isInExam(vocabulary.vocabularyId)}
+          onChange={event => this.toggleInExam(vocabulary, event)}
+        >
+          Review
+        </Checkbox>
       </div>
     )
   }

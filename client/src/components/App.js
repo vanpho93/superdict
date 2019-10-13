@@ -5,6 +5,7 @@ import { UserTab } from './UserTab';
 import { VocabularyTab } from './VocabularyTab';
 import { ExamTab } from './ExamTab';
 import { checkToken } from '../redux/actions'
+import { ExamStorage } from '../helpers/exam-storage'
 
 class AppComponent extends React.Component {
   componentDidMount() {
@@ -40,7 +41,7 @@ class AppComponent extends React.Component {
             Vocabulary
           </Menu.Item>
           <Menu.Item key="exam" disabled={!this.props.user}>
-              <Icon type="play-circle" /> Exam <Badge count={25} style={{ backgroundColor: '#52c41a' }} />
+              <Icon type="play-circle" /> Exam <Badge count={ExamStorage.count()} style={{ backgroundColor: '#52c41a' }} />
           </Menu.Item>
         </Menu>
         {this.getView()}

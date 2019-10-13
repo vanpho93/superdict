@@ -1,6 +1,8 @@
+import { defaultTo } from 'lodash'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { TimeHelper } from '../helpers/time-helper'
+import { ExamStorage } from '../helpers/exam-storage'
 
 const userReducer = (state = null, action) => {
   if (action.type === 'LOG_IN') return action.user
@@ -68,6 +70,22 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
     pageSize: action.pageSize,
   }
   if (action.type === 'CHANGE_VIEW_MODE') return { ...state, mode: action.mode }
+  return state
+}
+
+const defaultExamState = {
+  vocabularyIds: ExamStorage.getVocabularyIds(),
+}
+
+const examReducer = (state = defaultExamState, action) => {
+  if (action.type === 'ADD_VOCABULARY') return {
+    ...state,
+    vocabularyIds: [...state.vocabularyIds, action.vocabularyId]
+  }
+  if (action.type === 'REMOVE_VOCABULARY') return {
+    ...state,
+    vocabularyIds: state.vocabularyIds.filter(vocabularyId => vocabularyId !== action.vocabularyId)
+  }
   return state
 }
 
