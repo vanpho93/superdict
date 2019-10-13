@@ -1,6 +1,6 @@
 import { defaultTo } from 'lodash'
 import React, { Component } from 'react'
-import { Icon } from 'antd'
+import { Icon, Button } from 'antd'
 import { connect } from 'react-redux'
 
 class ExamProgressComponent extends Component {
@@ -21,6 +21,16 @@ class ExamProgressComponent extends Component {
     </div>
   }
 
+  renderActions = () => {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 30 }}>
+        <Button type="dashed">Restart</Button>
+        <Button type="primary">Submit</Button>
+        <Button type="danger">Escape</Button>
+      </div>
+    )
+  }
+
   render() {
     const { vocabularies } = this.props
     return (
@@ -29,6 +39,7 @@ class ExamProgressComponent extends Component {
         {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, false))}
         {this.props.stage === 'ANSWERING' ? <h3>Pending words</h3> : null}
         {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, true))}
+        {this.renderActions()}
       </div>
     )
   }
