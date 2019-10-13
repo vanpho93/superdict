@@ -74,6 +74,8 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
 
 const defaultExamState = {
   vocabularyIds: ExamStorage.getVocabularyIds(),
+  stage: 'STARTING', // 'LOADING_VOCABULARY', 'PLAYING', 'SHOW_RESULT'
+  vocabularies: [],
 }
 
 const examReducer = (state = defaultExamState, action) => {
@@ -88,6 +90,19 @@ const examReducer = (state = defaultExamState, action) => {
   if (action.type === 'CLEAR_EXAM') return {
     ...state,
     vocabularyIds: [],
+  }
+  if (action.type === 'SEND_LOAD_VOCABULARY') {
+    return {
+      ...state,
+      stage: 'LOADING_VOCABULARY',
+    }
+  }
+  if (action.type === 'COMPLETE_LOAD_VOCABULARY') {
+    return {
+      ...state,
+      stage: 'PLAYING',
+      vocabularies: action.vocabularies,
+    }
   }
   return state
 }
