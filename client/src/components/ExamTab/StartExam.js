@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, InputNumber } from 'antd'
-import {  } from '../../redux/actions'
+import { startExam } from '../../redux/actions'
 
 class StartExamComponent extends Component {
   state = { repeatTime: 3 }
@@ -18,7 +18,7 @@ class StartExamComponent extends Component {
             style={{ margin: 5 }}
           />
         times</b>
-        <Button icon="play-circle" type="primary" style={{ margin: 30 }}>Start Now</Button>
+        <Button icon="play-circle" type="primary" style={{ margin: 30 }} onClick={this.props.startExam}>Start Now</Button>
       </div>
     )
   }
@@ -29,4 +29,4 @@ const mapState = state => ({
   vocabularyIds: state.EXAM.vocabularyIds,
 })
 
-export const StartExam = connect(mapState, {  })(StartExamComponent)
+export const StartExam = connect(mapState, { startExam })(StartExamComponent)
