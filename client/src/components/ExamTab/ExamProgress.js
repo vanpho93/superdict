@@ -4,12 +4,19 @@ import { Icon } from 'antd'
 import { connect } from 'react-redux'
 
 class ExamProgressComponent extends Component {
-  renderVocabulary(vocabulary) {
+  renderVocabulary(vocabulary, isPending) {
+    if (!isPending && defaultTo(vocabulary.rightTime, 0) < this.props.repeatTime) return null
+    if (isPending && defaultTo(vocabulary.rightTime, 0) >= this.props.repeatTime) return null
+    const getWord = () => {
+      if (isPending) return `${vocabulary.word[0]}...`
+      return vocabulary.word
+    }
     return <div key={vocabulary.vocabularyId}>
-      {vocabulary.word}
+      {getWord()}
       {defaultTo(vocabulary.historyAnswers, []).map(isRight => {
         const type = isRight ? 'check-circle' : 'close-circle'
-        return <Icon type={type} style={{ margin: 3 }} />
+        const twoToneColor = isRight ? '#52c41a' : '#eb2f96'
+        return <Icon theme="twoTone" type={type} style={{ margin: 6 }} twoToneColor={twoToneColor} />
       })}
     </div>
   }
@@ -18,7 +25,10 @@ class ExamProgressComponent extends Component {
     const { vocabularies } = this.props
     return (
       <div>
-        {vocabularies.map(this.renderVocabulary)}
+        <h3>Completed words</h3>
+        {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, false))}
+        {this.props.stage === 'ANSWERING' ? <h3>Pending words</h3> : null}
+        {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, true))}
       </div>
     )
   }
@@ -27,6 +37,7 @@ class ExamProgressComponent extends Component {
 const mapState = state => ({
   vocabularies: state.EXAM.vocabularies,
   repeatTime: state.EXAM.repeatTime,
+  stage: state.EXAM.stage,
 })
 
 export const ExamProgress = connect(mapState, {})(ExamProgressComponent)

@@ -16,6 +16,7 @@ class ExamTabComponent extends React.Component {
         <ExamProgress />
       </div>
     )
+    return  <ExamProgress />
   }
 
   render() {
