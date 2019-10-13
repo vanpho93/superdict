@@ -1,3 +1,4 @@
+import { defaultTo } from 'lodash'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { TimeHelper } from '../helpers/time-helper'
@@ -110,12 +111,20 @@ const examReducer = (state = devDefaultExamState, action) => {
       ...state,
       stage: 'ANSWERING',
       vocabularies: action.vocabularies,
-      currentIndex: 0,
+      currentIndex: action.index,
     }
   }
-  if (action.type === 'PLAY_WORD') {
+  if (action.type === 'ANSWER') {
+    const isRightAnswer = state.vocabularies[state.currentIndex].word === action.word
     return {
       ...state,
+      vocabularies: state.vocabularies.map((vocabulary, index) => {
+        if (index !== state.currentIndex) return vocabulary
+        return {
+          ...vocabulary,
+          rightTime: isRightAnswer ? defaultTo(vocabulary.rightTime, 0) + 1 : defaultTo(vocabulary.rightTime, 1) - 1
+        }
+      })
     }
   }
   if (action.type === 'NEXT') {

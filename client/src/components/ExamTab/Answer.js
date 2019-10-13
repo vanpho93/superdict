@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Input } from 'antd'
-import {  } from '../../redux/actions'
+import { answerVocabulary } from '../../redux/actions'
 
 class AnswerComponent extends Component {
   onSearch = (text) => {
-
+    this.props.answerVocabulary(text)
   }
 
   render() {
@@ -16,7 +16,7 @@ class AnswerComponent extends Component {
         <h3><i>Question: </i>"{vocabulary.meaning}"</h3>
         <Input.Search
           size="large"
-          placeholder="large size"
+          placeholder="word"
           style={{ margin: 30 }}
           enterButton="Answer"
           onSearch={this.onSearch}
@@ -32,4 +32,4 @@ const mapState = state => ({
   currentIndex: state.EXAM.currentIndex,
 })
 
-export const Answer = connect(mapState, { })(AnswerComponent)
+export const Answer = connect(mapState, { answerVocabulary })(AnswerComponent)
