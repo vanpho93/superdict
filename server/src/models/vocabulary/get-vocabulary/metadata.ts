@@ -4,6 +4,7 @@ export interface IGetVocabulariesInput {
   fromDate: number
   toDate: number
   lessonIds?: number[]
+  vocabularyIds?: number[]
   pageSize: number
   page: number
 }

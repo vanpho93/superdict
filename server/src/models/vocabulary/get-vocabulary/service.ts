@@ -6,10 +6,11 @@ import { IGetVocabulariesInput, IGetVocabulariesOutput } from './metadata'
 export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, IGetVocabulariesOutput> {
   private user: IUser
   protected getNormalizeInput() {
-    const { lessonIds } = this.rawInput
+    const { lessonIds, vocabularyIds } = this.rawInput
     return {
       ...this.rawInput,
       lessonIds: transformArrayParam(lessonIds),
+      vocabularyIds: transformArrayParam(vocabularyIds),
       fromDate: defaultTo(Number(this.rawInput.fromDate), 0),
       toDate: defaultTo(Number(this.rawInput.toDate), Date.now()),
       pageSize: Math.min(1000, defaultTo(this.rawInput.pageSize, 10)),
@@ -25,12 +26,13 @@ export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, IG
   }
 
   private applyDefaultBuilder(builder: QueryBuilder) {
-    const { fromDate, toDate, lessonIds } = this.input
+    const { fromDate, toDate, lessonIds, vocabularyIds } = this.input
     builder
       .where({ userId: this.userContext.userId })
       .where(`${Tables.VOCABULARY}.created`, '>=', new Date(fromDate))
       .where(`${Tables.VOCABULARY}.created`, '<=', new Date(toDate))
     if (isNotEmptyArray(lessonIds)) builder.whereIn('lessonId', lessonIds)
+    if (isNotEmptyArray(vocabularyIds)) builder.whereIn('vocabularyId', vocabularyIds)
     return builder
   }
 
