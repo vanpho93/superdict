@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { DatePicker, Radio, Checkbox } from 'antd'
+import { DatePicker, Radio, Checkbox, Button } from 'antd'
 import moment from 'moment'
-import { getVocabularies, changeViewMode, addVocabulary, removeVocabulary } from '../../redux/actions'
+import { getVocabularies, changeViewMode, addVocabulary, removeVocabulary, clearExam } from '../../redux/actions'
 import { TimeHelper } from '../../helpers/time-helper'
 
 class VocabularyFilterComponent extends React.Component {
@@ -54,6 +54,7 @@ class VocabularyFilterComponent extends React.Component {
           <Radio.Button value={30}>30</Radio.Button>
           <Radio.Button value={50}>50</Radio.Button>
         </Radio.Group>
+        <Button type="danger" onClick={this.props.clearExam}>Clear</Button>
         <Checkbox onChange={this.toggleAll}>All</Checkbox>
       </div>
     );
@@ -73,6 +74,7 @@ const actions = {
   changeViewMode,
   addVocabulary,
   removeVocabulary,
+  clearExam,
 }
 
 export const VocabularyFilter = connect(mapState, actions)(VocabularyFilterComponent)

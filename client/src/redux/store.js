@@ -85,6 +85,10 @@ const examReducer = (state = defaultExamState, action) => {
     ...state,
     vocabularyIds: state.vocabularyIds.filter(vocabularyId => vocabularyId !== action.vocabularyId)
   }
+  if (action.type === 'CLEAR_EXAM') return {
+    ...state,
+    vocabularyIds: [],
+  }
   return state
 }
 

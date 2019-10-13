@@ -8,3 +8,5 @@ export const getVocabularies = (input) => async (dispatch, getState) => {
 }
 
 export const changeViewMode = mode => ({ type: 'CHANGE_VIEW_MODE', mode })
+
+export const clearExam = () => ({ type: 'CLEAR_EXAM' })
