@@ -54,7 +54,7 @@ class VocabularyFilterComponent extends React.Component {
           <Radio.Button value={30}>30</Radio.Button>
           <Radio.Button value={50}>50</Radio.Button>
         </Radio.Group>
-        <Button type="danger" onClick={this.props.clearExam}>Clear</Button>
+        <Button type="danger" onClick={this.props.clearExam}>Clear Exam</Button>
         <Checkbox onChange={this.toggleAll}>All</Checkbox>
       </div>
     );
