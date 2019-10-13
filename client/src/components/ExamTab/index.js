@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Spin } from 'antd';
 import { StartExam } from './StartExam'
+import { Answer } from './Answer'
 
 class ExamTabComponent extends React.Component {
   renderBody() {
     const { stage } = this.props
     if (stage === 'STARTING') return <StartExam />
     if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
+    if (stage === 'ANSWERING') return <Answer />
   }
 
   render() {

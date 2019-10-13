@@ -25,7 +25,6 @@ class StartExamComponent extends Component {
 }
 
 const mapState = state => ({
-  mode: state.VOCABULARY.mode,
   vocabularyIds: state.EXAM.vocabularyIds,
 })
 
