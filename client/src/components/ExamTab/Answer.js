@@ -1,15 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, InputNumber } from 'antd'
+import { Input } from 'antd'
 import {  } from '../../redux/actions'
 
 class AnswerComponent extends Component {
-  state = { repeatTime: 3 }
+  onSearch = (text) => {
+
+  }
 
   render() {
+    const { vocabularies, currentIndex } = this.props
+    const vocabulary = vocabularies[currentIndex]
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 200, flexDirection: 'column' }}>
-        Answer
+        <h3><i>Question: </i>"{vocabulary.meaning}"</h3>
+        <Input.Search
+          size="large"
+          placeholder="large size"
+          style={{ margin: 30 }}
+          enterButton="Answer"
+          onSearch={this.onSearch}
+        />
       </div>
     )
   }
@@ -17,6 +28,8 @@ class AnswerComponent extends Component {
 
 const mapState = state => ({
   vocabularyIds: state.EXAM.vocabularyIds,
+  vocabularies: state.EXAM.vocabularies,
+  currentIndex: state.EXAM.currentIndex,
 })
 
 export const Answer = connect(mapState, { })(AnswerComponent)
