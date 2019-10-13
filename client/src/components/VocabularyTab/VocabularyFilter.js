@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { DatePicker, Radio } from 'antd'
+import { DatePicker, Radio, Checkbox } from 'antd'
 import moment from 'moment'
-import { getVocabularies, changeViewMode } from '../../redux/actions'
+import { getVocabularies, changeViewMode, addVocabulary, removeVocabulary } from '../../redux/actions'
 import { TimeHelper } from '../../helpers/time-helper'
 
 class VocabularyFilterComponent extends React.Component {
@@ -12,6 +12,13 @@ class VocabularyFilterComponent extends React.Component {
       fromDate: fromDate ? fromDate.valueOf() : defaultTimeState.fromDate,
       toDate: toDate ? toDate.valueOf() : defaultTimeState.toDate,
       page: 1
+    })
+  }
+
+  toggleAll = (event) => {
+    this.props.vocabularies.forEach(vocabulary => {
+      if (event.target.checked) return this.props.addVocabulary(vocabulary)
+      this.props.removeVocabulary(vocabulary)
     })
   }
   
@@ -47,16 +54,25 @@ class VocabularyFilterComponent extends React.Component {
           <Radio.Button value={30}>30</Radio.Button>
           <Radio.Button value={50}>50</Radio.Button>
         </Radio.Group>
+        <Checkbox onChange={this.toggleAll}>All</Checkbox>
       </div>
     );
   }
 }
 
 const mapState = state => ({
+  vocabularies: state.VOCABULARY.vocabularies,
   fromDate: state.VOCABULARY.fromDate,
   toDate: state.VOCABULARY.toDate,
   mode: state.VOCABULARY.mode,
   pageSize: state.VOCABULARY.pageSize,
 })
 
-export const VocabularyFilter = connect(mapState, { getVocabularies, changeViewMode })(VocabularyFilterComponent)
+const actions = {
+  getVocabularies,
+  changeViewMode,
+  addVocabulary,
+  removeVocabulary,
+}
+
+export const VocabularyFilter = connect(mapState, actions)(VocabularyFilterComponent)
