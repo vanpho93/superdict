@@ -1,15 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Spin } from 'antd';
 import { StartExam } from './StartExam'
 
 class ExamTabComponent extends React.Component {
+  renderBody() {
+    const { stage } = this.props
+    if (stage === 'STARTING') return <StartExam />
+    if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
+  }
+
   render() {
     return (
-      <div>
-        <StartExam />
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: 50 }}>
+        {this.renderBody()}
       </div>
-    );
+    )
   }
 }
 
-export const ExamTab = connect(state => ({ user: state.user }))(ExamTabComponent)
+export const ExamTab = connect(state => ({ stage: state.EXAM.stage }))(ExamTabComponent)

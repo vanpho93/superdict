@@ -103,6 +103,7 @@ const examReducer = (state = defaultExamState, action) => {
       ...state,
       stage: 'PLAYING',
       vocabularies: action.vocabularies,
+      currentIndex: 0,
     }
   }
   if (action.type === 'PLAY_WORD') {
