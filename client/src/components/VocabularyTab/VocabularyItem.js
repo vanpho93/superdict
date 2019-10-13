@@ -34,7 +34,7 @@ class VocabularyItemComponent extends Component {
       <span style={{ marginRight: 20 }}>US <Button shape="circle" icon="play-circle" size="small" style={{ borderColor: 'white' }} onClick={() => this.playAudio(vocabulary.americanSound)} /></span>
       <span>UK <Button shape="circle" icon="play-circle" size="small" style={{ borderColor: 'white' }} onClick={() => this.playAudio(vocabulary.americanSound)}/></span>
       <hr />
-      <p>{vocabulary.meaning}</p>
+      <p className="meaning">{vocabulary.meaning}</p>
     </Fragment>
   }
 

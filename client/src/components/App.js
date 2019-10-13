@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Menu, Icon, Spin, Divider } from 'antd';
+import { Menu, Icon, Spin, Divider, Badge } from 'antd';
 import { UserTab } from './UserTab';
 import { VocabularyTab } from './VocabularyTab';
 import { ExamTab } from './ExamTab';
@@ -40,8 +40,7 @@ class AppComponent extends React.Component {
             Vocabulary
           </Menu.Item>
           <Menu.Item key="exam" disabled={!this.props.user}>
-            <Icon type="play-circle" />
-            Exam
+              <Icon type="play-circle" /> Exam <Badge count={25} style={{ backgroundColor: '#52c41a' }} />
           </Menu.Item>
         </Menu>
         {this.getView()}
