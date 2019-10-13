@@ -3,17 +3,14 @@ import { connect } from 'react-redux'
 import { DatePicker } from 'antd'
 import moment from 'moment'
 import { getVocabularies } from '../../redux/actions'
+import { TimeHelper } from '../../helpers/time-helper'
 
 class VocabularyFilterComponent extends React.Component {
   onChange = ([fromDate, toDate]) => {
-    console.log({
-      fromDate: fromDate.valueOf(),
-      toDate: toDate.valueOf(),
-      page: 1
-    })
+    const defaultTimeState = TimeHelper.getDefaultTimeState()
     this.props.getVocabularies({
-      fromDate: fromDate.valueOf(),
-      toDate: toDate.valueOf(),
+      fromDate: fromDate ? fromDate.valueOf() : defaultTimeState.fromDate,
+      toDate: toDate ? toDate.valueOf() : defaultTimeState.toDate,
       page: 1
     })
   }

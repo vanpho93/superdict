@@ -16,7 +16,10 @@ const VocabularyListComponent = (props) => {
       />
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <Pagination
-          onChange={(page) => props.getVocabularies({ page })}
+          onChange={(page) => {
+            console.log({ toPage: page })
+            props.getVocabularies({ page })
+          }}
           defaultCurrent={props.page}
           total={props.total}
         />

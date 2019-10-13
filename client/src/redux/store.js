@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
-import { TimeHelper, ONE_DAY_IN_MILLISECOND } from '../helpers/time-helper'
+import { TimeHelper } from '../helpers/time-helper'
 
 const userReducer = (state = null, action) => {
   if (action.type === 'LOG_IN') return action.user
@@ -43,14 +43,15 @@ const defaultVocabularies = [
   }
 ]
 */
+const { fromDate, toDate } = TimeHelper.getDefaultTimeState()
 
 const defaultVocabularyState = {
   loading: false,
   vocabularies: [],
   page: 1,
   total: 0,
-  fromDate: TimeHelper.before(7 * ONE_DAY_IN_MILLISECOND, TimeHelper.getDate(Date.now()).startAt).getTime(),
-  toDate: TimeHelper.getDate(Date.now()).startAt.getTime(),
+  fromDate,
+  toDate,
 }
 
 const vocabulariesReducer = (state = defaultVocabularyState, action) => {

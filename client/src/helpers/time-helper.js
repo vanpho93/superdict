@@ -36,4 +36,10 @@ export class TimeHelper {
   static wait(millisecond) {
     return new Promise(resolve => setTimeout(resolve, millisecond))
   }
+
+  static getDefaultTimeState() {
+    const fromDate = TimeHelper.before(8 * ONE_DAY_IN_MILLISECOND, TimeHelper.getDate(Date.now()).startAt).getTime()
+    const toDate = TimeHelper.getDate(Date.now() + ONE_DAY_IN_MILLISECOND).startAt.getTime()
+    return { fromDate, toDate }
+  }
 }
