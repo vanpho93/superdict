@@ -18,7 +18,7 @@ class StartExamComponent extends Component {
             style={{ margin: 5 }}
           />
         times</b>
-        <Button icon="play-circle" type="primary" style={{ margin: 30 }} onClick={this.props.startExam}>Start Now</Button>
+        <Button icon="play-circle" type="primary" style={{ margin: 30 }} onClick={() => this.props.startExam(this.state.repeatTime)}>Start Now</Button>
       </div>
     )
   }

@@ -77,7 +77,8 @@ const devDefaultExamState = {
   vocabularyIds: [],
   stage: 'ANSWERING', // 'LOADING_VOCABULARY', 'ANSWERING', 'SHOW_RESULT'
   vocabularies: defaultVocabularies,
-  currentIndex: 0,
+  currentIndex: 1,
+  repeatTime: 3,
 }
 
 const defaultExamState = {
@@ -85,6 +86,7 @@ const defaultExamState = {
   stage: 'STARTING', // 'LOADING_VOCABULARY', 'ANSWERING', 'SHOW_RESULT'
   vocabularies: [],
   currentIndex: -1,
+  repeatTime: 0,
 }
 
 const examReducer = (state = devDefaultExamState, action) => {
@@ -104,6 +106,7 @@ const examReducer = (state = devDefaultExamState, action) => {
     return {
       ...state,
       stage: 'LOADING_VOCABULARY',
+      repeatTime: action.repeatTime,
     }
   }
   if (action.type === 'COMPLETE_LOAD_VOCABULARY') {
