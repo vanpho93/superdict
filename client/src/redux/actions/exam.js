@@ -1,4 +1,4 @@
-import { random, defaultTo, isEmpty, findIndex } from 'lodash'
+import { random, defaultTo } from 'lodash'
 import { get } from '../../helpers/request'
 
 export const addVocabulary = (vocabulary) => ({ type: 'ADD_VOCABULARY', vocabularyId: vocabulary.vocabularyId })
@@ -11,7 +11,7 @@ export const startExam = (repeatTime) => async (dispatch, getState) => {
   dispatch({
     type: 'COMPLETE_LOAD_VOCABULARY',
     vocabularies: response.vocabularies,
-    index: random(response.vocabularies.length),
+    index: random(response.vocabularies.length - 1),
     repeatTime,
   })
 }

@@ -5,8 +5,9 @@ import { connect } from 'react-redux'
 
 class ExamProgressComponent extends Component {
   renderVocabulary(vocabulary, isPending) {
-    if (!isPending && defaultTo(vocabulary.rightTime, 0) < this.props.repeatTime) return null
-    if (isPending && defaultTo(vocabulary.rightTime, 0) >= this.props.repeatTime) return null
+    const rightTime = defaultTo(vocabulary.rightTime, 0)
+    if (!isPending && rightTime < this.props.repeatTime) return null
+    if (isPending && rightTime >= this.props.repeatTime) return null
     const getWord = () => {
       if (isPending) return `${vocabulary.word[0]}...`
       return vocabulary.word
