@@ -10,6 +10,16 @@ class VocabularyItemComponent extends Component {
     new Audio(url).play()
   }
 
+  renderHeader() {
+    const { vocabulary, mode } = this.props
+    const getFontSize = () => {
+      if (mode === 'large') return 30
+      if (mode === 'default') return 20
+      return 15
+    }
+    return <div style={{ marginBottom: 10 }}><b style={{ fontSize: getFontSize(), marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i></div>
+  }
+
   renderBody() {
     const { vocabulary, mode } = this.props
     if (mode === 'small') return null
@@ -32,7 +42,7 @@ class VocabularyItemComponent extends Component {
     const { vocabulary, mode } = this.props
     return (
       <div className="VocabularyItem">
-        <div style={{ marginBottom: 10 }}><b style={{ fontSize: 30, marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i></div>
+        {this.renderHeader()}
         {this.renderBody()}
         {this.renderExamples()}
       </div>
