@@ -3,13 +3,19 @@ import { connect } from 'react-redux'
 import { Spin } from 'antd';
 import { StartExam } from './StartExam'
 import { Answer } from './Answer'
+import { ExamProgress } from './ExamProgress'
 
 class ExamTabComponent extends React.Component {
   renderBody() {
     const { stage } = this.props
     if (stage === 'STARTING') return <StartExam />
     if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
-    if (stage === 'ANSWERING') return <Answer />
+    if (stage === 'ANSWERING') return (
+      <div>
+        <Answer />
+        <ExamProgress />
+      </div>
+    )
   }
 
   render() {
