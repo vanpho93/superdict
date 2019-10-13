@@ -1,7 +1,6 @@
-import { defaultTo } from 'lodash'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Checkbox, InputNumber } from 'antd'
+import { Button, InputNumber } from 'antd'
 import {  } from '../../redux/actions'
 
 class StartExamComponent extends Component {
