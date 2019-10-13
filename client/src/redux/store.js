@@ -125,7 +125,7 @@ const examReducer = (state = devDefaultExamState, action) => {
         if (index !== state.currentIndex) return vocabulary
         return {
           ...vocabulary,
-          rightTime: isRightAnswer ? defaultTo(vocabulary.rightTime, 0) + 1 : defaultTo(vocabulary.rightTime, 1) - 1,
+          rightTime: isRightAnswer ? defaultTo(vocabulary.rightTime, 0) + 1 : Math.max(defaultTo(vocabulary.rightTime, 0) - 1, 0),
           historyAnswers: [...defaultTo(vocabulary.historyAnswers, []), isRightAnswer]
         }
       })

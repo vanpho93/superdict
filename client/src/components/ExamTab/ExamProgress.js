@@ -13,10 +13,10 @@ class ExamProgressComponent extends Component {
     }
     return <div key={vocabulary.vocabularyId}>
       {getWord()}
-      {defaultTo(vocabulary.historyAnswers, []).map(isRight => {
+      {defaultTo(vocabulary.historyAnswers, []).map((isRight, index) => {
         const type = isRight ? 'check-circle' : 'close-circle'
         const twoToneColor = isRight ? '#52c41a' : '#eb2f96'
-        return <Icon theme="twoTone" type={type} style={{ margin: 6 }} twoToneColor={twoToneColor} />
+        return <Icon key={index} theme="twoTone" type={type} style={{ margin: 6 }} twoToneColor={twoToneColor} />
       })}
     </div>
   }
