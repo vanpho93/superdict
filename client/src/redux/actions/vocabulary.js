@@ -6,3 +6,5 @@ export const getVocabularies = (input) => async (dispatch, getState) => {
   const response = await get('/vocabulary', { fromDate, toDate, pageSize, page, ...input })
   dispatch({ type: 'SET_VOCABULARIES', ...response, fromDate, toDate, page, ...input })
 }
+
+export const changeViewMode = mode => ({ type: 'CHANGE_VIEW_MODE', mode })

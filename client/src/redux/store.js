@@ -51,7 +51,9 @@ const defaultVocabularyState = {
   page: 1,
   total: 0,
   fromDate,
+  pageSize: 10,
   toDate,
+  mode: 'default',
 }
 
 const vocabulariesReducer = (state = defaultVocabularyState, action) => {
@@ -65,8 +67,8 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
     toDate: action.toDate,
     total: action.total,
     pageSize: 10,
-    mode: 'full' // 'collapse'
   }
+  if (action.type === 'CHANGE_VIEW_MODE') return { ...state, mode: action.mode }
   return state
 }
 
