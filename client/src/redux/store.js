@@ -9,7 +9,6 @@ const userReducer = (state = null, action) => {
   return state
 }
 
-/*
 const defaultVocabularies = [
   {
     "vocabularyId": 1,
@@ -42,12 +41,12 @@ const defaultVocabularies = [
     "type": "verb"
   }
 ]
-*/
+
 const { fromDate, toDate } = TimeHelper.getDefaultTimeState()
 
 const defaultVocabularyState = {
   loading: false,
-  vocabularies: [],
+  vocabularies: defaultVocabularies,
   page: 1,
   total: 0,
   fromDate,

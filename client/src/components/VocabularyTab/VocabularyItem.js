@@ -1,7 +1,7 @@
 import { defaultTo } from 'lodash'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { Button } from 'antd'
+import { Button, Checkbox } from 'antd'
 import './VocabularyItem.css'
 
 class VocabularyItemComponent extends Component {
@@ -17,7 +17,14 @@ class VocabularyItemComponent extends Component {
       if (mode === 'default') return 20
       return 15
     }
-    return <div style={{ marginBottom: 10 }}><b style={{ fontSize: getFontSize(), marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i></div>
+    return (
+      <div style={{ marginBottom: 10, display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <b style={{ fontSize: getFontSize(), marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i>
+        </div>
+        <Checkbox>Review</Checkbox>
+      </div>
+    )
   }
 
   renderBody() {
