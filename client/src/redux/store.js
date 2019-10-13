@@ -36,7 +36,7 @@ const defaultVocabularies = [
     "pronunciation": "siː",
     "americanSound": "/media/english/us_pron/c/c__/c____/c.mp3",
     "britishSound": "/media/english/us_pron/c/c__/c____/c.mp3",
-    "meaning": "used when meeting or greeting someone",
+    "meaning": "meaning of see",
     "examples": "Hello, Paul. I haven't seen you for ages.|I know her vaguely - we've exchanged hellos a few times.|I just thought I'd call by and say hello.",
     "created": "2019-10-05T17:07:45.021Z",
     "modified": "2019-10-05T17:07:45.021Z",
@@ -78,7 +78,7 @@ const devDefaultExamState = {
   stage: 'ANSWERING', // 'LOADING_VOCABULARY', 'ANSWERING', 'SHOW_RESULT'
   vocabularies: defaultVocabularies,
   currentIndex: 1,
-  repeatTime: 3,
+  repeatTime: 2,
 }
 
 const defaultExamState = {
@@ -133,11 +133,13 @@ const examReducer = (state = devDefaultExamState, action) => {
   if (action.type === 'NEXT') {
     return {
       ...state,
+      currentIndex: action.index,
     }
   }
   if (action.type === 'FINISH') {
     return {
       ...state,
+      stage: 'SHOW_RESULT',
     }
   }
   return state
