@@ -16,7 +16,5 @@ export const startExam = () => async (dispatch, getState) => {
 }
 
 export const answerVocabulary = (word) => (dispatch, getState) => {
-  const { vocabularies, currentIndex } = getState().EXAM
-  const isRightAnswer = vocabularies[currentIndex].word === word
-  dispatch({ type: 'NOTHING' })
+  dispatch({ type: 'ANSWER', word })
 }
