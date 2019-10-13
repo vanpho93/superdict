@@ -2,7 +2,7 @@ import { defaultTo } from 'lodash'
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Button, Checkbox } from 'antd'
-import { ExamStorage } from '../../helpers/exam-storage'
+import { addVocabulary, removeVocabulary } from '../../redux/actions'
 import './VocabularyItem.css'
 
 class VocabularyItemComponent extends Component {
@@ -12,12 +12,12 @@ class VocabularyItemComponent extends Component {
   }
 
   toggleInExam = (vocabulary, event) => {
-    if (event.target.checked) return ExamStorage.addVocabularies([vocabulary])
-    return ExamStorage.removeVocabularies([vocabulary])
+    if (event.target.checked) return this.props.addVocabulary(vocabulary)
+    return this.props.removeVocabulary(vocabulary)
   }
 
   renderHeader() {
-    const { vocabulary, mode } = this.props
+    const { vocabulary, mode, vocabularyIds } = this.props
     const getFontSize = () => {
       if (mode === 'large') return 30
       if (mode === 'default') return 20
@@ -29,7 +29,7 @@ class VocabularyItemComponent extends Component {
           <b style={{ fontSize: getFontSize(), marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i>
         </div>
         <Checkbox
-          checked={false}
+          checked={vocabularyIds.includes(vocabulary.vocabularyId)}
           onChange={event => this.toggleInExam(vocabulary, event)}
         >
           Review
@@ -57,7 +57,6 @@ class VocabularyItemComponent extends Component {
   }
 
   render() {
-    const { vocabulary, mode } = this.props
     return (
       <div className="VocabularyItem">
         {this.renderHeader()}
@@ -70,6 +69,7 @@ class VocabularyItemComponent extends Component {
 
 const mapState = state => ({
   mode: state.VOCABULARY.mode,
+  vocabularyIds: state.EXAM.vocabularyIds,
 })
 
-export const VocabularyItem = connect(mapState)(VocabularyItemComponent)
+export const VocabularyItem = connect(mapState, { addVocabulary, removeVocabulary })(VocabularyItemComponent)

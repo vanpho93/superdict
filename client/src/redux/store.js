@@ -1,4 +1,3 @@
-import { defaultTo } from 'lodash'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import ReduxThunk from 'redux-thunk'
 import { TimeHelper } from '../helpers/time-helper'
