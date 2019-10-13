@@ -29,7 +29,7 @@ class VocabularyItemComponent extends Component {
           <b style={{ fontSize: getFontSize(), marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i>
         </div>
         <Checkbox
-          checked={ExamStorage.isInExam(vocabulary.vocabularyId)}
+          checked={false}
           onChange={event => this.toggleInExam(vocabulary, event)}
         >
           Review

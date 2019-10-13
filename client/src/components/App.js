@@ -41,7 +41,7 @@ class AppComponent extends React.Component {
             Vocabulary
           </Menu.Item>
           <Menu.Item key="exam" disabled={!this.props.user}>
-              <Icon type="play-circle" /> Exam <Badge count={ExamStorage.count()} style={{ backgroundColor: '#52c41a' }} />
+              <Icon type="play-circle" /> Exam <Badge count={1} style={{ backgroundColor: '#52c41a' }} />
           </Menu.Item>
         </Menu>
         {this.getView()}

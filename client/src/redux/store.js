@@ -101,6 +101,7 @@ const reducer = combineReducers({
   user: userReducer,
   VOCABULARY: vocabulariesReducer,
   loading: loadingReducer,
+  EXAM: examReducer,
 })
 
 const composeEnhancers =
@@ -116,3 +117,7 @@ const enhancer = composeEnhancers(
 );
 
 export const store = createStore(reducer, enhancer)
+
+window.addEventListener('beforeunload', (event) => {
+  ExamStorage.setVocabularyIds(store.getState().EXAM.vocabularyIds)
+});
