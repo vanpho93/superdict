@@ -82,7 +82,7 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
 // }
 
 const defaultExamState = {
-  vocabularyIds: [],
+  vocabularyIds: ExamStorage.getVocabularyIds(),
   stage: 'STARTING', // 'LOADING_VOCABULARY', 'ANSWERING', 'SHOW_RESULT'
   vocabularies: [],
   currentIndex: -1,
