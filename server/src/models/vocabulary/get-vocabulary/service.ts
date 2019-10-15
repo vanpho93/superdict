@@ -1,10 +1,9 @@
 import { QueryBuilder } from 'knex'
 import { defaultTo } from 'lodash'
-import { ApiService, IUser, transformArrayParam, Vocabulary, Tables, isNotEmptyArray } from '../../../global-refs'
+import { ApiService, transformArrayParam, Vocabulary, Tables, isNotEmptyArray, makeSure } from '../../../global-refs'
 import { IGetVocabulariesInput, IGetVocabulariesOutput } from './metadata'
 
 export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, IGetVocabulariesOutput> {
-  private user: IUser
   protected getNormalizeInput() {
     const { lessonIds, vocabularyIds } = this.rawInput
     return {
@@ -20,6 +19,7 @@ export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, IG
 
   public async process(): Promise<IGetVocabulariesOutput> {
     await super.process()
+    makeSure(this.userContext.isUser, 'MUST_BE_USER')
     const vocabularies = await this.getVocabularies()
     const total = await this.getTotal()
     return { total, vocabularies }

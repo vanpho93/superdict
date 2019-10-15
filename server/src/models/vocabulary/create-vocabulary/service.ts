@@ -1,4 +1,4 @@
-import { ApiService, WordType, exist, Vocabulary } from '../../../global-refs'
+import { ApiService, WordType, exist, Vocabulary, makeSure } from '../../../global-refs'
 import { ICreateVocabularyInput } from './metadata'
 
 export class CreateVocabularyService extends ApiService<ICreateVocabularyInput, void> {
@@ -7,8 +7,16 @@ export class CreateVocabularyService extends ApiService<ICreateVocabularyInput, 
     if (await this.isVocabularyDuplicate()) return
     const { word, pronunciation, americanSound, britishSound, meaning, examples } = this.input
     const wordTypeId = await this.getWordTypeId()
+    makeSure(this.userContext.isUser, 'MUST_BE_USER')
     await Vocabulary.create({
-      word, pronunciation, americanSound, britishSound, meaning, examples, wordTypeId,
+      userId: this.userContext.userId,
+      word,
+      pronunciation,
+      americanSound,
+      britishSound,
+      meaning,
+      examples,
+      wordTypeId,
     })
   }
 
