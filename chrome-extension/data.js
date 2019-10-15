@@ -12,11 +12,12 @@ $('.pho-button').click(function () {
     }
     const buttonIndex = getButtonIndex()
     const data = getData(buttonIndex)
+    console.log(data)
     saveVocabulary(data)
 })
 
 function getData(index) {
-    const word = $('.hw.dhw').eq(0).text()
+    const word = $('.headword').eq(0).text()
     const pronunciation = $('.us.dpron-i').find('.ipa.dipa.lpr-2.lpl-1').eq(0).text()
     const americanSound = $('.us.dpron-i').find("[type='audio/mpeg']").eq(0).attr('src')
     const britishSound = $('.uk.dpron-i').find("[type='audio/mpeg']").eq(0).attr('src')
@@ -26,7 +27,7 @@ function getData(index) {
         examples.push($(this).text())
     })
     const wordType = $('.pos.dpos').eq(index).text()
-    return { word, meaning, pronunciation, examples, wordType, americanSound, britishSound }
+    return { word, meaning, pronunciation, examples: examples.join('|'), wordType, americanSound, britishSound }
 }
 
 
