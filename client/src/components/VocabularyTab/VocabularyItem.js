@@ -43,7 +43,7 @@ class VocabularyItemComponent extends Component {
     if (mode === 'small') return null
     return <Fragment>
       <span style={{ marginRight: 20 }}>US <Button shape="circle" icon="play-circle" size="small" style={{ borderColor: 'white' }} onClick={() => this.playAudio(vocabulary.americanSound)} /></span>
-      <span>UK <Button shape="circle" icon="play-circle" size="small" style={{ borderColor: 'white' }} onClick={() => this.playAudio(vocabulary.americanSound)}/></span>
+      <span>UK <Button shape="circle" icon="play-circle" size="small" style={{ borderColor: 'white' }} onClick={() => this.playAudio(vocabulary.britishSound)}/></span>
       <hr />
       <p className="meaning">{vocabulary.meaning}</p>
     </Fragment>
