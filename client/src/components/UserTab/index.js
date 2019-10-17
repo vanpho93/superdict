@@ -12,12 +12,8 @@ class UserTabComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <Row>
-          <Col span={8}></Col>
-          <Col span={8}>{this.getView()}</Col>
-          <Col span={8}></Col>
-        </Row>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {this.getView()}
       </div>
     );
   }
