@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { List, Divider, Spin, Pagination, Radio, Select } from 'antd'
+import { List, Divider, Spin, Pagination, Radio } from 'antd'
 import { connect } from 'react-redux'
 import { getVocabularies } from '../../redux/actions'
 import { VocabularyItem } from './VocabularyItem'

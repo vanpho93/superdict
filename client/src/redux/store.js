@@ -11,44 +11,44 @@ const userReducer = (state = null, action) => {
   return state
 }
 
-const defaultVocabularies = [
-  {
-    "vocabularyId": 1,
-    "userId": 1,
-    "lessonId": null,
-    "wordTypeId": 1,
-    "word": "hello",
-    "pronunciation": "heˈloʊ",
-    "americanSound": "/media/english/us_pron/h/hel/hello/hello.mp3",
-    "britishSound": "/media/english/us_pron/h/hel/hello/hello.mp3",
-    "meaning": "used when meeting or greeting someone",
-    "examples": "Hello, Paul. I haven't seen you for ages.|I know her vaguely - we've exchanged hellos a few times.|I just thought I'd call by and say hello.",
-    "created": "2019-10-05T17:07:45.021Z",
-    "modified": "2019-10-05T17:07:45.021Z",
-    "type": "noun"
-  },
-  {
-    "vocabularyId": 2,
-    "userId": 1,
-    "lessonId": null,
-    "wordTypeId": 2,
-    "word": "see",
-    "pronunciation": "siː",
-    "americanSound": "/media/english/us_pron/c/c__/c____/c.mp3",
-    "britishSound": "/media/english/us_pron/c/c__/c____/c.mp3",
-    "meaning": "meaning of see",
-    "examples": "Hello, Paul. I haven't seen you for ages.|I know her vaguely - we've exchanged hellos a few times.|I just thought I'd call by and say hello.",
-    "created": "2019-10-05T17:07:45.021Z",
-    "modified": "2019-10-05T17:07:45.021Z",
-    "type": "verb"
-  }
-]
+// const defaultVocabularies = [
+//   {
+//     "vocabularyId": 1,
+//     "userId": 1,
+//     "lessonId": null,
+//     "wordTypeId": 1,
+//     "word": "hello",
+//     "pronunciation": "heˈloʊ",
+//     "americanSound": "/media/english/us_pron/h/hel/hello/hello.mp3",
+//     "britishSound": "/media/english/us_pron/h/hel/hello/hello.mp3",
+//     "meaning": "used when meeting or greeting someone",
+//     "examples": "Hello, Paul. I haven't seen you for ages.|I know her vaguely - we've exchanged hellos a few times.|I just thought I'd call by and say hello.",
+//     "created": "2019-10-05T17:07:45.021Z",
+//     "modified": "2019-10-05T17:07:45.021Z",
+//     "type": "noun"
+//   },
+//   {
+//     "vocabularyId": 2,
+//     "userId": 1,
+//     "lessonId": null,
+//     "wordTypeId": 2,
+//     "word": "see",
+//     "pronunciation": "siː",
+//     "americanSound": "/media/english/us_pron/c/c__/c____/c.mp3",
+//     "britishSound": "/media/english/us_pron/c/c__/c____/c.mp3",
+//     "meaning": "meaning of see",
+//     "examples": "Hello, Paul. I haven't seen you for ages.|I know her vaguely - we've exchanged hellos a few times.|I just thought I'd call by and say hello.",
+//     "created": "2019-10-05T17:07:45.021Z",
+//     "modified": "2019-10-05T17:07:45.021Z",
+//     "type": "verb"
+//   }
+// ]
 
 const { fromDate, toDate } = TimeHelper.getDefaultTimeState()
 
 const defaultVocabularyState = {
   loading: false,
-  vocabularies: defaultVocabularies,
+  vocabularies: [],
   page: 1,
   total: 0,
   fromDate,
@@ -73,14 +73,14 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
   return state
 }
 
-const devDefaultExamState = {
-  vocabularyIds: [],
-  stage: 'STARTING', // 'LOADING_VOCABULARY', 'ANSWERING', 'SHOW_RESULT'
-  vocabularies: defaultVocabularies,
-  currentIndex: 1,
-  repeatTime: 2,
-  examType: 'TEST_WORD', // or 'TEST_MEANING'
-}
+// const devDefaultExamState = {
+//   vocabularyIds: [],
+//   stage: 'ANSWERING', // 'LOADING_VOCABULARY', 'ANSWERING', 'SHOW_RESULT'
+//   vocabularies: defaultVocabularies,
+//   currentIndex: 1,
+//   repeatTime: 2,
+//   examType: 'TEST_MEANING', // or 'TEST_MEANING'
+// }
 
 const defaultExamState = {
   vocabularyIds: ExamStorage.getVocabularyIds(),
@@ -91,7 +91,7 @@ const defaultExamState = {
   examType: 'TEST_WORD' // or 'TEST_MEANING'
 }
 
-const examReducer = (state = devDefaultExamState, action) => {
+const examReducer = (state = defaultExamState, action) => {
   if (action.type === 'ADD_VOCABULARY') return {
     ...state,
     vocabularyIds: [...state.vocabularyIds, action.vocabularyId]
@@ -118,6 +118,7 @@ const examReducer = (state = devDefaultExamState, action) => {
       vocabularies: action.vocabularies,
       currentIndex: action.index,
       repeatTime: action.repeatTime,
+      examType: action.examType,
     }
   }
   if (action.type === 'ANSWER') {

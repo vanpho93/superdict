@@ -35,7 +35,7 @@ class ExamProgressComponent extends Component {
   render() {
     const { vocabularies } = this.props
     return (
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
         <div style={{ backgroundColor: '#ffffff', width: '40%' }}>
           <h3>Completed words</h3>
           {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, false))}

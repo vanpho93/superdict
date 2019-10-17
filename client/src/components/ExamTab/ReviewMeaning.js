@@ -1,8 +1,6 @@
-import { defaultTo } from 'lodash'
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Input, Button } from 'antd'
-import Playground from '../Playground'
+import { Button } from 'antd'
 import { answerMeaningVocabulary } from '../../redux/actions'
 
 class ReviewMeaningComponent extends Component {
@@ -30,8 +28,8 @@ class ReviewMeaningComponent extends Component {
   onDragEnd = (dropText) => {
     const { dragingText, texts } = this.state
     this.setState({
-      texts: this.state.texts.map(text => {
-        if (text !== dragingText && text != dropText) return text
+      texts: texts.map(text => {
+        if (text !== dragingText && text !== dropText) return text
         return text === dragingText ? dropText : dragingText
       }),
       dragingText: null,
@@ -45,8 +43,9 @@ class ReviewMeaningComponent extends Component {
   render() {
     const { dragingText, texts } = this.state
     return (
-      <Fragment>
-        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: 200, marginBottom: 50 }}>
+        <div style={{
+          backgroundColor: '#EAEAEB', width: '90%', borderRadius: 5, marginBottom: 30, padding: 10, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
           {texts.map(text => (
             <DragableText
               key={text}
@@ -57,8 +56,8 @@ class ReviewMeaningComponent extends Component {
             />
           ))}
         </div>
-        <Button type="primary" onClick={this.answer}>Answer</Button>
-      </Fragment>
+        <Button type="primary" onClick={this.answer} icon="check" style={{ width: '30%' }}>Check</Button>
+      </div>
     );
   }
 }
@@ -84,8 +83,8 @@ class DragableText extends Component {
   }
 
   onDrop = (event) => {
-    const { dragingText, text } = this.props
-    this.props.onDragEnd(this.props.text)
+    const { text } = this.props
+    this.props.onDragEnd(text)
     this.setState({ isDragOver: false })
   }
 
@@ -98,7 +97,18 @@ class DragableText extends Component {
     const color = isDragOver ? 'red' : 'black'
     return (
       <div
-        style={{ cursor: 'move', userSelect: 'none', fontWeight, margin: 3, color }}
+        style={{
+          cursor: 'move',
+          userSelect: 'none',
+          fontWeight,
+          margin: 3,
+          color,
+          backgroundColor: '#FFBF37',
+          paddingLeft: 20,
+          paddingRight: 20,
+          fontSize: 30,
+          borderRadius: 10,
+        }}
         draggable
         onDragStart={this.onDragStart}
         onDragEnd={this.onDragEnd}

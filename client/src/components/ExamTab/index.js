@@ -8,16 +8,16 @@ import { ExamProgress } from './ExamProgress'
 
 class ExamTabComponent extends React.Component {
   renderBody() {
-    const { stage } = this.props
+    const { stage, examType } = this.props
     if (stage === 'STARTING') return <StartExam />
     if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
     if (stage === 'ANSWERING') return (
       <div style={{ width: '70%' }}>
-        <Answer />
+        { examType === 'TEST_MEANING' ? <ReviewMeaning /> : <Answer /> }
         <ExamProgress />
       </div>
     )
-    return  <ExamProgress />
+    return <ExamProgress />
   }
 
   render() {
@@ -29,4 +29,4 @@ class ExamTabComponent extends React.Component {
   }
 }
 
-export const ExamTab = connect(state => ({ stage: state.EXAM.stage }))(ExamTabComponent)
+export const ExamTab = connect(state => ({ stage: state.EXAM.stage, examType: state.EXAM.examType }))(ExamTabComponent)
