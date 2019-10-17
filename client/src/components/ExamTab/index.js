@@ -12,8 +12,8 @@ class ExamTabComponent extends React.Component {
     if (stage === 'STARTING') return <StartExam />
     if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
     if (stage === 'ANSWERING') return (
-      <div>
-        <ReviewMeaning />
+      <div style={{ width: '70%' }}>
+        <Answer />
         <ExamProgress />
       </div>
     )

@@ -35,12 +35,16 @@ class ExamProgressComponent extends Component {
   render() {
     const { vocabularies } = this.props
     return (
-      <div>
-        <h3>Completed words</h3>
-        {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, false))}
-        {this.props.stage === 'ANSWERING' ? <h3>Pending words</h3> : null}
-        {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, true))}
-        {this.renderActions()}
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <div style={{ backgroundColor: '#ffffff', width: '40%' }}>
+          <h3>Completed words</h3>
+          {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, false))}
+        </div>
+        <div style={{ backgroundColor: '#ffffff', width: '40%' }}>
+          {this.props.stage === 'ANSWERING' ? <h3>Pending words</h3> : null}
+          {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, true))}
+        </div>
+        {/* {this.renderActions()} */}
       </div>
     )
   }

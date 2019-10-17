@@ -13,7 +13,7 @@ class AppComponent extends React.Component {
   }
 
   state = {
-    current: 'vocabulary',
+    current: 'exam',
   };
 
   handleClick = e => {
