@@ -10,13 +10,12 @@ class DragableText extends Component {
   }
 
   onDragEnd = (event) => {
-    this.props.onDragEnd()
     this.setState({ isDraging: false })
   }
 
   onDrop = (event) => {
     const { dragingText, text } = this.props
-    console.log({ dragingText, text })
+    this.props.onDragEnd(this.props.text)
     this.setState({ isDragOver: false })
   }
 
@@ -46,28 +45,49 @@ class DragableText extends Component {
 
 export default class Playground extends Component {
   state = {
-    dragingText: null
+    dragingText: null,
+    texts: ['aaa', 'bbb', 'ccc', 'ddd']
   }
 
   onDragStart = (text) => {
     this.setState({ dragingText: text })
   }
 
-  onDragEnd = (text) => {
-    this.setState({ dragingText: null })
+  onDragEnd = (dropText) => {
+    const { dragingText, texts } = this.state
+    console.log({
+      dropText,
+      dragingText,
+      texts,
+      newTexts: this.state.texts.map(text => {
+        if (text !== dragingText && text != dropText) return text
+        return text === dragingText ? dropText : dragingText
+      })
+    })
+    this.setState({
+      texts: this.state.texts.map(text => {
+        if (text !== dragingText && text != dropText) return text
+        return text === dragingText ? dropText : dragingText
+      }),
+      dragingText: null,
+    })
   }
 
   render() {
-    const { dragingText } = this.state
+    const { dragingText, texts } = this.state
     return (
       <Fragment>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          <DragableText text="aaa" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd} dragingText={dragingText} />
-          <DragableText text="bbb" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd} dragingText={dragingText} />
-          <DragableText text="ccc" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd} dragingText={dragingText} />
-          <DragableText text="ddd" onDragStart={this.onDragStart} onDragEnd={this.onDragEnd} dragingText={dragingText} />
+        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+          {texts.map(text => (
+            <DragableText
+              key={text}
+              text={text}
+              onDragStart={this.onDragStart}
+              onDragEnd={this.onDragEnd}
+              dragingText={dragingText}
+            />
+          ))}
         </div>
-        <p>{defaultTo(this.state.dragingText, 'not draging')}</p>
       </Fragment>
     );
   }
