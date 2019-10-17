@@ -79,6 +79,7 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
 //   vocabularies: defaultVocabularies,
 //   currentIndex: 1,
 //   repeatTime: 2,
+//   examType: 'TEST_MEANING', // or 'TEST_MEANING'
 // }
 
 const defaultExamState = {
@@ -87,6 +88,7 @@ const defaultExamState = {
   vocabularies: [],
   currentIndex: -1,
   repeatTime: 0,
+  examType: null // 'TEST_WORD' or 'TEST_MEANING'
 }
 
 const examReducer = (state = defaultExamState, action) => {
@@ -116,10 +118,25 @@ const examReducer = (state = defaultExamState, action) => {
       vocabularies: action.vocabularies,
       currentIndex: action.index,
       repeatTime: action.repeatTime,
+      examType: action.examType,
     }
   }
   if (action.type === 'ANSWER') {
     const isRightAnswer = state.vocabularies[state.currentIndex].word === action.word
+    return {
+      ...state,
+      vocabularies: state.vocabularies.map((vocabulary, index) => {
+        if (index !== state.currentIndex) return vocabulary
+        return {
+          ...vocabulary,
+          rightTime: isRightAnswer ? defaultTo(vocabulary.rightTime, 0) + 1 : Math.max(defaultTo(vocabulary.rightTime, 0) - 1, 0),
+          historyAnswers: [...defaultTo(vocabulary.historyAnswers, []), isRightAnswer]
+        }
+      })
+    }
+  }
+  if (action.type === 'ANSWER_MEANING') {
+    const isRightAnswer = state.vocabularies[state.currentIndex].meaning === action.meaning
     return {
       ...state,
       vocabularies: state.vocabularies.map((vocabulary, index) => {
