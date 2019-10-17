@@ -16,14 +16,26 @@ export const startExam = (repeatTime) => async (dispatch, getState) => {
   })
 }
 
-export const answerVocabulary = (word) => async (dispatch, getState) => {
+export const answerWordVocabulary = (word) => async (dispatch, getState) => {
   dispatch({ type: 'ANSWER', word })
   // do some effect hear
   const { vocabularies, repeatTime } = getState().EXAM
   const needToRepeatWords = vocabularies.filter((vocabulary) => {
     return defaultTo(vocabulary.rightTime, 0) < repeatTime
   })
-  console.log(needToRepeatWords)
+  if (needToRepeatWords.length === 0) return dispatch({ type: 'FINISH' })
+  const choosenWord = needToRepeatWords[random(needToRepeatWords.length - 1)]
+  const newIndex = vocabularies.findIndex(vocabulary => vocabulary.vocabularyId === choosenWord.vocabularyId)
+  dispatch({ type: 'NEXT', index: newIndex })
+}
+
+export const answerMeaningVocabulary = (meaning) => async (dispatch, getState) => {
+  dispatch({ type: 'ANSWER_MEANING', meaning })
+  // do some effect hear
+  const { vocabularies, repeatTime } = getState().EXAM
+  const needToRepeatWords = vocabularies.filter((vocabulary) => {
+    return defaultTo(vocabulary.rightTime, 0) < repeatTime
+  })
   if (needToRepeatWords.length === 0) return dispatch({ type: 'FINISH' })
   const choosenWord = needToRepeatWords[random(needToRepeatWords.length - 1)]
   const newIndex = vocabularies.findIndex(vocabulary => vocabulary.vocabularyId === choosenWord.vocabularyId)

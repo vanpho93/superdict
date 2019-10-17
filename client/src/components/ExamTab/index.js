@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Spin } from 'antd';
 import { StartExam } from './StartExam'
 import { Answer } from './Answer'
+import { ReviewMeaning } from './ReviewMeaning'
 import { ExamProgress } from './ExamProgress'
 
 class ExamTabComponent extends React.Component {
@@ -12,7 +13,7 @@ class ExamTabComponent extends React.Component {
     if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
     if (stage === 'ANSWERING') return (
       <div>
-        <Answer />
+        <ReviewMeaning />
         <ExamProgress />
       </div>
     )
