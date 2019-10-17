@@ -88,7 +88,7 @@ const defaultExamState = {
   vocabularies: [],
   currentIndex: -1,
   repeatTime: 0,
-  examType: 'TEST_WORD' // or 'TEST_MEANING'
+  examType: null // 'TEST_WORD' or 'TEST_MEANING'
 }
 
 const examReducer = (state = defaultExamState, action) => {

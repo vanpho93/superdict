@@ -21,7 +21,7 @@ class StartExamComponent extends Component {
           />
         </span>
         <span style={{ margin: 10 }}>Type:
-          <Radio.Group name="radiogroup" style={{ margin: 5 }} size="small" value={this.state.examType}>
+          <Radio.Group name="radiogroup" style={{ margin: 5 }} size="small" value={this.state.examType} onChange={e => this.setState({ examType: e.target.value })}>
             <Radio.Button value='TEST_MEANING'>Meaning</Radio.Button>
             <Radio.Button value='TEST_WORD'>Word</Radio.Button>
           </Radio.Group>
