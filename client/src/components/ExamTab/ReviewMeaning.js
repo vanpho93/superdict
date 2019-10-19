@@ -17,7 +17,7 @@ class ReviewMeaningComponent extends Component {
     this.setState({ remainTexts: shuffle(groupWords(meaning.split(' '))) })
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { vocabularies, currentIndex } = nextProps
     const { meaning } = vocabularies[currentIndex]
     this.setState({
