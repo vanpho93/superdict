@@ -1,3 +1,4 @@
+import { defaultTo } from 'lodash'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button } from 'antd'
@@ -13,14 +14,14 @@ class ReviewMeaningComponent extends Component {
   componentDidMount() {
     const { vocabularies, currentIndex } = this.props
     const { meaning } = vocabularies[currentIndex]
-    this.setState({ remainTexts: shuffle(meaning.split(' ')) })
+    this.setState({ remainTexts: shuffle(groupWords(meaning.split(' '))) })
   }
 
   componentWillReceiveProps(nextProps) {
     const { vocabularies, currentIndex } = nextProps
     const { meaning } = vocabularies[currentIndex]
     this.setState({
-      remainTexts: shuffle(meaning.split(' ')),
+      remainTexts: shuffle(groupWords(meaning.split(' '))),
       answeredTexts: [],
     })
   }
@@ -97,4 +98,28 @@ function shuffle(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
+}
+
+function groupWords(words) {
+  if (words.length <= 5) return words
+  // get groupIndex
+  let minLength = 10000
+  let groupIndex = 0
+  for (let index = 0; index < words.length - 1; index++) {
+    const totalLength = words[index].length + words[index + 1].length
+    if (minLength <= totalLength) continue
+    minLength = totalLength
+    groupIndex = index
+  }
+  console.log({ groupIndex })
+  const result = []
+  for (let index = 0; index < words.length; index++) {
+    if (index !== groupIndex) {
+      result.push(words[index])
+      continue
+    }
+    result.push(`${words[index]} ${words[index + 1]}`)
+    index++
+  }
+  return groupWords(result)
 }
