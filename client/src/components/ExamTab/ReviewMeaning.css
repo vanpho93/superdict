@@ -1,0 +1,32 @@
+.ReviewMeaning {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+
+.ReviewMeaning > .word-box {
+  width: 90%;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  min-height: 70px;
+}
+
+.BigText {
+  cursor: move;
+  user-select: none;
+  font-weight: bold;
+  margin: 3px;
+  color: black;
+  background-color: #FFBF37;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 30px;
+  border-radius: 10px;
+}
