@@ -1,3 +1,4 @@
+import { isNil } from 'lodash'
 import { post, get } from '../../helpers/request'
 
 export const logOut = () => {
@@ -13,7 +14,13 @@ export const logIn = (email, password) => async dispatch => {
 }
 
 export const checkToken = () => async dispatch => {
+  if (isNil(localStorage.getItem('token'))) return
   dispatch({ type: 'SEND_CHECK_TOKEN' })
-  const user = await get('/user/check')
-  dispatch({ type: 'CHECK_TOKEN', user })
+  try {
+    const user = await get('/user/check')
+    dispatch({ type: 'CHECK_TOKEN', user })
+  } catch (error) {
+    localStorage.removeItem('token')
+    dispatch({ type: 'CHECK_TOKEN', user: null })
+  }
 }
