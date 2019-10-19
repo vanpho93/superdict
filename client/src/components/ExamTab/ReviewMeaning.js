@@ -6,7 +6,6 @@ import { answerMeaningVocabulary } from '../../redux/actions'
 
 class ReviewMeaningComponent extends Component {
   state = {
-    dragingText: null,
     remainTexts: [],
     answeredTexts: [],
   }
@@ -20,11 +19,14 @@ class ReviewMeaningComponent extends Component {
   componentWillReceiveProps(nextProps) {
     const { vocabularies, currentIndex } = nextProps
     const { meaning } = vocabularies[currentIndex]
-    this.setState({ remainTexts: shuffle(meaning.split(' ')), dragingText: null })
+    this.setState({
+      remainTexts: shuffle(meaning.split(' ')),
+      answeredTexts: [],
+    })
   }
 
   answer = () => {
-    this.props.answerMeaningVocabulary(this.state.remainTexts.join(' '))
+    this.props.answerMeaningVocabulary(this.state.answeredTexts.join(' '))
   }
 
   addText = newText => {
