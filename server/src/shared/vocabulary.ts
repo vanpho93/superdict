@@ -12,8 +12,12 @@ export interface IVocabulary {
   britishSound: string
   meaning: string
   examples: string
-  modified: Date | string
-  created: Date | string
+  lastReviewed: Date
+  intervalTime: number
+  difficulty: number
+  percentOverdue: number
+  modified: Date
+  created: Date
 }
 
 export class Vocabulary extends createModel<IVocabulary>(Tables.VOCABULARY) {

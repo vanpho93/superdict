@@ -15,6 +15,20 @@ export async function up(knex: Knex): Promise<any> {
     table.string('meaning', 1024)
     table.string('examples', 2048)
     addCreated(table, knex)
+    // sm2
+    table
+      .dateTime('last_reviewed')
+      .notNullable()
+      .defaultTo(knex.raw('current_timestamp'))
+    table
+      .float('interval_time')
+      .defaultTo(86400) // one day in second
+    table
+      .float('difficulty')
+      .defaultTo(0.3)
+    table
+      .float('percent_overdue')
+      .defaultTo(1)
   })
   await addModified('vocabulary', knex)
 }

@@ -77,7 +77,7 @@ describe(TEST_TITLE, () => {
         page: 1,
         pageSize: 2,
       })
-    const expectedFields = ['userId', 'vocabularyId', 'created', 'modified', 'pronunciation', 'americanSound', 'britishSound', 'meaning', 'examples']
+    const expectedFields = ['userId', 'vocabularyId', 'created', 'modified', 'pronunciation', 'americanSound', 'britishSound', 'meaning', 'examples', 'lastReviewed']
     const expectedResponse = {
       success: true,
       result:
@@ -85,8 +85,24 @@ describe(TEST_TITLE, () => {
         total: 4,
         vocabularies:
           [
-            { lessonId: 1, wordTypeId: 1, word: 'one', type: 'noun' },
-            { lessonId: 1, wordTypeId: 1, word: 'two', type: 'noun' },
+            {
+              lessonId: 1,
+              wordTypeId: 1,
+              word: 'one',
+              intervalTime: 86400,
+              difficulty: 0.3,
+              percentOverdue: 1,
+              type: 'verb'
+            },
+            {
+              lessonId: 1,
+              wordTypeId: 1,
+              word: 'two',
+              intervalTime: 86400,
+              difficulty: 0.3,
+              percentOverdue: 1,
+              type: 'verb',
+            },
           ],
       },
     }
