@@ -21,6 +21,10 @@ export async function up(knex: Knex): Promise<any> {
       .notNullable()
       .defaultTo(knex.raw('current_timestamp'))
     table
+      .dateTime('due_date')
+      .notNullable()
+      .defaultTo(knex.raw('current_timestamp'))
+    table
       .float('interval_time')
       .defaultTo(86400) // one day in second
     table
