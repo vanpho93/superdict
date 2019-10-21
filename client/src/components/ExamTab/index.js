@@ -11,9 +11,15 @@ class ExamTabComponent extends React.Component {
     const { stage, examType } = this.props
     if (stage === 'STARTING') return <StartExam />
     if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
-    if (stage === 'ANSWERING') return (
+    if (stage === 'ANSWERING_WORD') return (
       <div style={{ width: '70%' }}>
-        { examType === 'TEST_MEANING' ? <ReviewMeaning /> : <Answer /> }
+        <Answer />
+        <ExamProgress />
+      </div>
+    )
+    if (stage === 'ANSWERING_MEANING') return (
+      <div style={{ width: '70%' }}>
+        <ReviewMeaning />
         <ExamProgress />
       </div>
     )
@@ -30,3 +36,7 @@ class ExamTabComponent extends React.Component {
 }
 
 export const ExamTab = connect(state => ({ stage: state.EXAM.stage, examType: state.EXAM.examType }))(ExamTabComponent)
+
+/*
+
+*/

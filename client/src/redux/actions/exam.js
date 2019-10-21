@@ -24,7 +24,7 @@ export const answerWordVocabulary = (word) => async (dispatch, getState) => {
   const needToRepeatWords = vocabularies.filter((vocabulary) => {
     return defaultTo(vocabulary.rightTime, 0) < repeatTime
   })
-  if (needToRepeatWords.length === 0) return dispatch({ type: 'FINISH' })
+  if (needToRepeatWords.length === 0) return dispatch({ type: 'FINISH_ANSWERING_WORD' })
   const choosenWord = needToRepeatWords[random(needToRepeatWords.length - 1)]
   const newIndex = vocabularies.findIndex(vocabulary => vocabulary.vocabularyId === choosenWord.vocabularyId)
   dispatch({ type: 'NEXT', index: newIndex })

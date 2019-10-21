@@ -22,29 +22,21 @@ class ExamProgressComponent extends Component {
     </div>
   }
 
-  renderActions = () => {
-    return (
-      <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 30 }}>
-        <Button type="dashed">Restart</Button>
-        <Button type="primary">Submit</Button>
-        <Button type="danger">Escape</Button>
-      </div>
-    )
-  }
-
   render() {
-    const { vocabularies } = this.props
+    const { vocabularies, stage } = this.props
     return (
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
-        <div style={{ backgroundColor: '#ffffff', width: '40%' }}>
-          <h3>Completed words</h3>
-          {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, false))}
+      <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+          <div style={{ backgroundColor: '#ffffff', width: '40%' }}>
+            <h3>Completed words</h3>
+            {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, false))}
+          </div>
+          <div style={{ backgroundColor: '#ffffff', width: '40%' }}>
+            {stage === 'ANSWERING' ? <h3>Pending words</h3> : null}
+            {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, true))}
+          </div>
         </div>
-        <div style={{ backgroundColor: '#ffffff', width: '40%' }}>
-          {this.props.stage === 'ANSWERING' ? <h3>Pending words</h3> : null}
-          {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, true))}
-        </div>
-        {/* {this.renderActions()} */}
+        {stage === 'SHOW_RESULT' ? <Button type="primary" style={{ margin: 50 }} size="large">Submit</Button> : null}
       </div>
     )
   }
