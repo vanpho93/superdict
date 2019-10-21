@@ -94,6 +94,7 @@ const defaultExamState = {
 }
 
 const examReducer = (state = defaultExamState, action) => {
+  if (action.type === 'RESET_EXAM') return { ...defaultExamState, vocabularyIds: [] }
   if (action.type === 'ADD_VOCABULARY') return {
     ...state,
     vocabularyIds: [...state.vocabularyIds, action.vocabularyId]

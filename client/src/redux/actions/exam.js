@@ -51,5 +51,7 @@ export const submitExam = () => async (dispatch, getState) => {
     performanceRating: 1,
   }))
   await post('/exam-result', { result })
+  localStorage.setItem('EXAM_STORAGE', '[]')
+  await dispatch({ type: 'RESET_EXAM' })
   alert('DONE')
 }
