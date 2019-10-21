@@ -2,11 +2,11 @@ import { Constants } from '../global-refs'
 
 export class TimeHelper {
   public static before(periodInMilis: number, from: Date | number = new Date()) {
-    return new Date((new Date()).getTime() - periodInMilis)
+    return new Date((new Date(from)).getTime() - periodInMilis)
   }
 
   public static after(periodInMilis: number, from: Date | number = new Date()) {
-    return new Date((new Date()).getTime() + periodInMilis)
+    return new Date((new Date(from)).getTime() + periodInMilis)
   }
 
   public static getDate(dateInMillisecond: number) {

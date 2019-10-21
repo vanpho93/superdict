@@ -29,9 +29,9 @@ describe(TEST_TITLE, () => {
       .set({ token: user1.token })
     deepEqual(response.body, { success: true })
     const vocabularies = await Vocabulary.findAll({})
-    deepEqual(deepOmit(vocabularies, ['vocabularyId', 'created', 'modified', 'userId', 'lastReviewed']), [{
+    const exceptedFields = ['vocabularyId', 'created', 'modified', 'userId', 'lastReviewed', 'wordTypeId', 'dueDate']
+    deepEqual(deepOmit(vocabularies, exceptedFields), [{
       lessonId: null,
-      wordTypeId: 1,
       word: 'miss',
       pronunciation: 'mi:s',
       americanSound: 'aaa',
