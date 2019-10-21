@@ -1,5 +1,5 @@
 import { random, defaultTo } from 'lodash'
-import { get } from '../../helpers/request'
+import { get, post } from '../../helpers/request'
 
 export const addVocabulary = (vocabulary) => ({ type: 'ADD_VOCABULARY', vocabularyId: vocabulary.vocabularyId })
 
@@ -24,7 +24,7 @@ export const answerWordVocabulary = (word) => async (dispatch, getState) => {
   const needToRepeatWords = vocabularies.filter((vocabulary) => {
     return defaultTo(vocabulary.rightTime, 0) < repeatTime
   })
-  if (needToRepeatWords.length === 0) return dispatch({ type: 'FINISH' })
+  if (needToRepeatWords.length === 0) return dispatch({ type: 'FINISH_ANSWERING_WORD' })
   const choosenWord = needToRepeatWords[random(needToRepeatWords.length - 1)]
   const newIndex = vocabularies.findIndex(vocabulary => vocabulary.vocabularyId === choosenWord.vocabularyId)
   dispatch({ type: 'NEXT', index: newIndex })
@@ -41,4 +41,17 @@ export const answerMeaningVocabulary = (meaning) => async (dispatch, getState) =
   const choosenWord = needToRepeatWords[random(needToRepeatWords.length - 1)]
   const newIndex = vocabularies.findIndex(vocabulary => vocabulary.vocabularyId === choosenWord.vocabularyId)
   dispatch({ type: 'NEXT', index: newIndex })
+}
+
+export const submitExam = () => async (dispatch, getState) => {
+  dispatch({ type: 'START_SUBMIT_EXAM' })
+  const { vocabularies } = getState().EXAM
+  const result = vocabularies.map(vocabulary => ({
+    vocabularyId: vocabulary.vocabularyId,
+    performanceRating: 1,
+  }))
+  await post('/exam-result', { result })
+  localStorage.setItem('EXAM_STORAGE', '[]')
+  await dispatch({ type: 'RESET_EXAM' })
+  alert('DONE')
 }

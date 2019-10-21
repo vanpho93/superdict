@@ -86,7 +86,7 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
 
 const defaultExamState = {
   vocabularyIds: ExamStorage.getVocabularyIds(),
-  stage: 'STARTING', // 'LOADING_VOCABULARY', 'ANSWERING', 'SHOW_RESULT'
+  stage: 'STARTING', // 'LOADING_VOCABULARY', 'ANSWERING_WORD', 'ANSWERING_MEANING', 'SHOW_RESULT'
   vocabularies: [],
   currentIndex: -1,
   repeatTime: 0,
@@ -94,6 +94,7 @@ const defaultExamState = {
 }
 
 const examReducer = (state = defaultExamState, action) => {
+  if (action.type === 'RESET_EXAM') return { ...defaultExamState, vocabularyIds: [] }
   if (action.type === 'ADD_VOCABULARY') return {
     ...state,
     vocabularyIds: [...state.vocabularyIds, action.vocabularyId]
@@ -116,7 +117,7 @@ const examReducer = (state = defaultExamState, action) => {
   if (action.type === 'COMPLETE_LOAD_VOCABULARY') {
     return {
       ...state,
-      stage: 'ANSWERING',
+      stage: 'ANSWERING_WORD',
       vocabularies: action.vocabularies,
       currentIndex: action.index,
       repeatTime: action.repeatTime,
@@ -161,6 +162,20 @@ const examReducer = (state = defaultExamState, action) => {
     return {
       ...state,
       stage: 'SHOW_RESULT',
+    }
+  }
+  if (action.type === 'FINISH_ANSWERING_WORD') {
+    return {
+      ...state,
+      stage: 'ANSWERING_MEANING',
+      vocabularies: state.vocabularies.map((vocabulary, index) => {
+        if (index !== state.currentIndex) return vocabulary
+        return {
+          ...vocabulary,
+          rightTime: 0,
+          historyAnswers: [],
+        }
+      })
     }
   }
   return state
