@@ -4,6 +4,7 @@ import { loginRoute } from '../models/user/login/route'
 import { checkTokenRoute } from '../models/user/check-token/route'
 import { getVocabulariesRoute } from '../models/vocabulary/get-vocabulary/route'
 import { createVocabularysRoute } from '../models/vocabulary/create-vocabulary/route'
+import { submitExamResultRoute } from '../models/exam/submit-exam-result/route'
 
 // tslint:disable-next-line: no-any
 export const routes: IApiRoute<any>[] = [
@@ -13,4 +14,5 @@ export const routes: IApiRoute<any>[] = [
   // vocabulary
   getVocabulariesRoute,
   createVocabularysRoute,
+  submitExamResultRoute,
 ]

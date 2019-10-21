@@ -1,6 +1,8 @@
 import { defaultTo } from 'lodash'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
 import ReduxThunk from 'redux-thunk'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import { TimeHelper } from '../helpers/time-helper'
 import { ExamStorage } from '../helpers/exam-storage'
 
@@ -191,7 +193,10 @@ const enhancer = composeEnhancers(
   // other store enhancers if any
 );
 
-export const store = createStore(reducer, enhancer)
+const persistedReducer = persistReducer({ key: 'root', storage }, reducer)
+
+export const store = createStore(persistedReducer, enhancer)
+export const persistor = persistStore(store)
 
 window.addEventListener('beforeunload', (event) => {
   ExamStorage.setVocabularyIds(store.getState().EXAM.vocabularyIds)
