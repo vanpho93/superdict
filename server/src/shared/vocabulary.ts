@@ -16,6 +16,7 @@ export interface IVocabulary {
   intervalTime: number
   difficulty: number
   percentOverdue: number
+  dueDate: Date
   modified: Date
   created: Date
 }
