@@ -28,12 +28,15 @@ class VocabularyItemComponent extends Component {
         <div>
           <b style={{ fontSize: getFontSize(), marginRight: 20 }}> {vocabulary.word}</b> ({vocabulary.type}) <i>{vocabulary.pronunciation}</i>
         </div>
-        <Checkbox
-          checked={vocabularyIds.includes(vocabulary.vocabularyId)}
-          onChange={event => this.toggleInExam(vocabulary, event)}
-        >
-          Review
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ marginRight: 10 }}>Due date: {new Date().toLocaleString()}</div>
+          <Checkbox
+            checked={vocabularyIds.includes(vocabulary.vocabularyId)}
+            onChange={event => this.toggleInExam(vocabulary, event)}
+          >
+            Review
         </Checkbox>
+        </div>
       </div>
     )
   }
