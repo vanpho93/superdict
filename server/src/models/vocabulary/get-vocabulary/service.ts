@@ -44,6 +44,7 @@ export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, IG
       builder.join(Tables.WORD_TYPE, `${Tables.WORD_TYPE}.wordTypeId`, `${Tables.VOCABULARY}.wordTypeId`)
       this.applyDefaultBuilder(builder)
       builder.limit(pageSize)
+      builder.orderBy('dueDate')
       builder.offset(fromIndex)
       return builder
     })

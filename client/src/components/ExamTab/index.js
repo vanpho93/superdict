@@ -8,7 +8,7 @@ import { ExamProgress } from './ExamProgress'
 
 class ExamTabComponent extends React.Component {
   renderBody() {
-    const { stage, examType } = this.props
+    const { stage } = this.props
     if (stage === 'STARTING') return <StartExam />
     if (stage === 'LOADING_VOCABULARY') return <Spin size="large" />
     if (stage === 'ANSWERING_WORD') return (
