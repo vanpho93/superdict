@@ -33,6 +33,8 @@ export async function up(knex: Knex): Promise<any> {
     table
       .float('percent_overdue')
       .defaultTo(1)
+    table.index(['due_date'])
+    table.index(['percent_overdue'])
   })
   await addModified('vocabulary', knex)
 }
