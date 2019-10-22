@@ -169,7 +169,6 @@ const examReducer = (state = defaultExamState, action) => {
       ...state,
       stage: 'ANSWERING_MEANING',
       vocabularies: state.vocabularies.map((vocabulary, index) => {
-        if (index !== state.currentIndex) return vocabulary
         return {
           ...vocabulary,
           rightTime: 0,

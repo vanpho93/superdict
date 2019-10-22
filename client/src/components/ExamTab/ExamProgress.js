@@ -1,7 +1,7 @@
 import { defaultTo } from 'lodash'
 import React, { Component } from 'react'
 import { Icon, Button } from 'antd'
-import { submitExam } from '../../redux/actions'
+import { submitExam, resetExam } from '../../redux/actions'
 import { connect } from 'react-redux'
 
 class ExamProgressComponent extends Component {
@@ -24,7 +24,7 @@ class ExamProgressComponent extends Component {
   }
 
   render() {
-    const { vocabularies, stage, submitExam } = this.props
+    const { vocabularies, stage, submitExam, resetExam } = this.props
     return (
       <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around', width: '100%' }}>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
@@ -37,7 +37,10 @@ class ExamProgressComponent extends Component {
             {vocabularies.map(vocabulary => this.renderVocabulary(vocabulary, true))}
           </div>
         </div>
-        {stage === 'SHOW_RESULT' ? <Button type="primary" style={{ margin: 50 }} size="large" onClick={submitExam}>Submit</Button> : null}
+        {stage === 'SHOW_RESULT' ? <div>
+          <Button type="primary" style={{ margin: 50 }} size="large" onClick={submitExam}>Submit</Button>
+          <Button type="danger" style={{ margin: 50 }} size="large" onClick={resetExam}>Reset</Button>
+        </div> : null}
       </div>
     )
   }
@@ -49,4 +52,4 @@ const mapState = state => ({
   stage: state.EXAM.stage,
 })
 
-export const ExamProgress = connect(mapState, { submitExam })(ExamProgressComponent)
+export const ExamProgress = connect(mapState, { submitExam, resetExam })(ExamProgressComponent)

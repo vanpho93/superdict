@@ -4,8 +4,11 @@ import { Input } from 'antd'
 import { answerWordVocabulary } from '../../redux/actions'
 
 class AnswerComponent extends Component {
+  state = { text: '' }
+
   onSearch = (text) => {
     this.props.answerWordVocabulary(text)
+    this.setState({ text: '' })
   }
 
   render() {
@@ -13,12 +16,14 @@ class AnswerComponent extends Component {
     const vocabulary = vocabularies[currentIndex]
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 200, flexDirection: 'column' }}>
-        <h3><i>Question: </i>"{vocabulary.meaning}"</h3>
+        <h3><i>What is the {vocabulary.type} for </i>"{vocabulary.meaning}"</h3>
         <Input.Search
           size="large"
           placeholder="word"
           style={{ margin: 30 }}
           enterButton="Answer"
+          value={this.state.text}
+          onChange={event => this.setState({ text: event.target.value })}
           onSearch={this.onSearch}
         />
       </div>

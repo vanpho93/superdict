@@ -5,7 +5,7 @@ export const addVocabulary = (vocabulary) => ({ type: 'ADD_VOCABULARY', vocabula
 
 export const removeVocabulary = (vocabulary) => ({ type: 'REMOVE_VOCABULARY', vocabularyId: vocabulary.vocabularyId })
 
-export const startExam = (repeatTime, examType) => async (dispatch, getState) => {
+export const startExam = (repeatTime) => async (dispatch, getState) => {
   dispatch({ type: 'SEND_LOAD_VOCABULARY' })
   const response = await get('/vocabulary', { vocabularyIds: getState().EXAM.vocabularyIds })
   dispatch({
@@ -13,14 +13,19 @@ export const startExam = (repeatTime, examType) => async (dispatch, getState) =>
     vocabularies: response.vocabularies,
     index: random(response.vocabularies.length - 1),
     repeatTime,
-    examType,
   })
 }
 
 export const answerWordVocabulary = (word) => async (dispatch, getState) => {
+  const { currentIndex } = getState().EXAM
   dispatch({ type: 'ANSWER', word })
   // do some effect hear
   const { vocabularies, repeatTime } = getState().EXAM
+  const isRightAnswer = vocabularies[currentIndex].word === word
+  if (isRightAnswer) {
+    const url = `https://dictionary.cambridge.org${vocabularies[currentIndex].americanSound}`
+    await new Audio(url).play()
+  }
   const needToRepeatWords = vocabularies.filter((vocabulary) => {
     return defaultTo(vocabulary.rightTime, 0) < repeatTime
   })
@@ -31,9 +36,15 @@ export const answerWordVocabulary = (word) => async (dispatch, getState) => {
 }
 
 export const answerMeaningVocabulary = (meaning) => async (dispatch, getState) => {
+  const { currentIndex } = getState().EXAM
   dispatch({ type: 'ANSWER_MEANING', meaning })
   // do some effect hear
   const { vocabularies, repeatTime } = getState().EXAM
+  const isRightAnswer = vocabularies[currentIndex].meaning === meaning
+  if (isRightAnswer) {
+    const url = `https://dictionary.cambridge.org${vocabularies[currentIndex].americanSound}`
+    await new Audio(url).play()
+  }
   const needToRepeatWords = vocabularies.filter((vocabulary) => {
     return defaultTo(vocabulary.rightTime, 0) < repeatTime
   })
@@ -54,4 +65,9 @@ export const submitExam = () => async (dispatch, getState) => {
   localStorage.setItem('EXAM_STORAGE', '[]')
   await dispatch({ type: 'RESET_EXAM' })
   alert('DONE')
+}
+
+export const resetExam = () => async (dispatch, getState) => {
+  localStorage.setItem('EXAM_STORAGE', '[]')
+  dispatch({ type: 'RESET_EXAM' })
 }
