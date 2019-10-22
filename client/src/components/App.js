@@ -9,11 +9,11 @@ import { checkToken } from '../redux/actions'
 class AppComponent extends React.Component {
   componentDidMount() {
     if (!localStorage.getItem('token')) return
-    // this.props.checkToken()
+    this.props.checkToken()
   }
 
   state = {
-    current: 'vocabulary',
+    current: 'user',
   };
 
   handleClick = e => {
