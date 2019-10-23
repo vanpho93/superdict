@@ -16,6 +16,18 @@ $('.pho-button').click(function () {
     saveVocabulary(data)
 })
 
+function replaceAll(str, find, replace) {
+    return str.replace(new RegExp(find, 'g'), replace);
+}
+
+function processMeaningString(meaning) {
+    const trimmed = meaning.trim()
+    const removedDoubleSpaces = replaceAll(trimmed, '  ', ' ')
+    const removedNewLines = replaceAll(removedDoubleSpaces, '\n', ' ')
+    const isEndWithAColon = removedNewLines.endsWith(':')
+    return isEndWithAColon ? removedNewLines.splice(0, -1) : removedNewLines
+}
+
 function getData(index) {
     const word = $('.headword').eq(0).text()
     const pronunciation = $('.us.dpron-i').find('.ipa.dipa.lpr-2.lpl-1').eq(0).text()
@@ -27,9 +39,16 @@ function getData(index) {
         examples.push($(this).text())
     })
     const wordType = $('.pos.dpos').eq(index).text()
-    return { word, meaning, pronunciation, examples: examples.join('|'), wordType, americanSound, britishSound }
+    return {
+        word,
+        meaning: processMeaningString(meaning),
+        pronunciation,
+        examples: examples.join('|'),
+        wordType,
+        americanSound,
+        britishSound,
+    }
 }
-
 
 function saveVocabulary(vocabulary) {
     $.ajax({
