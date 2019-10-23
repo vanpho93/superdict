@@ -23,8 +23,12 @@ export const answerWordVocabulary = (word) => async (dispatch, getState) => {
   const { vocabularies, repeatTime } = getState().EXAM
   const isRightAnswer = vocabularies[currentIndex].word === word
   if (isRightAnswer) {
-    const url = `https://dictionary.cambridge.org${vocabularies[currentIndex].americanSound}`
-    await new Audio(url).play()
+    try {
+      const url = `https://dictionary.cambridge.org${vocabularies[currentIndex].americanSound}`
+      await new Audio(url).play()
+    } catch (error) {
+      console.log(error)
+    }
   }
   const needToRepeatWords = vocabularies.filter((vocabulary) => {
     return defaultTo(vocabulary.rightTime, 0) < repeatTime
@@ -42,8 +46,12 @@ export const answerMeaningVocabulary = (meaning) => async (dispatch, getState) =
   const { vocabularies, repeatTime } = getState().EXAM
   const isRightAnswer = vocabularies[currentIndex].meaning === meaning
   if (isRightAnswer) {
-    const url = `https://dictionary.cambridge.org${vocabularies[currentIndex].americanSound}`
-    await new Audio(url).play()
+    try {
+      const url = `https://dictionary.cambridge.org${vocabularies[currentIndex].americanSound}`
+      await new Audio(url).play()
+    } catch (error) {
+      console.log(error)
+    }
   }
   const needToRepeatWords = vocabularies.filter((vocabulary) => {
     return defaultTo(vocabulary.rightTime, 0) < repeatTime
