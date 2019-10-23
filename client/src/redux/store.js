@@ -4,7 +4,6 @@ import { persistStore, persistReducer } from 'redux-persist'
 import ReduxThunk from 'redux-thunk'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import { TimeHelper } from '../helpers/time-helper'
-import { ExamStorage } from '../helpers/exam-storage'
 
 const userReducer = (state = null, action) => {
   if (action.type === 'LOG_IN') return action.user
@@ -85,7 +84,7 @@ const vocabulariesReducer = (state = defaultVocabularyState, action) => {
 // }
 
 const defaultExamState = {
-  vocabularyIds: ExamStorage.getVocabularyIds(),
+  vocabularyIds: [],
   stage: 'STARTING', // 'LOADING_VOCABULARY', 'ANSWERING_WORD', 'ANSWERING_MEANING', 'SHOW_RESULT'
   vocabularies: [],
   currentIndex: -1,
@@ -211,7 +210,3 @@ const persistedReducer = persistReducer({ key: 'root', storage }, reducer)
 
 export const store = createStore(persistedReducer, enhancer)
 export const persistor = persistStore(store)
-
-window.addEventListener('beforeunload', (event) => {
-  ExamStorage.setVocabularyIds(store.getState().EXAM.vocabularyIds)
-});

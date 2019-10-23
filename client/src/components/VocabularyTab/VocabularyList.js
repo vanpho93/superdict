@@ -25,6 +25,7 @@ const VocabularyListComponent = (props) => {
           onChange={(page) => props.getVocabularies({ page })}
           defaultCurrent={props.page}
           total={props.total}
+          pageSize={props.pageSize}
         />
       </div>
 
