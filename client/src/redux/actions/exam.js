@@ -41,7 +41,7 @@ export const answerWordVocabulary = (word) => async (dispatch, getState) => {
 
 export const answerMeaningVocabulary = (meaning) => async (dispatch, getState) => {
   const { currentIndex } = getState().EXAM
-  dispatch({ type: 'ANSWER_MEANING', meaning })
+  dispatch({ type: 'ANSW`ER_MEANING', meaning })
   // do some effect hear
   const { vocabularies, repeatTime } = getState().EXAM
   const isRightAnswer = vocabularies[currentIndex].meaning === meaning
