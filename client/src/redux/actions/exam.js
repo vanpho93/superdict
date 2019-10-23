@@ -3,7 +3,9 @@ import { get, post } from '../../helpers/request'
 
 export const addVocabulary = (vocabulary) => ({ type: 'ADD_VOCABULARY', vocabularyId: vocabulary.vocabularyId })
 
-export const removeVocabulary = (vocabulary) => ({ type: 'REMOVE_VOCABULARY', vocabularyId: vocabulary.vocabularyId })
+export const removeVocabulary = (vocabulary) => (dispatch) => {
+  dispatch({ type: 'REMOVE_VOCABULARY', vocabularyId: vocabulary.vocabularyId })
+}
 
 export const startExam = (repeatTime) => async (dispatch, getState) => {
   dispatch({ type: 'SEND_LOAD_VOCABULARY' })
@@ -70,12 +72,10 @@ export const submitExam = () => async (dispatch, getState) => {
     performanceRating: 1,
   }))
   await post('/exam-result', { result })
-  localStorage.setItem('EXAM_STORAGE', '[]')
   await dispatch({ type: 'RESET_EXAM' })
   alert('DONE')
 }
 
 export const resetExam = () => async (dispatch, getState) => {
-  localStorage.setItem('EXAM_STORAGE', '[]')
   dispatch({ type: 'RESET_EXAM' })
 }
