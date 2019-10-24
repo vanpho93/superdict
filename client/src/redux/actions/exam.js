@@ -76,6 +76,20 @@ export const submitExam = () => async (dispatch, getState) => {
   alert('DONE')
 }
 
+export const skipVocabulary = (vocabularyId) => async (dispatch, getState) => {
+  const { stage } = getState().EXAM
+  dispatch({ type: 'SKIP_VOCABULARY', vocabularyId })
+  // do some effect hear
+  const { vocabularies, repeatTime } = getState().EXAM
+  const needToRepeatWords = vocabularies.filter((vocabulary) => {
+    return defaultTo(vocabulary.rightTime, 0) < repeatTime
+  })
+  if (needToRepeatWords.length === 0) return dispatch({ type: stage === 'ANSWERING_WORD' ? 'FINISH_ANSWERING_WORD' : 'FINISH' })
+  const choosenWord = needToRepeatWords[random(needToRepeatWords.length - 1)]
+  const newIndex = vocabularies.findIndex(vocabulary => vocabulary.vocabularyId === choosenWord.vocabularyId)
+  dispatch({ type: 'NEXT', index: newIndex })
+}
+
 export const resetExam = () => async (dispatch, getState) => {
   dispatch({ type: 'RESET_EXAM' })
 }

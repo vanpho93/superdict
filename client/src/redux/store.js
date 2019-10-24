@@ -176,6 +176,10 @@ const examReducer = (state = defaultExamState, action) => {
       })
     }
   }
+  if (action.type === 'SKIP_VOCABULARY') return {
+    ...state,
+    vocabularies: state.vocabularies.filter(vocabulary => vocabulary.vocabularyId !== action.vocabularyId)
+  }
   return state
 }
 
@@ -196,7 +200,7 @@ const reducer = combineReducers({
 
 const composeEnhancers =
   typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
       // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
     }) : compose;
