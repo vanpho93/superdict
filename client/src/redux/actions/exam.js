@@ -9,7 +9,7 @@ export const removeVocabulary = (vocabulary) => (dispatch) => {
 
 export const startExam = (repeatTime) => async (dispatch, getState) => {
   dispatch({ type: 'SEND_LOAD_VOCABULARY' })
-  const response = await get('/vocabulary', { vocabularyIds: getState().EXAM.vocabularyIds })
+  const response = await get('/vocabulary', { vocabularyIds: getState().EXAM.vocabularyIds, pageSize: 100 })
   dispatch({
     type: 'COMPLETE_LOAD_VOCABULARY',
     vocabularies: response.vocabularies,
