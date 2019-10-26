@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Input } from 'antd'
-import { answerWordVocabulary } from '../../redux/actions'
+import { Input, Button } from 'antd'
+import { answerWordVocabulary, skipVocabulary } from '../../redux/actions'
 
 class AnswerComponent extends Component {
   state = { text: '' }
@@ -23,6 +23,7 @@ class AnswerComponent extends Component {
           style={{ margin: 30 }}
           enterButton="Answer"
           value={this.state.text}
+          addonBefore={<Button type="link" shape="circle" icon="close-circle" onClick={() => this.props.skipVocabulary(vocabulary.vocabularyId)} />}
           onChange={event => this.setState({ text: event.target.value })}
           onSearch={this.onSearch}
         />
@@ -37,4 +38,4 @@ const mapState = state => ({
   currentIndex: state.EXAM.currentIndex,
 })
 
-export const Answer = connect(mapState, { answerWordVocabulary })(AnswerComponent)
+export const Answer = connect(mapState, { answerWordVocabulary, skipVocabulary })(AnswerComponent)

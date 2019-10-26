@@ -9,7 +9,7 @@ export const removeVocabulary = (vocabulary) => (dispatch) => {
 
 export const startExam = (repeatTime) => async (dispatch, getState) => {
   dispatch({ type: 'SEND_LOAD_VOCABULARY' })
-  const response = await get('/vocabulary', { vocabularyIds: getState().EXAM.vocabularyIds })
+  const response = await get('/vocabulary', { vocabularyIds: getState().EXAM.vocabularyIds, pageSize: 100 })
   dispatch({
     type: 'COMPLETE_LOAD_VOCABULARY',
     vocabularies: response.vocabularies,
@@ -74,6 +74,20 @@ export const submitExam = () => async (dispatch, getState) => {
   await post('/exam-result', { result })
   await dispatch({ type: 'RESET_EXAM' })
   alert('DONE')
+}
+
+export const skipVocabulary = (vocabularyId) => async (dispatch, getState) => {
+  const { stage } = getState().EXAM
+  dispatch({ type: 'SKIP_VOCABULARY', vocabularyId })
+  // do some effect hear
+  const { vocabularies, repeatTime } = getState().EXAM
+  const needToRepeatWords = vocabularies.filter((vocabulary) => {
+    return defaultTo(vocabulary.rightTime, 0) < repeatTime
+  })
+  if (needToRepeatWords.length === 0) return dispatch({ type: stage === 'ANSWERING_WORD' ? 'FINISH_ANSWERING_WORD' : 'FINISH' })
+  const choosenWord = needToRepeatWords[random(needToRepeatWords.length - 1)]
+  const newIndex = vocabularies.findIndex(vocabulary => vocabulary.vocabularyId === choosenWord.vocabularyId)
+  dispatch({ type: 'NEXT', index: newIndex })
 }
 
 export const resetExam = () => async (dispatch, getState) => {
