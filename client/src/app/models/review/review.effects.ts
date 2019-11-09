@@ -101,7 +101,7 @@ export class ReviewEffects {
       const isRight = step === EReviewStep.FIRST_PART ? word === answer : meaning === answer
       if (isRight) {
         await this.playSound(RIGHT_ANSWER_SOUND)
-        await this.playSound(`https://dictionary.cambridge.org${defaultTo(americanSound, britishSound)}`)
+        await this.playSound(`http://dictionary.cambridge.org${defaultTo(americanSound, britishSound)}`)
       } else {
         await this.playSound(WRONG_ANSWER_SOUND)
       }
