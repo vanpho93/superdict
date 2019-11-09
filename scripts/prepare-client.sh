@@ -1,1 +1,1 @@
-cd ../client && yarn && npm run build --prod && mv dist ../server/build && cd ..
+cd ../client && yarn && npm run build --prod && mv build ../server/build && cd ..
