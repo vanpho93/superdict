@@ -1,0 +1,112 @@
+<div class="init"
+  *ngIf="(reviewState$ | async).step === 'WAITING' || (reviewState$ | async).step === 'LOADING_VOCABULARY_LIST'">
+  <div class="content">
+    <h3>Setting <sup>
+        <i nz-icon nzType="question-circle" nzTheme="outline" nz-popover nzPopoverTitle="What is this?"
+          nzPopoverTrigger="click"
+          [nzPopoverContent]="contentTemplate"></i></sup>
+    </h3>
+    <ng-template #contentTemplate>
+      How many consecutive right answer to count as you remember a word?
+    </ng-template>
+    <div>
+      <span>Part 1 - Remember the word: </span>
+      <nz-slider [nzMarks]="marks" [nzStep]="null" [(ngModel)]="consecutiveRightAnswer.firstPart" nzDots
+        [nzTipFormatter]="null" [nzMin]="0" [nzMax]="5"></nz-slider>
+    </div>
+    <div>
+      <span>Part 2 - Remember the meaning:</span>
+      <nz-slider [nzMarks]="marks" [nzStep]="null" [(ngModel)]="consecutiveRightAnswer.secondPart" nzDots
+        [nzTipFormatter]="null" [nzMin]="0" [nzMax]="5"></nz-slider>
+    </div>
+    <button nz-button nzType="primary" (click)="startReviewing()" [nzLoading]="(reviewState$ | async).isLoading">
+      <i nz-icon nzType="poweroff"></i>Start
+    </button>
+  </div>
+</div>
+
+<div class="first-part" *ngIf="(reviewState$ | async).step === 'FIRST_PART'">
+  <div class="content">
+    <div>
+      <h3>Review progress</h3>
+      <nz-progress [nzPercent]="(progress$ | async)" nzSize="small"></nz-progress>
+    </div>
+    <div class="header">
+      <h3>Part 1: Type the word or phrase</h3>
+      <nz-switch [(ngModel)]="shouldShowExamples" nzCheckedChildren="Show examples" nzUnCheckedChildren="Hide examples">
+      </nz-switch>
+    </div>
+    <p>What is the <span style="color: #3ABD2C; font-weight: bold;">{{ (currentVocabulary$ | async).type }}</span> for
+      the meaning below:</p>
+    <p><i>"{{ (currentVocabulary$ | async).meaning }}"</i></p>
+    <div class="examples" *ngIf="shouldShowExamples">
+      <p nz-text *ngFor="let example of (examples$ | async)" style="font-size: 13px;">
+        * {{example}}
+      </p>
+    </div>
+    <input nz-input placeholder="Enter your answer here" [(ngModel)]="wordAnswer" (keyup.enter)="answerFirstPart()" />
+    <div class="controls">
+      <button nz-button class="half" nzType="danger" (click)="skip()"><i nz-icon
+          nzType="minus-circle"></i>Skip</button>
+      <button nz-button class="half" nzType="primary" [nzLoading]="(reviewState$ | async).isAnswering"
+        (click)="answerFirstPart()">
+        <i nz-icon nzType="check-circle"></i>
+        Answer
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="second-part" *ngIf="(reviewState$ | async).step === 'SECOND_PART'">
+  <div class="content">
+    <div>
+      <h3>Review progress</h3>
+      <nz-progress [nzPercent]="(progress$ | async)" nzSize="small"></nz-progress>
+    </div>
+    <div class="header">
+      <h3>Part 2: Type the meaning</h3>
+      <nz-switch [(ngModel)]="shouldShowExamples" nzCheckedChildren="Show examples" nzUnCheckedChildren="Hide examples">
+      </nz-switch>
+    </div>
+    <p>Word: {{ (currentVocabulary$ | async).word }}</p>
+    <div class="examples" *ngIf="shouldShowExamples">
+      <p nz-text *ngFor="let example of (examples$ | async)" style="font-size: 13px;">
+        * {{example}}
+      </p>
+    </div>
+    <div class="pieces">
+      <div *ngFor="let piece of currentPieces; let i = index" (click)="moveDown(i)" style="background-color: #3ABD2C">
+        {{ piece }}</div>
+    </div>
+    <div class="pieces">
+      <div *ngFor="let piece of remainPieces; let i = index" (click)="moveUp(i)" style="background-color: #229CFF">
+        {{ piece }}</div>
+    </div>
+    <div class="controls">
+      <button nz-button class="half" nzType="danger" (click)="skip()"><i nz-icon
+          nzType="minus-circle"></i>Skip</button>
+      <button nz-button class="half" nzType="primary" [nzLoading]="(reviewState$ | async).isAnswering"
+        (click)="answerSecondPart()">
+        <i nz-icon nzType="check-circle"></i>
+        Answer
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="report">
+  <div class="content">
+    <nz-result nzStatus="success" nzTitle="🎉🎉 Congratulations!"
+      *ngIf="(reviewState$ | async).step === 'REPORT'"
+      nzSubTitle="Have have finished your review successfully! Now you can submit it!">
+      <div nz-result-extra>
+        <button nz-button (click)="reset()"><i nz-icon
+            nzType="download"></i>Cancel</button>
+        <button nz-button nzType="primary" (click)="submit()"
+          [nzLoading]="(reviewState$ | async).isSubmiting">
+          <i nz-icon nzType="download"></i>Submit
+        </button>
+      </div>
+    </nz-result>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="profile">
+  <h3>Email: <i>{{ (user$ | async).email }}</i></h3>
+  <h3>Name: <i>{{ (user$ | async)?.name }}</i></h3>
+  <button nz-button nzType="primary" (click)="signOut()" [nzLoading]="isSignOutLoading$ | async">
+    <i nz-icon nzType="poweroff"></i>Sign out
+  </button>
+</div>

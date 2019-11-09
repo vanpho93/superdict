@@ -1,0 +1,24 @@
+<nz-affix nzOffsetTop="0">
+  <ul nz-menu nzMode="horizontal" nzTheme="dark">
+    <ng-container *ngIf="isLoggedIn$ | async">
+      <li nz-menu-item routerLink="/profile" nzMatchRouter>
+        <i nz-icon nzType="profile"></i><span>Profile</span>
+      </li>
+      <li nz-menu-item routerLink="/dashboard" nzMatchRouter>
+        <i nz-icon nzType="dashboard"></i><span>Dashboard</span>
+      </li>
+      <li nz-menu-item routerLink="/vocabulary" nzMatchRouter>
+        <i nz-icon nzType="unordered-list"></i><span>Vocabulary</span>
+      </li>
+      <li nz-menu-item routerLink="/review" nzMatchRouter>
+        <i nz-icon nzType="fire"></i><span>Review</span>
+      </li>
+    </ng-container>
+    <li nz-menu-item routerLink="/sign-in" nzMatchRouter *ngIf="!(isLoggedIn$ | async)">
+      <i nz-icon nzType="login"></i><span>Sign In</span>
+    </li>
+    <li nz-menu-item routerLink="/contact" nzMatchRouter>
+      <i nz-icon nzType="info-circle"></i><span>Contact</span>
+    </li>
+  </ul>
+</nz-affix>

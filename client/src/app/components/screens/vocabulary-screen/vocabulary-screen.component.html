@@ -1,0 +1,72 @@
+<div class="container" #container>
+  <nz-affix nzOffsetTop="0" [nzTarget]="container">
+    <div class="filter">
+      <nz-range-picker [ngModel]="(dateRange$ | async)" (ngModelChange)="changeVocabularyDateRange($event)">
+      </nz-range-picker>
+      <div>
+        <a>
+          <nz-badge [nzCount]="(vocabularyState$ | async).selectedVocabularyIds.length"
+            [nzStyle]="{ backgroundColor: '#52c41a' }" nzType="primary" nz-popover nzPopoverTitle="Actions"
+            nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate" nzShowZero>
+          </nz-badge>
+          <ng-template #contentTemplate>
+            <div class="actions">
+              <button nz-button nzType="primary" (click)="clearAllSelected()">
+                <i nz-icon nzType="download"></i>Clear all
+              </button>
+              <button nz-button nzType="primary" (click)="markAllAsSellected()">
+                <i nz-icon nzType="download"></i>Select all
+              </button>
+              <button nz-button nzType="primary">
+                <i nz-icon nzType="download"></i>Review now
+              </button>
+            </div>
+          </ng-template>
+        </a>
+        <nz-switch [ngModel]="!(vocabularyState$ | async).isCollapsed" nzCheckedChildren="Expand"
+          nzUnCheckedChildren="Collapse" (ngModelChange)="toggleIsCollapsed($event)">
+        </nz-switch>
+      </div>
+    </div>
+  </nz-affix>
+  <nz-list [nzDataSource]="(vocabularyState$ | async).state" [nzRenderItem]="item" [nzItemLayout]="'horizontal'"
+    [nzLoading]="(vocabularyState$ | async).isLoading">
+    <ng-template #item let-item>
+      <nz-list-item>
+        <div class="item">
+          <div class="header">
+            <div class="header-left">
+              <h3>{{ item.word }}</h3>
+              <p>({{item.type}})<i>{{item.pronunciation}}</i></p>
+            </div>
+            <div class="header-right">
+              <p>Due date: {{item.dueDate | date: 'HH:mm dd/MM' }}</p>
+              <label nz-checkbox (ngModelChange)="toggleSelected(item.vocabularyId)"
+                [ngModel]="(vocabularyState$ | async).selectedVocabularyIds.includes(item.vocabularyId)">
+              </label>
+            </div>
+          </div>
+          <ng-container *ngIf="!(vocabularyState$ | async).isCollapsed">
+            <div class="sound">
+              <p>US
+                <button nz-button nzType="link" nzShape="circle"><i style="color: #3ABD2C;" nz-icon
+                    nzType="play-circle"></i></button>
+                UK
+                <button nz-button nzType="link" nzShape="circle"><i style="color: #3ABD2C;" nz-icon
+                    nzType="play-circle"></i></button>
+              </p>
+            </div>
+            <p>{{item.meaning}}</p>
+            <hr />
+            <i>{{item.examples}}</i>
+          </ng-container>
+        </div>
+      </nz-list-item>
+    </ng-template>
+  </nz-list>
+  <nz-pagination [nzPageIndex]="(vocabularyState$ | async).paging.currentPage"
+    [nzTotal]="(vocabularyState$ | async).paging.total" nzShowSizeChanger
+    [nzPageSize]="(vocabularyState$ | async).paging.pageSize" (nzPageSizeChange)="onChangePageSize($event)"
+    (nzPageIndexChange)="onChangeCurrentPage($event)">
+  </nz-pagination>
+</div>

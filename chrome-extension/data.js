@@ -25,7 +25,7 @@ function processMeaningString(meaning) {
     const removedDoubleSpaces = replaceAll(trimmed, '  ', ' ')
     const removedNewLines = replaceAll(removedDoubleSpaces, '\n', ' ')
     const isEndWithAColon = removedNewLines.endsWith(':')
-    return isEndWithAColon ? removedNewLines.splice(0, -1) : removedNewLines
+    return isEndWithAColon ? removedNewLines.slice(0, -1) : removedNewLines
 }
 
 function getData(index) {

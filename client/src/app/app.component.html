@@ -1,0 +1,9 @@
+<div style="display: flex; justify-content: center; height: 100%; align-items: center" *ngIf="!(isCheckTokenDone$ | async)">
+  <ng-template #indicatorTemplate><i nz-icon nzType="loading" style="font-size: 100px;"></i> </ng-template>
+  <nz-spin nzSimple [nzIndicator]="indicatorTemplate" nzSize="large"></nz-spin>
+</div>
+
+<div *ngIf="(isCheckTokenDone$ | async)">
+  <app-nav-bar></app-nav-bar>
+  <router-outlet></router-outlet>
+</div>
