@@ -1,5 +1,6 @@
 import express from 'express'
 import { json } from 'body-parser'
+import path from 'path'
 import cors from 'cors'
 
 import { routes } from './routes/routes'
@@ -11,9 +12,10 @@ export const app = express()
 app.use(json())
 app.use(cors())
 
-app.use(express.static('./build'))
-
 routes.forEach(route => addRoute(app, route))
+
+app.use(express.static(path.resolve('build')))
+app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
 
 app.use((req, res) => res.status(400).send({ success: false, message: 'INVALID_ROUTE' }))
 
