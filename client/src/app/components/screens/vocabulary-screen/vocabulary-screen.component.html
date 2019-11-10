@@ -49,10 +49,10 @@
           <ng-container *ngIf="!(vocabularyState$ | async).isCollapsed">
             <div class="sound">
               <p>US
-                <button nz-button nzType="link" nzShape="circle"><i style="color: #3ABD2C;" nz-icon
+                <button nz-button nzType="link" nzShape="circle" (click)="playSound(item.americanSound)"><i style="color: #3ABD2C;" nz-icon
                     nzType="play-circle"></i></button>
                 UK
-                <button nz-button nzType="link" nzShape="circle"><i style="color: #3ABD2C;" nz-icon
+                <button nz-button nzType="link" nzShape="circle" (click)="playSound(item.britishSound)"><i style="color: #3ABD2C;" nz-icon
                     nzType="play-circle"></i></button>
               </p>
             </div>

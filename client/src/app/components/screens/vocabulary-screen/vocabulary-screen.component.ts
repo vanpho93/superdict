@@ -66,4 +66,13 @@ export class VocabularyScreenComponent implements OnInit {
   markAllAsSellected() {
     return this.store.dispatch(markAllShowingVocabulariesAsSelected())
   }
+
+  async playSound(path: string) {
+    const url = `http://dictionary.cambridge.org${path}`
+    try {
+      await new Audio(url).play();
+    } catch (error) {
+      return null
+    }
+  }
 }
