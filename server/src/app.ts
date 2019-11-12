@@ -15,6 +15,7 @@ app.use(cors())
 routes.forEach(route => addRoute(app, route))
 
 app.use(express.static(path.resolve('build')))
+app.use(express.static(path.resolve('one-signal')))
 
 app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
 
