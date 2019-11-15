@@ -9,11 +9,8 @@ export class UserService {
 
   constructor(private fetch: FetchService) { }
 
-  signIn() {
-    const body = {
-      email: 'vanpho01@gmail.com',
-      password: 'SUPER_PASSWORD@123XYZ@'
-    }
+  signIn(email: string, password: string) {
+    const body = { email, password }
     return this.fetch.post('/user/login', body)
   }
 

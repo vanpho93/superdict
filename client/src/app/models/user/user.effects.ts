@@ -13,7 +13,7 @@ checkTokenFailure, signOutSuccess, signIn, checkToken,
 export class UserEffects {
   signIn$ = createEffect(() => this.actions$.pipe(
     ofType(signIn),
-    switchMap(() => this.userService.signIn()
+    switchMap(({ email, password }) => this.userService.signIn(email, password)
       .pipe(
         map(user => signInSuccess({ user })),
         tap(({ user }) => {
