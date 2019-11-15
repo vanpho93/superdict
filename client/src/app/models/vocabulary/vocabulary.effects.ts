@@ -1,8 +1,10 @@
+import { isNumber } from 'lodash'
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { EMPTY } from 'rxjs'
+import { Observable } from 'rxjs'
 import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators'
-import { VocabularyService } from './vocabulary.service'
+import { FetchService } from '../../services'
 import {
   fetchVocabulariesSuccess,
   fetchVocabularies,
@@ -11,8 +13,18 @@ import {
   changeVocabularyPageSize,
   changeVocabularyLessonFilter,
 } from './vocabulary.action'
+import { IVocabulary, LessonFilter } from './vocabulary.metadata'
 import { Store } from '@ngrx/store'
 import { State } from '..'
+
+interface IVocabularyQuery {
+  fromDate?: Date
+  toDate?: Date
+  currentPage?: number
+  pageSize?: number
+  vocabularyIds?: number[]
+  lesson: LessonFilter
+}
 
 @Injectable()
 export class VocabularyEffects {
@@ -24,11 +36,12 @@ export class VocabularyEffects {
 
     return fetchVocabulary$.pipe(
       withLatestFrom(vocabularyState$),
-      mergeMap(([_, { filter, paging }]) => this.vocabularyService.fetchVocabularies({
+      mergeMap(([_, { filter, paging }]) => this.fetchVocabularies({
           fromDate: filter.fromDate,
           toDate: filter.toDate,
           pageSize: paging.pageSize,
           currentPage: paging.currentPage,
+          lesson: filter.lesson,
         })
         .pipe(
           map(({ vocabularies, total }) => (fetchVocabulariesSuccess({ vocabularies, total }))),
@@ -51,6 +64,21 @@ export class VocabularyEffects {
   constructor(
     private store: Store<State>,
     private actions$: Actions,
-    private vocabularyService: VocabularyService
+    private fetch: FetchService
   ) {}
+
+  fetchVocabularies(vocabularyQuery: IVocabularyQuery): Observable<{ vocabularies: IVocabulary[], total: number }> {
+    const { fromDate, toDate, pageSize, currentPage, vocabularyIds, lesson } = vocabularyQuery
+
+    const lessonIds = isNumber(lesson) ? [lesson] : []
+
+    return this.fetch.get('/vocabulary', {
+      fromDate: new Date(fromDate).getTime(),
+      toDate: new Date(toDate).getTime(),
+      pageSize,
+      page: currentPage,
+      vocabularyIds,
+      lessonIds,
+    })
+  }
 }
