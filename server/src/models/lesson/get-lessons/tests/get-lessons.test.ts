@@ -3,7 +3,7 @@ import request from 'supertest'
 import { app } from '../../../../app'
 import { TestUtilities, UserWithToken, Lesson, deepOmit } from '../../../../global-refs'
 
-const TEST_TITLE = 'GetVocabulary success'
+const TEST_TITLE = 'GetLessons success'
 
 describe(TEST_TITLE, () => {
   let user1: UserWithToken
@@ -19,7 +19,7 @@ describe(TEST_TITLE, () => {
     ])
   })
 
-  it(`${TEST_TITLE} can get vocabularies`, async () => {
+  it(`${TEST_TITLE} can get lessons`, async () => {
     const response = await request(app).get('/api/lesson').set({ token: user1.token })
     const expectedResponse = {
       success: true,
