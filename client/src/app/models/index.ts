@@ -1,4 +1,5 @@
 export * from './user'
 export * from './vocabulary'
 export * from './review'
+export * from './lesson'
 export * from './reducer'
