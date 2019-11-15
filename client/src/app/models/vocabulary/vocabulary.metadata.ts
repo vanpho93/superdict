@@ -21,10 +21,13 @@ export interface IVocabulary {
   type: string
 }
 
+export type LessonFilter = 'every' | 'unknown' | number
+
 interface IVocabularyAdditionalState {
   filter: {
     fromDate: Date
     toDate: Date
+    lesson: LessonFilter
   }
   paging: {
     currentPage: number

@@ -6,9 +6,10 @@
       
       <!-- Start select lesson -->
       <nz-select
-        [(ngModel)]="selectedValue"
+        [ngModel]="(vocabularyState$ | async).filter.lesson"
         nzAllowClear nzPlaceHolder="Choose lesson"
         style="width: 20%;"
+        (ngModelChange)="changeLessonFilter($event)"
       >
         <nz-option nzValue="every" nzLabel="Every lesson"></nz-option>
         <nz-option nzValue="unknown" nzLabel="Unknown lesson"></nz-option>

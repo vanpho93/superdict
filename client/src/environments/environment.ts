@@ -22,7 +22,8 @@ export const environment = {
       isLoading: false,
       filter: {
         fromDate: '2019-11-08T17:07:02.674Z',
-        toDate: '2019-11-15T17:07:02.674Z'
+        toDate: '2019-11-15T17:07:02.674Z',
+        lesson: 'every',
       },
       paging: {
         currentPage: 2,

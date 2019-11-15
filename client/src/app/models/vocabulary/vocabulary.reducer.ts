@@ -11,6 +11,7 @@ import {
   toggleSelectVocabulary,
   clearSelectedVocabularies,
   markAllShowingVocabulariesAsSelected,
+  changeVocabularyLessonFilter,
 } from './vocabulary.action'
 
 const SEVEN_DAYS = 7 * 86400000
@@ -20,6 +21,7 @@ const initialState: VocabularyState = {
   filter: {
     fromDate: new Date(Date.now() - SEVEN_DAYS),
     toDate: new Date(),
+    lesson: 'every',
   },
   paging: {
     currentPage: 2,
@@ -58,6 +60,7 @@ const _vocabularyReducer = createReducer<VocabularyState>(initialState,
       currentPage: 1,
     },
     filter: {
+      ...state.filter,
       fromDate,
       toDate,
     }
@@ -88,6 +91,13 @@ const _vocabularyReducer = createReducer<VocabularyState>(initialState,
     const unselectedVocabularies = oldState.state.filter(vocabulary => !oldState.selectedVocabularyIds.includes(vocabulary.vocabularyId))
     return ({ ...oldState, selectedVocabularyIds: oldState.selectedVocabularyIds.concat(...map(unselectedVocabularies, 'vocabularyId')) })
   }),
+  on(changeVocabularyLessonFilter, (state, { lesson }) => ({
+    ...state,
+    filter: {
+      ...state.filter,
+      lesson,
+    },
+  }))
 )
 
 export function vocabularyReducer(state: VocabularyState, action) {

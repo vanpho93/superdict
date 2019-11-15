@@ -14,6 +14,8 @@ import {
   clearSelectedVocabularies,
   markAllShowingVocabulariesAsSelected,
   fetchLessons,
+  LessonFilter,
+  changeVocabularyLessonFilter,
 } from '../../../models'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
@@ -79,5 +81,9 @@ export class VocabularyScreenComponent implements OnInit {
     } catch (error) {
       return null
     }
+  }
+
+  changeLessonFilter(lesson: LessonFilter) {
+    this.store.dispatch(changeVocabularyLessonFilter({ lesson }))
   }
 }

@@ -9,6 +9,7 @@ import {
   changeVocabularyCurrentPage,
   changeVocabularyDateRange,
   changeVocabularyPageSize,
+  changeVocabularyLessonFilter,
 } from './vocabulary.action'
 import { Store } from '@ngrx/store'
 import { State } from '..'
@@ -41,7 +42,8 @@ export class VocabularyEffects {
     const filterByActionTypes = ofType(
       changeVocabularyCurrentPage,
       changeVocabularyDateRange,
-      changeVocabularyPageSize
+      changeVocabularyPageSize,
+      changeVocabularyLessonFilter,
     )
     return this.actions$.pipe(filterByActionTypes, map(() => ({ type: '[Vocabulary Screen] Send fetch vocabularies request' })))
   })
