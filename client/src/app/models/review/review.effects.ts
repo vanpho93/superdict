@@ -25,7 +25,7 @@ export class ReviewEffects {
     const fetchVocabulary$ = this.actions$.pipe(filterByActionType, map(() => 1))
     return fetchVocabulary$.pipe(
       withLatestFrom(selectedVocabularyIds$),
-      mergeMap(([_, vocabularyIds]) => this.vocabularyService.fetchVocabularies({ vocabularyIds, pageSize: 200 })
+      mergeMap(([_, vocabularyIds]) => this.vocabularyService.fetchVocabularies({ vocabularyIds, pageSize: 1000 })
         .pipe(
           map(({ vocabularies }) => (fetchListReviewingVocabularySuccess({ vocabularies }))),
           catchError(() => EMPTY)
