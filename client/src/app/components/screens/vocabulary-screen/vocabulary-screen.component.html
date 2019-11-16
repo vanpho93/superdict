@@ -1,9 +1,12 @@
 <div class="container" #container>
   <nz-affix nzOffsetTop="0" [nzTarget]="container">
     <div class="filter">
-      <nz-range-picker [ngModel]="(dateRange$ | async)" (ngModelChange)="changeVocabularyDateRange($event)">
+      <nz-range-picker
+        [ngModel]="(dateRange$ | async)"
+        (ngModelChange)="changeVocabularyDateRange($event)"
+        [nzDisabled]="!['every', 'unknown'].includes((vocabularyState$ | async).filter.lesson)">
       </nz-range-picker>
-      
+
       <!-- Start select lesson -->
       <nz-select
         [ngModel]="(vocabularyState$ | async).filter.lesson"

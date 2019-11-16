@@ -24,6 +24,7 @@ interface IVocabularyQuery {
   pageSize?: number
   vocabularyIds?: number[]
   lesson: LessonFilter
+  isFindUnknownLesson?: boolean
 }
 
 @Injectable()
@@ -80,6 +81,7 @@ export class VocabularyEffects {
       page: currentPage,
       vocabularyIds,
       lessonIds,
+      isFindUnknownLesson: lesson === 'unknown',
     })
   }
 }

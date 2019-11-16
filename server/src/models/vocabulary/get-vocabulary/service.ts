@@ -5,7 +5,7 @@ import { IGetVocabulariesInput, IGetVocabulariesOutput } from './metadata'
 
 export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, IGetVocabulariesOutput> {
   protected getNormalizeInput() {
-    const { lessonIds, vocabularyIds } = this.rawInput
+    const { lessonIds, vocabularyIds, isFindUnknownLesson } = this.rawInput
     return {
       ...this.rawInput,
       lessonIds: transformArrayParam(lessonIds),
@@ -14,6 +14,8 @@ export class GetVocabulariesService extends ApiService<IGetVocabulariesInput, IG
       toDate: defaultTo(isEmpty(this.rawInput.toDate) ? null : Number(this.rawInput.toDate), Date.now()),
       pageSize: Math.min(1000, defaultTo(this.rawInput.pageSize, 10)),
       page: defaultTo(this.rawInput.page, 1),
+      // tslint:disable-next-line: no-any
+      isFindUnknownLesson: (isFindUnknownLesson as any) === 'true',
     }
   }
 
