@@ -9,6 +9,7 @@ import { createVocabularysRoute } from '../models/vocabulary/create-vocabulary/r
 import { submitExamResultRoute } from '../models/exam/submit-exam-result/route'
 // lesson
 import { getLessonsRoute } from '../models/lesson/get-lessons/route'
+import { assignLessonRoute } from '../models/vocabulary/assign-lesson/route'
 
 // tslint:disable-next-line: no-any
 export const routes: IApiRoute<any>[] = [
@@ -20,4 +21,5 @@ export const routes: IApiRoute<any>[] = [
   createVocabularysRoute,
   submitExamResultRoute,
   getLessonsRoute,
+  assignLessonRoute,
 ]
