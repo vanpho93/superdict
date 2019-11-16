@@ -37,10 +37,12 @@ export class VocabularyScreenComponent implements OnInit {
   popoverActionVisible = false
   lessonToAssign: number = null
   assignLessonModelVisible$: Observable<boolean>
+  assignLessonModelIsLoading$: Observable<boolean>
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
     this.assignLessonModelVisible$ = this.store.pipe(select('vocabulary'), select('assignLesson'), select('visible'))
+    this.assignLessonModelIsLoading$ = this.store.pipe(select('vocabulary'), select('assignLesson'), select('isLoading'))
     this.lessonState$ = this.store.pipe(select('lesson'))
     this.dateRange$ = this.vocabularyState$.pipe(map(({ filter: { fromDate, toDate } }) => [fromDate, toDate]))
     this.i18n.setLocale(en_GB)

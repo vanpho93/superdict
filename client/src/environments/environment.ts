@@ -13,7 +13,7 @@ export const environment = {
         name: 'Pho Nguyen',
         created: '2019-10-22T15:56:09.574Z',
         modified: '2019-10-22T15:56:09.574Z',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU3MzkwOTU3NSwiZXhwIjoxNTczOTk1OTc1fQ.t-akhgNipFGHEJyYZyHpfp1LNYpoYoBMmF3Fv5IepRM'
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU3MzkxNDM5NCwiZXhwIjoxNTc0MDAwNzk0fQ.VLgo5WFWro-dQl95TtLfDXP4kzHh9kgngQ-1Nm6JByM'
       },
       isLoading: false,
       isCheckTokenDone: true
@@ -21,8 +21,8 @@ export const environment = {
     vocabulary: {
       isLoading: false,
       filter: {
-        fromDate: '2019-11-09T13:06:13.438Z',
-        toDate: '2019-11-16T13:06:13.438Z',
+        fromDate: '2019-11-09T14:26:33.028Z',
+        toDate: '2019-11-16T14:26:33.028Z',
         lesson: 'every'
       },
       paging: {
@@ -49,7 +49,7 @@ export const environment = {
           intervalTime: 86994500,
           difficulty: 0.267366,
           percentOverdue: 0.00445244,
-          modified: '2019-11-16T12:54:49.609Z',
+          modified: '2019-11-16T14:25:30.422Z',
           type: 'verb'
         },
         {
@@ -69,13 +69,13 @@ export const environment = {
           intervalTime: 86994600,
           difficulty: 0.267327,
           percentOverdue: 0.00445307,
-          modified: '2019-11-16T12:54:49.609Z',
+          modified: '2019-11-16T14:25:30.422Z',
           type: 'adjective'
         },
         {
           vocabularyId: 274,
           userId: 1,
-          lessonId: null,
+          lessonId: 1,
           wordTypeId: 4,
           word: 'in time',
           pronunciation: 'taɪm',
@@ -89,7 +89,7 @@ export const environment = {
           intervalTime: 86998300,
           difficulty: 0.265082,
           percentOverdue: 0.00446972,
-          modified: '2019-11-14T06:25:10.520Z',
+          modified: '2019-11-16T13:48:49.473Z',
           type: ''
         },
         {

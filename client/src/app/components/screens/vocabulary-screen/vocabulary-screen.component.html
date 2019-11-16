@@ -104,7 +104,7 @@
   <nz-modal
     [nzVisible]="assignLessonModelVisible$ | async"
     nzTitle="Choose lesson"
-    [nzOkLoading]="false"
+    [nzOkLoading]="assignLessonModelIsLoading$ | async"
     (nzOnCancel)="hideAssignLessonModal()"
     (nzOnOk)="assignLesson()"
   >
@@ -119,6 +119,10 @@
           [nzValue]="lesson.lessonId"
           [nzLabel]="lesson.name">
         </nz-option>
+        <nz-option
+        [nzValue]="null"
+        nzLabel="Remove lesson">
+      </nz-option>
       </nz-select>
     </div>
   </nz-modal>

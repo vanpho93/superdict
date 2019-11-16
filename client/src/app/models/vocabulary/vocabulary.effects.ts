@@ -72,7 +72,7 @@ export class VocabularyEffects {
       mergeMap(([{ lessonId }, vocabularyIds]) => this.assignLesson(lessonId, vocabularyIds)),
       map(lessonId => assginLessonSuccess({ lessonId }))
     )
-  }, { dispatch: false })
+  })
 
   constructor(
     private store: Store<State>,
