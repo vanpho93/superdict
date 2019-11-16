@@ -19,6 +19,8 @@ import {
   sendAssginLessonRequest,
   showAssginLessonModal,
   hideAssginLessonModal,
+  showModalCreateLesson,
+  hideModalCreateLesson,
 } from '../../../models'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
@@ -36,14 +38,23 @@ export class VocabularyScreenComponent implements OnInit {
   dateRange$: Observable<Date[]>
   popoverActionVisible = false
   lessonToAssign: number
-  assignLessonModelVisible$: Observable<boolean>
-  assignLessonModelIsLoading$: Observable<boolean>
+  assignLessonModalVisible$: Observable<boolean>
+  assignLessonModalIsLoading$: Observable<boolean>
+
+  createLessonModalVisible$: Observable<boolean>
+  createLessonModalIsLoading$: Observable<boolean>
+  newLessonName = ''
+  isOpenSelectDropDown = false
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
-    this.assignLessonModelVisible$ = this.store.pipe(select('vocabulary'), select('assignLesson'), select('visible'))
-    this.assignLessonModelIsLoading$ = this.store.pipe(select('vocabulary'), select('assignLesson'), select('isLoading'))
+    this.assignLessonModalVisible$ = this.vocabularyState$.pipe(select('assignLesson'), select('visible'))
+    this.assignLessonModalIsLoading$ = this.vocabularyState$.pipe(select('assignLesson'), select('isLoading'))
+
     this.lessonState$ = this.store.pipe(select('lesson'))
+    this.createLessonModalVisible$ = this.lessonState$.pipe(select('createLesson'), select('visible'))
+    this.createLessonModalIsLoading$ = this.lessonState$.pipe(select('createLesson'), select('isLoading'))
+
     this.dateRange$ = this.vocabularyState$.pipe(map(({ filter: { fromDate, toDate } }) => [fromDate, toDate]))
     this.i18n.setLocale(en_GB)
   }
@@ -102,10 +113,21 @@ export class VocabularyScreenComponent implements OnInit {
 
   hideAssignLessonModal() {
     this.store.dispatch(hideAssginLessonModal())
-    this.lessonToAssign = null
+    this.lessonToAssign = undefined
   }
 
   assignLesson() {
     this.store.dispatch(sendAssginLessonRequest({ lessonId: this.lessonToAssign }))
+    this.lessonToAssign = undefined
+  }
+
+  showCreateLessonModal() {
+    this.isOpenSelectDropDown = false
+    this.store.dispatch(showModalCreateLesson())
+  }
+
+  hideCreateLessonModal() {
+    this.store.dispatch(hideModalCreateLesson())
+    this.newLessonName = ''
   }
 }

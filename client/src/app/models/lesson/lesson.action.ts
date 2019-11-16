@@ -12,9 +12,9 @@ export const fetchLessonsSuccess = createAction(
 
 export const showModalCreateLesson = createAction('[Lesson] Show modal create lesson')
 
-export const hideModalCreateLesson = createAction('[Lesson] Show modal create lesson')
+export const hideModalCreateLesson = createAction('[Lesson] Hide modal create lesson')
 
-export const sendAssginLessonRequest = createAction(
+export const sendCreateLessonRequest = createAction(
   '[Lesson] send create lesson request',
   props<{ name: string }>(),
 )

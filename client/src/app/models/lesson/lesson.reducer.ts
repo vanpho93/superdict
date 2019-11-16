@@ -5,7 +5,7 @@ import {
   fetchLessonsSuccess,
   showModalCreateLesson,
   hideModalCreateLesson,
-  sendAssginLessonRequest,
+  sendCreateLessonRequest,
   createLessonSuccess,
 } from './lesson.action'
 
@@ -24,7 +24,7 @@ const _lessonReducer = createReducer<LessonState>(initialState,
   on(fetchLessonsSuccess, (state, { lessons }) => ({ ...state, isLoading: false, state: lessons })),
   on(showModalCreateLesson, state => ({ ...state, createLesson: { ...state.createLesson, visible: true } })),
   on(hideModalCreateLesson, state => ({ ...state, createLesson: { ...state.createLesson, visible: false } })),
-  on(sendAssginLessonRequest, state => ({ ...state, createLesson: { ...state.createLesson, isLoading: true } })),
+  on(sendCreateLessonRequest, state => ({ ...state, createLesson: { ...state.createLesson, isLoading: true } })),
   on(createLessonSuccess, state => ({ ...state, createLesson: { ...state.createLesson, isLoading: false, visible: false } }))
 )
 
