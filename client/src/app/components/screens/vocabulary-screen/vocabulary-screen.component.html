@@ -1,9 +1,28 @@
 <div class="container" #container>
   <nz-affix nzOffsetTop="0" [nzTarget]="container">
     <div class="filter">
-      <nz-range-picker [ngModel]="(dateRange$ | async)" (ngModelChange)="changeVocabularyDateRange($event)">
+      <nz-range-picker
+        [ngModel]="(dateRange$ | async)"
+        (ngModelChange)="changeVocabularyDateRange($event)"
+        [nzDisabled]="!['every', 'unknown'].includes((vocabularyState$ | async).filter.lesson)">
       </nz-range-picker>
+
+      <!-- Start select lesson -->
+      <nz-select
+        [ngModel]="(vocabularyState$ | async).filter.lesson"
+        nzAllowClear nzPlaceHolder="Choose lesson"
+        style="width: 20%;"
+        (ngModelChange)="changeLessonFilter($event)"
+      >
+        <nz-option nzValue="every" nzLabel="Every lesson"></nz-option>
+        <nz-option nzValue="unknown" nzLabel="Unknown lesson"></nz-option>
+        <nz-option *ngFor="let lesson of (lessonState$ | async).state" [nzValue]="lesson.lessonId" [nzLabel]="lesson.name"></nz-option>
+      </nz-select>
+      <!-- End select lesson -->
+      
       <div>
+
+        <!-- Start multiple choices helper -->
         <a>
           <nz-badge [nzCount]="(vocabularyState$ | async).selectedVocabularyIds.length"
             [nzStyle]="{ backgroundColor: '#52c41a' }" nzType="primary" nz-popover nzPopoverTitle="Actions"
@@ -23,6 +42,8 @@
             </div>
           </ng-template>
         </a>
+        <!-- End multiple choices helper -->
+
         <nz-switch [ngModel]="!(vocabularyState$ | async).isCollapsed" nzCheckedChildren="Expand"
           nzUnCheckedChildren="Collapse" (ngModelChange)="toggleIsCollapsed($event)">
         </nz-switch>

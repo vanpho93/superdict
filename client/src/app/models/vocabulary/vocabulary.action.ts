@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { IVocabulary } from './vocabulary.metadata'
+import { IVocabulary, LessonFilter } from './vocabulary.metadata'
 
 export const fetchVocabularies = createAction(
   '[Vocabulary Screen] Send fetch vocabularies request',
@@ -23,6 +23,11 @@ export const changeVocabularyDateRange = createAction(
 export const changeVocabularyCurrentPage = createAction(
   '[Vocabulary Screen] Change vocabulary current page',
   props<{ currentPage: number }>(),
+)
+
+export const changeVocabularyLessonFilter = createAction(
+  '[Vocabulary Screen] Change vocabulary lesson',
+  props<{ lesson: LessonFilter }>(),
 )
 
 export const toggleCollapsedVocabularyList = createAction(

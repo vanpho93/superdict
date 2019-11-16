@@ -1,4 +1,4 @@
-import { deepEqual } from 'assert'
+import { deepEqual, equal } from 'assert'
 import request from 'supertest'
 import { app } from '../../../../app'
 import { TestUtilities, UserWithToken, Constants, Lesson, Vocabulary, deepOmit, IWordType, WordType } from '../../../../global-refs'
@@ -61,7 +61,7 @@ describe(TEST_TITLE, () => {
       },
       {
         userId: user1.userId,
-        lessonId: 2,
+        lessonId: null,
         word: 'four',
         wordTypeId: wordType.wordTypeId,
         created: getDate(3),
@@ -113,5 +113,31 @@ describe(TEST_TITLE, () => {
       },
     }
     deepEqual(deepOmit(response.body, expectedFields), expectedResponse)
+  })
+
+  it(`${TEST_TITLE} can get vocabularies by lessonId`, async () => {
+    const response = await request(app)
+      .get('/api/vocabulary')
+      .set({ token: user1.token })
+      .query({
+        fromDate: null,
+        toDate: null,
+        page: 1,
+        lessonIds: [1],
+      })
+    equal(response.body.result.vocabularies.length, 4)
+  })
+
+  it(`${TEST_TITLE} can get vocabularies with lessonId is null`, async () => {
+    const response = await request(app)
+      .get('/api/vocabulary')
+      .set({ token: user1.token })
+      .query({
+        fromDate: null,
+        toDate: null,
+        page: 1,
+        isFindUnknownLesson: true,
+      })
+    equal(response.body.result.vocabularies.length, 1)
   })
 })

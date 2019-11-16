@@ -8,7 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { EffectsModule } from '@ngrx/effects'
 import { environment } from '../environments/environment'
 import { AppRoutingModule } from './app-routing.module'
-import { reducers, metaReducers, UserEffects, VocabularyEffects, ReviewEffects } from './models'
+import { reducers, metaReducers, UserEffects, VocabularyEffects, ReviewEffects, LessonEffects } from './models'
 
 import { NgZorroAntdModule, NZ_I18N, en_US } from 'ng-zorro-antd'
 import { NzMenuModule } from 'ng-zorro-antd/menu'
@@ -28,6 +28,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message'
 import { NzSliderModule } from 'ng-zorro-antd/slider'
 import { NzResultModule } from 'ng-zorro-antd/result'
 import { NzProgressModule } from 'ng-zorro-antd/progress'
+import { NzSelectModule } from 'ng-zorro-antd/select'
 
 import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -68,7 +69,9 @@ registerLocaleData(en)
       },
       initialState: environment.defaultState as any,
     }),
-    EffectsModule.forRoot([AppEffects, UserEffects, VocabularyEffects, ReviewEffects]),
+    EffectsModule.forRoot([
+      AppEffects, UserEffects, VocabularyEffects, ReviewEffects, LessonEffects
+    ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     NgZorroAntdModule,
     FormsModule,
@@ -92,6 +95,7 @@ registerLocaleData(en)
     NzSliderModule,
     NzResultModule,
     NzProgressModule,
+    NzSelectModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

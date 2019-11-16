@@ -3,6 +3,7 @@ import { Store, select } from '@ngrx/store'
 import { en_GB, NzI18nService } from 'ng-zorro-antd/i18n'
 import {
   VocabularyState,
+  LessonState,
   State,
   fetchVocabularies,
   changeVocabularyPageSize,
@@ -12,6 +13,9 @@ import {
   toggleSelectVocabulary,
   clearSelectedVocabularies,
   markAllShowingVocabulariesAsSelected,
+  fetchLessons,
+  LessonFilter,
+  changeVocabularyLessonFilter,
 } from '../../../models'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
@@ -25,11 +29,13 @@ import { environment } from '../../../../environments/environment'
 
 export class VocabularyScreenComponent implements OnInit {
   vocabularyState$: Observable<VocabularyState>
+  lessonState$: Observable<LessonState>
 
   dateRange$: Observable<Date[]>
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
+    this.lessonState$ = this.store.pipe(select('lesson'))
     this.dateRange$ = this.vocabularyState$.pipe(map(({ filter: { fromDate, toDate } }) => [fromDate, toDate]))
     this.i18n.setLocale(en_GB)
   }
@@ -37,6 +43,7 @@ export class VocabularyScreenComponent implements OnInit {
   ngOnInit() {
     if (environment.defaultState) return
     this.store.dispatch(fetchVocabularies())
+    this.store.dispatch(fetchLessons())
   }
 
   onChangePageSize(pageSize: number) {
@@ -74,5 +81,9 @@ export class VocabularyScreenComponent implements OnInit {
     } catch (error) {
       return null
     }
+  }
+
+  changeLessonFilter(lesson: LessonFilter) {
+    this.store.dispatch(changeVocabularyLessonFilter({ lesson }))
   }
 }
