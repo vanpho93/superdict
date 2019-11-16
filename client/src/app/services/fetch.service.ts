@@ -3,7 +3,8 @@ import { ajax } from 'rxjs/ajax'
 import { map } from 'rxjs/operators'
 import * as qs from 'qs'
 
-const ROOT_URL = 'https://superdict.herokuapp.com/api'
+// const ROOT_URL = 'https://superdict.herokuapp.com/api'
+const ROOT_URL = 'http://localhost:5000/api'
 
 @Injectable({ providedIn: 'root' })
 
