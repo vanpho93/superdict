@@ -21,6 +21,7 @@ import {
   hideAssginLessonModal,
   showModalCreateLesson,
   hideModalCreateLesson,
+  sendCreateLessonRequest,
 } from '../../../models'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
@@ -36,6 +37,7 @@ export class VocabularyScreenComponent implements OnInit {
   vocabularyState$: Observable<VocabularyState>
   lessonState$: Observable<LessonState>
   dateRange$: Observable<Date[]>
+  shouldDisableDatePicker$: Observable<boolean>
   popoverActionVisible = false
   lessonToAssign: number
   assignLessonModalVisible$: Observable<boolean>
@@ -48,6 +50,13 @@ export class VocabularyScreenComponent implements OnInit {
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
+    this.shouldDisableDatePicker$ = this.vocabularyState$
+      .pipe(
+        select('filter'),
+        select('lesson'),
+        map((lesson: LessonFilter) => lesson !== 'every' && lesson !== 'unknown')
+      )
+
     this.assignLessonModalVisible$ = this.vocabularyState$.pipe(select('assignLesson'), select('visible'))
     this.assignLessonModalIsLoading$ = this.vocabularyState$.pipe(select('assignLesson'), select('isLoading'))
 
@@ -128,6 +137,11 @@ export class VocabularyScreenComponent implements OnInit {
 
   hideCreateLessonModal() {
     this.store.dispatch(hideModalCreateLesson())
+    this.newLessonName = ''
+  }
+
+  createLesson() {
+    this.store.dispatch(sendCreateLessonRequest({ name: this.newLessonName }))
     this.newLessonName = ''
   }
 }

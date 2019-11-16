@@ -4,7 +4,7 @@
       <nz-range-picker
         [ngModel]="(dateRange$ | async)"
         (ngModelChange)="changeVocabularyDateRange($event)"
-        [nzDisabled]="!['every', 'unknown'].includes((vocabularyState$ | async).filter.lesson)">
+        [nzDisabled]="shouldDisableDatePicker$ | async">
       </nz-range-picker>
 
       <!-- Start select lesson -->
@@ -22,7 +22,7 @@
       </nz-select>
       <ng-template #render>
         <nz-divider></nz-divider>
-        <div class="add-item" (click)="showCreateLessonModal()"><i nz-icon nzType="plus"></i> Add item</div>
+        <div class="add-item" (click)="showCreateLessonModal()"><i nz-icon nzType="plus"></i> Add new lesson</div>
       </ng-template>
       <!-- End select lesson -->
       
@@ -142,7 +142,7 @@
   [nzOkLoading]="createLessonModalIsLoading$ | async"
   [nzOkDisabled]="newLessonName === ''"
   (nzOnCancel)="hideCreateLessonModal()"
-  (nzOnOk)="assignLesson()"
+  (nzOnOk)="createLesson()"
 >
   <div>
     <nz-input-group nzAddOnBefore="Name: ">
