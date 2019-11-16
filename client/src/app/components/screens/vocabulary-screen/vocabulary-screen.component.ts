@@ -35,7 +35,7 @@ export class VocabularyScreenComponent implements OnInit {
   lessonState$: Observable<LessonState>
   dateRange$: Observable<Date[]>
   popoverActionVisible = false
-  lessonToAssign: number = null
+  lessonToAssign: number
   assignLessonModelVisible$: Observable<boolean>
   assignLessonModelIsLoading$: Observable<boolean>
 

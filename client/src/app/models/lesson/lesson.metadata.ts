@@ -1,8 +1,15 @@
 import { AsyncState } from '../metadata'
 
-export class ILesson {
+export interface ILesson {
   lessonId: number
   name: string
 }
 
-export type LessonState = AsyncState<ILesson[]>
+interface ILessonAdditionalState {
+  createLesson: {
+    isLoading: boolean
+    visible: boolean
+  }
+}
+
+export type LessonState = AsyncState<ILesson[], ILessonAdditionalState>

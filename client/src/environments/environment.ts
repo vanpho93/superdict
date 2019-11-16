@@ -453,6 +453,10 @@ export const environment = {
     },
     lesson: {
       isLoading: false,
+      createLesson: {
+        visible: false,
+        isLoading: false,
+      },
       state: [
         {
           lessonId: 1,

@@ -13,11 +13,16 @@
         nzAllowClear nzPlaceHolder="Choose lesson"
         style="width: 20%;"
         (ngModelChange)="changeLessonFilter($event)"
+        [nzDropdownRender]="render"
       >
         <nz-option nzValue="every" nzLabel="Every lesson"></nz-option>
         <nz-option nzValue="unknown" nzLabel="Unknown lesson"></nz-option>
         <nz-option *ngFor="let lesson of (lessonState$ | async).state" [nzValue]="lesson.lessonId" [nzLabel]="lesson.name"></nz-option>
       </nz-select>
+      <ng-template #render>
+        <nz-divider></nz-divider>
+        <div class="add-item"><i nz-icon nzType="plus"></i> Add item</div>
+      </ng-template>
       <!-- End select lesson -->
       
       <div>
@@ -105,6 +110,7 @@
     [nzVisible]="assignLessonModelVisible$ | async"
     nzTitle="Choose lesson"
     [nzOkLoading]="assignLessonModelIsLoading$ | async"
+    [nzOkDisabled]="lessonToAssign === undefined"
     (nzOnCancel)="hideAssignLessonModal()"
     (nzOnOk)="assignLesson()"
   >

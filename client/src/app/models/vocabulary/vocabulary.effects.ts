@@ -1,9 +1,9 @@
 import { isNumber } from 'lodash'
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { EMPTY } from 'rxjs'
-import { Observable } from 'rxjs'
-import { map, mergeMap, catchError, withLatestFrom } from 'rxjs/operators'
+import { EMPTY, Observable } from 'rxjs'
+import { map, mergeMap, catchError, withLatestFrom, tap } from 'rxjs/operators'
+import { NzMessageService } from 'ng-zorro-antd/message'
 import { FetchService } from '../../services'
 import {
   fetchVocabulariesSuccess,
@@ -70,15 +70,17 @@ export class VocabularyEffects {
     return sendAssignLesson$.pipe(
       withLatestFrom(selectedVocabularyIds$),
       mergeMap(([{ lessonId }, vocabularyIds]) => this.assignLesson(lessonId, vocabularyIds)),
-      map(lessonId => assginLessonSuccess({ lessonId }))
+      map(lessonId => assginLessonSuccess({ lessonId })),
+      tap(() => this.message.success('Your vocabularies were assigned', { nzDuration: 3000, nzAnimate: true }))
     )
   })
 
   constructor(
     private store: Store<State>,
     private actions$: Actions,
-    private fetch: FetchService
-  ) {}
+    private fetch: FetchService,
+    private message: NzMessageService,
+    ) {}
 
   fetchVocabularies(vocabularyQuery: IVocabularyQuery): Observable<{ vocabularies: IVocabulary[], total: number }> {
     const { fromDate, toDate, pageSize, currentPage, vocabularyIds, lesson } = vocabularyQuery
