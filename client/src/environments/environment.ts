@@ -13,7 +13,7 @@ export const environment = {
         name: 'Pho Nguyen',
         created: '2019-10-22T15:56:09.574Z',
         modified: '2019-10-22T15:56:09.574Z',
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU3MzkwMTk1MSwiZXhwIjoxNTczOTg4MzUxfQ.QuVxcZG77uLEDMBN-rBknWupH9LErQ1BhQU3FMLk-2U'
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTU3MzkwOTU3NSwiZXhwIjoxNTczOTk1OTc1fQ.t-akhgNipFGHEJyYZyHpfp1LNYpoYoBMmF3Fv5IepRM'
       },
       isLoading: false,
       isCheckTokenDone: true
@@ -21,8 +21,8 @@ export const environment = {
     vocabulary: {
       isLoading: false,
       filter: {
-        fromDate: '2019-11-09T10:59:46.030Z',
-        toDate: '2019-11-16T10:59:46.030Z',
+        fromDate: '2019-11-09T13:06:13.438Z',
+        toDate: '2019-11-16T13:06:13.438Z',
         lesson: 'every'
       },
       paging: {
@@ -35,7 +35,7 @@ export const environment = {
         {
           vocabularyId: 300,
           userId: 1,
-          lessonId: null,
+          lessonId: 1,
           wordTypeId: 3,
           word: 'infer',
           pronunciation: '-ˈfɝː',
@@ -49,13 +49,13 @@ export const environment = {
           intervalTime: 86994500,
           difficulty: 0.267366,
           percentOverdue: 0.00445244,
-          modified: '2019-11-14T06:25:10.511Z',
+          modified: '2019-11-16T12:54:49.609Z',
           type: 'verb'
         },
         {
           vocabularyId: 299,
           userId: 1,
-          lessonId: null,
+          lessonId: 1,
           wordTypeId: 2,
           word: 'chronological',
           pronunciation: 'ˌkrɒn.əˈlɑː.dʒɪ.kəl',
@@ -69,7 +69,7 @@ export const environment = {
           intervalTime: 86994600,
           difficulty: 0.267327,
           percentOverdue: 0.00445307,
-          modified: '2019-11-14T06:25:10.537Z',
+          modified: '2019-11-16T12:54:49.609Z',
           type: 'adjective'
         },
         {
@@ -433,7 +433,11 @@ export const environment = {
           type: 'noun'
         }
       ],
-      selectedVocabularyIds: []
+      selectedVocabularyIds: [],
+      assignLesson: {
+        isLoading: false,
+        visible: false
+      }
     },
     review: {
       state: [],

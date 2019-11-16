@@ -102,7 +102,7 @@
 
 <!-- Start modal assign lesson -->
   <nz-modal
-    [nzVisible]="modelAssignLessonVisible"
+    [nzVisible]="(vocabularyState$ | async).assignLesson.visible"
     nzTitle="Choose lesson"
     [nzOkLoading]="false"
     (nzOnCancel)="hideAssignLessonModal()"

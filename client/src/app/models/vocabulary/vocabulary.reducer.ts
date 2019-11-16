@@ -12,6 +12,10 @@ import {
   clearSelectedVocabularies,
   markAllShowingVocabulariesAsSelected,
   changeVocabularyLessonFilter,
+  showAssginLessonModal,
+  assginLessonSuccess,
+  sendAssginLessonRequest,
+  hideAssginLessonModal,
 } from './vocabulary.action'
 
 const SEVEN_DAYS = 7 * 86400000
@@ -31,6 +35,10 @@ const initialState: VocabularyState = {
   isCollapsed: false,
   state: [],
   selectedVocabularyIds: [],
+  assignLesson: {
+    isLoading: false,
+    visible: false,
+  }
 }
 
 // tslint:disable-next-line: variable-name
@@ -101,7 +109,11 @@ const _vocabularyReducer = createReducer<VocabularyState>(initialState,
       ...state.paging,
       currentPage: 1,
     }
-  }))
+  })),
+  on(sendAssginLessonRequest, state => ({ ...state, assignLesson: { ...state.assignLesson, isLoading: true } })),
+  on(showAssginLessonModal, state => ({ ...state, assignLesson: { visible: true, isLoading: false } })),
+  on(assginLessonSuccess, state => ({ ...state, assignLesson: { visible: false, isLoading: false } })),
+  on(hideAssginLessonModal, state => ({ ...state, assignLesson: { visible: false, isLoading: false } }))
 )
 
 export function vocabularyReducer(state: VocabularyState, action) {

@@ -36,6 +36,10 @@ interface IVocabularyAdditionalState {
   }
   isCollapsed: boolean
   selectedVocabularyIds: number[]
+  assignLesson: {
+    visible: boolean
+    isLoading: boolean
+  }
 }
 
 export type VocabularyState = AsyncState<IVocabulary[], IVocabularyAdditionalState>
