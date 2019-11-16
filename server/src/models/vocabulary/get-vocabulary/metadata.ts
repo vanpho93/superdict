@@ -7,6 +7,7 @@ export interface IGetVocabulariesInput {
   vocabularyIds?: number[]
   pageSize: number
   page: number
+  isFindUnknownLesson?: boolean
 }
 
 export enum IGetVocabulariesError {
