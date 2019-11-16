@@ -5,7 +5,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { EMPTY } from 'rxjs'
 import { FetchService } from '../../services'
 import { map, mergeMap, catchError, withLatestFrom, tap, first, switchMap } from 'rxjs/operators'
-import { VocabularyService } from '../vocabulary/vocabulary.service'
 import { clearSelectedVocabularies, fetchVocabularies } from '../vocabulary/vocabulary.action'
 import { Store, select } from '@ngrx/store'
 import { State } from '..'
@@ -79,7 +78,6 @@ export class ReviewEffects {
   constructor(
     private store: Store<State>,
     private actions$: Actions,
-    private vocabularyService: VocabularyService,
     private fetch: FetchService,
     private message: NzMessageService,
     private router: Router,

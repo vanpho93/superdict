@@ -16,6 +16,12 @@ import {
   fetchLessons,
   LessonFilter,
   changeVocabularyLessonFilter,
+  sendAssginLessonRequest,
+  showAssginLessonModal,
+  hideAssginLessonModal,
+  showModalCreateLesson,
+  hideModalCreateLesson,
+  sendCreateLessonRequest,
 } from '../../../models'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
@@ -30,12 +36,34 @@ import { environment } from '../../../../environments/environment'
 export class VocabularyScreenComponent implements OnInit {
   vocabularyState$: Observable<VocabularyState>
   lessonState$: Observable<LessonState>
-
   dateRange$: Observable<Date[]>
+  shouldDisableDatePicker$: Observable<boolean>
+  popoverActionVisible = false
+  lessonToAssign: number
+  assignLessonModalVisible$: Observable<boolean>
+  assignLessonModalIsLoading$: Observable<boolean>
+
+  createLessonModalVisible$: Observable<boolean>
+  createLessonModalIsLoading$: Observable<boolean>
+  newLessonName = ''
+  isOpenSelectDropDown = false
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
+    this.shouldDisableDatePicker$ = this.vocabularyState$
+      .pipe(
+        select('filter'),
+        select('lesson'),
+        map((lesson: LessonFilter) => lesson !== 'every' && lesson !== 'unknown')
+      )
+
+    this.assignLessonModalVisible$ = this.vocabularyState$.pipe(select('assignLesson'), select('visible'))
+    this.assignLessonModalIsLoading$ = this.vocabularyState$.pipe(select('assignLesson'), select('isLoading'))
+
     this.lessonState$ = this.store.pipe(select('lesson'))
+    this.createLessonModalVisible$ = this.lessonState$.pipe(select('createLesson'), select('visible'))
+    this.createLessonModalIsLoading$ = this.lessonState$.pipe(select('createLesson'), select('isLoading'))
+
     this.dateRange$ = this.vocabularyState$.pipe(map(({ filter: { fromDate, toDate } }) => [fromDate, toDate]))
     this.i18n.setLocale(en_GB)
   }
@@ -85,5 +113,35 @@ export class VocabularyScreenComponent implements OnInit {
 
   changeLessonFilter(lesson: LessonFilter) {
     this.store.dispatch(changeVocabularyLessonFilter({ lesson }))
+  }
+
+  showAssignLessonModal() {
+    this.store.dispatch(showAssginLessonModal())
+    this.popoverActionVisible = false
+  }
+
+  hideAssignLessonModal() {
+    this.store.dispatch(hideAssginLessonModal())
+    this.lessonToAssign = undefined
+  }
+
+  assignLesson() {
+    this.store.dispatch(sendAssginLessonRequest({ lessonId: this.lessonToAssign }))
+    this.lessonToAssign = undefined
+  }
+
+  showCreateLessonModal() {
+    this.isOpenSelectDropDown = false
+    this.store.dispatch(showModalCreateLesson())
+  }
+
+  hideCreateLessonModal() {
+    this.store.dispatch(hideModalCreateLesson())
+    this.newLessonName = ''
+  }
+
+  createLesson() {
+    this.store.dispatch(sendCreateLessonRequest({ name: this.newLessonName }))
+    this.newLessonName = ''
   }
 }

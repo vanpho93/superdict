@@ -25,6 +25,19 @@ export class FetchService {
     .pipe(map(ajaxResponse => ajaxResponse.response.result))
   }
 
+  put(url: string, body: {}) {
+    return ajax({
+      url: `${ROOT_URL}${url}`,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        token: localStorage.getItem('TOKEN'),
+      },
+      body,
+    })
+    .pipe(map(ajaxResponse => ajaxResponse.response.result))
+  }
+
   get(url: string, query: {} = null) {
     return ajax({
       url: `${ROOT_URL}${url}?${qs.stringify(query)}`,

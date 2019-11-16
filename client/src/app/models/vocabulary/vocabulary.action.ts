@@ -40,6 +40,20 @@ export const toggleSelectVocabulary = createAction(
   props<{ vocabularyId: number }>(),
 )
 
+export const showAssginLessonModal = createAction('[Vocabulary Screen] show assign lesson modal')
+
+export const hideAssginLessonModal = createAction('[Vocabulary Screen] hide assign lesson modal')
+
+export const sendAssginLessonRequest = createAction(
+  '[Vocabulary Screen] send assign lesson request',
+  props<{ lessonId: number }>(),
+)
+
+export const assginLessonSuccess = createAction(
+  '[Vocabulary Screen] assign lesson success',
+  props<{ lessonId: number }>(),
+)
+
 export const clearSelectedVocabularies = createAction('[Vocabulary Screen] clear selected vocabularies')
 
 export const markAllShowingVocabulariesAsSelected = createAction('[Vocabulary Screen] mark all vocabularies as selected')
