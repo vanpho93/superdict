@@ -16,6 +16,7 @@ import {
   fetchLessons,
   LessonFilter,
   changeVocabularyLessonFilter,
+  sendAssginLessonRequest,
 } from '../../../models'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs'
@@ -33,6 +34,7 @@ export class VocabularyScreenComponent implements OnInit {
   dateRange$: Observable<Date[]>
   modelAssignLessonVisible = false
   popoverActionVisible = false
+  lessonToAssign: number = null
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
@@ -93,5 +95,12 @@ export class VocabularyScreenComponent implements OnInit {
     this.popoverActionVisible = false
   }
 
-  hideAssignLessonModal() { this.modelAssignLessonVisible = false }
+  hideAssignLessonModal() {
+    this.modelAssignLessonVisible = false
+    this.lessonToAssign = null
+  }
+
+  assignLesson() {
+    this.store.dispatch(sendAssginLessonRequest({ lessonId: this.lessonToAssign }))
+  }
 }

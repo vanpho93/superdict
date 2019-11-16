@@ -106,11 +106,12 @@
     nzTitle="Choose lesson"
     [nzOkLoading]="false"
     (nzOnCancel)="hideAssignLessonModal()"
+    (nzOnOk)="assignLesson()"
   >
     <div>
       <nz-select
         style="width: 100%"  
-        [ngModel]="1"
+        [(ngModel)]="lessonToAssign"
         nzAllowClear nzPlaceHolder="Choose lesson"
       >
         <nz-option
