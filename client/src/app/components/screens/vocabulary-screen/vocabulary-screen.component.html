@@ -36,8 +36,8 @@
               <button nz-button nzType="primary" (click)="markAllAsSellected()">
                 <i nz-icon nzType="download"></i>Select all
               </button>
-              <button nz-button nzType="primary">
-                <i nz-icon nzType="download"></i>Review now
+              <button nz-button nzType="primary" (click)="showAssignLessonModal()">
+                <i nz-icon nzType="download"></i>Assign lesson
               </button>
             </div>
           </ng-template>
@@ -91,3 +91,26 @@
     (nzPageIndexChange)="onChangeCurrentPage($event)">
   </nz-pagination>
 </div>
+
+<!-- Start modal assign lesson -->
+  <nz-modal
+    [nzVisible]="modelAssignLessonVisible"
+    nzTitle="Choose lesson"
+    [nzOkLoading]="false"
+    (nzOnCancel)="hideAssignLessonModal()"
+  >
+    <div>
+      <nz-select
+        style="width: 100%"  
+        [ngModel]="1"
+        nzAllowClear nzPlaceHolder="Choose lesson"
+      >
+        <nz-option
+          *ngFor="let lesson of (lessonState$ | async).state"
+          [nzValue]="lesson.lessonId"
+          [nzLabel]="lesson.name">
+        </nz-option>
+      </nz-select>
+    </div>
+  </nz-modal>
+<!-- End modal assign lesson -->

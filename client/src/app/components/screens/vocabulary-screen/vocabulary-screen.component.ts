@@ -30,8 +30,8 @@ import { environment } from '../../../../environments/environment'
 export class VocabularyScreenComponent implements OnInit {
   vocabularyState$: Observable<VocabularyState>
   lessonState$: Observable<LessonState>
-
   dateRange$: Observable<Date[]>
+  modelAssignLessonVisible = false
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
@@ -86,4 +86,8 @@ export class VocabularyScreenComponent implements OnInit {
   changeLessonFilter(lesson: LessonFilter) {
     this.store.dispatch(changeVocabularyLessonFilter({ lesson }))
   }
+
+  showAssignLessonModal() { this.modelAssignLessonVisible = true }
+
+  hideAssignLessonModal() { this.modelAssignLessonVisible = false }
 }

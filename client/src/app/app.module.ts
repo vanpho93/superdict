@@ -29,6 +29,7 @@ import { NzSliderModule } from 'ng-zorro-antd/slider'
 import { NzResultModule } from 'ng-zorro-antd/result'
 import { NzProgressModule } from 'ng-zorro-antd/progress'
 import { NzSelectModule } from 'ng-zorro-antd/select'
+import { NzModalModule } from 'ng-zorro-antd/modal'
 
 import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -96,6 +97,7 @@ registerLocaleData(en)
     NzResultModule,
     NzProgressModule,
     NzSelectModule,
+    NzModalModule,
   ],
   providers: [{ provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
