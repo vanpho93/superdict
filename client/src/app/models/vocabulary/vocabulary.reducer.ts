@@ -97,6 +97,10 @@ const _vocabularyReducer = createReducer<VocabularyState>(initialState,
       ...state.filter,
       lesson,
     },
+    paging: {
+      ...state.paging,
+      currentPage: 1,
+    }
   }))
 )
 

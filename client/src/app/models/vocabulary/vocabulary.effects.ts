@@ -70,11 +70,12 @@ export class VocabularyEffects {
   fetchVocabularies(vocabularyQuery: IVocabularyQuery): Observable<{ vocabularies: IVocabulary[], total: number }> {
     const { fromDate, toDate, pageSize, currentPage, vocabularyIds, lesson } = vocabularyQuery
 
-    const lessonIds = isNumber(lesson) ? [lesson] : []
+    const isLessonDefined = isNumber(lesson)
+    const lessonIds = isLessonDefined ? [lesson] : []
 
     return this.fetch.get('/vocabulary', {
-      fromDate: new Date(fromDate).getTime(),
-      toDate: new Date(toDate).getTime(),
+      fromDate: isLessonDefined ? null : new Date(fromDate).getTime(),
+      toDate: isLessonDefined ? null : new Date(toDate).getTime(),
       pageSize,
       page: currentPage,
       vocabularyIds,
