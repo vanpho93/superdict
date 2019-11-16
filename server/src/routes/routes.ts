@@ -5,11 +5,12 @@ import { checkTokenRoute } from '../models/user/check-token/route'
 // vocabularies
 import { getVocabulariesRoute } from '../models/vocabulary/get-vocabulary/route'
 import { createVocabularysRoute } from '../models/vocabulary/create-vocabulary/route'
+import { assignLessonRoute } from '../models/vocabulary/assign-lesson/route'
 // exam
 import { submitExamResultRoute } from '../models/exam/submit-exam-result/route'
 // lesson
 import { getLessonsRoute } from '../models/lesson/get-lessons/route'
-import { assignLessonRoute } from '../models/vocabulary/assign-lesson/route'
+import { createLessonRoute } from '../models/lesson/create-lesson/route'
 
 // tslint:disable-next-line: no-any
 export const routes: IApiRoute<any>[] = [
@@ -20,6 +21,8 @@ export const routes: IApiRoute<any>[] = [
   getVocabulariesRoute,
   createVocabularysRoute,
   submitExamResultRoute,
-  getLessonsRoute,
   assignLessonRoute,
+  // lesson
+  getLessonsRoute,
+  createLessonRoute,
 ]
