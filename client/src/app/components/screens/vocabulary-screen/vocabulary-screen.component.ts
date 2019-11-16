@@ -32,6 +32,7 @@ export class VocabularyScreenComponent implements OnInit {
   lessonState$: Observable<LessonState>
   dateRange$: Observable<Date[]>
   modelAssignLessonVisible = false
+  popoverActionVisible = false
 
   constructor(private store: Store<State>, private i18n: NzI18nService) {
     this.vocabularyState$ = this.store.pipe(select('vocabulary'))
@@ -87,7 +88,10 @@ export class VocabularyScreenComponent implements OnInit {
     this.store.dispatch(changeVocabularyLessonFilter({ lesson }))
   }
 
-  showAssignLessonModal() { this.modelAssignLessonVisible = true }
+  showAssignLessonModal() {
+    this.modelAssignLessonVisible = true
+    this.popoverActionVisible = false
+  }
 
   hideAssignLessonModal() { this.modelAssignLessonVisible = false }
 }

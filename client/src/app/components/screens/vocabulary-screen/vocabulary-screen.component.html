@@ -24,9 +24,17 @@
 
         <!-- Start multiple choices helper -->
         <a>
-          <nz-badge [nzCount]="(vocabularyState$ | async).selectedVocabularyIds.length"
-            [nzStyle]="{ backgroundColor: '#52c41a' }" nzType="primary" nz-popover nzPopoverTitle="Actions"
-            nzPopoverTrigger="click" [nzPopoverContent]="contentTemplate" nzShowZero>
+          <nz-badge
+            [nzCount]="(vocabularyState$ | async).selectedVocabularyIds.length"
+            [nzStyle]="{ backgroundColor: '#52c41a' }"
+            nzType="primary"
+            nz-popover
+            nzPopoverTitle="Actions"
+            nzPopoverTrigger="click"
+            [nzPopoverContent]="contentTemplate"
+            nzShowZero
+            [(nzVisible)]="popoverActionVisible"
+          >
           </nz-badge>
           <ng-template #contentTemplate>
             <div class="actions">
