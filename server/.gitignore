@@ -4,3 +4,5 @@ dist
 yarn.lock
 build
 dump.rdb
+coverage
+.nyc_output

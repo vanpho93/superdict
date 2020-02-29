@@ -3,17 +3,13 @@
   "version": "0.0.1",
   "license": "UNLICENSED",
   "scripts": {
-    "db:reset": "./db-reset.sh",
+    "db:reset": "node --require dotenv/config db-reset.js",
     "knex:latest": "node_modules/.bin/knex migrate:latest --knexfile knexfile.ts",
-    "knex:latest:prod": "DOTENV_CONFIG_PATH=prod.env node_modules/.bin/knex migrate:latest --knexfile knexfile.ts",
-    "knex:latest:test": "set DOTENV_CONFIG_PATH=test.env&&node_modules/.bin/knex migrate:latest --knexfile knexfile.ts",
     "knex:make": "node_modules/.bin/knex migrate:make -x ts --knexfile knexfile.ts",
-    "knex:seed:create": "node_modules/.bin/knex seed:make -x ts --knexfile knexfile.ts",
-    "knex:seed:run": "node_modules/.bin/knex seed:run --knexfile knexfile.ts",
-    "knex:seed:run:prod": "DOTENV_CONFIG_PATH=prod.env node_modules/.bin/knex seed:run --knexfile knexfile.ts",
     "knex:rollback": "node_modules/.bin/knex migrate:rollback --knexfile knexfile.ts",
-    "knex:rollback:prod": "DOTENV_CONFIG_PATH=prod.env node_modules/.bin/knex migrate:rollback --knexfile knexfile.ts",
-    "test": "npm run db:reset"
+    "knex:rollback:all": "node_modules/.bin/knex migrate:rollback --all --knexfile knexfile.ts",
+    "test": "DOTENV_CONFIG_PATH=test.env npm run db:reset",
+    "tslint": "tslint --project tsconfig.json --config tslint.json"
   },
   "dependencies": {
     "@types/lodash": "^4.14.137",
