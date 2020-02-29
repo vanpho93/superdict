@@ -1,3 +1,3 @@
 ./prepare-database.sh
 ./prepare-server.sh
-./prepare-client.sh
+# ./prepare-client.sh
