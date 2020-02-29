@@ -17,9 +17,9 @@ app.use(cors())
 
 routes.forEach(route => addRoute(app, route))
 
-app.use(express.static(path.resolve('build')))
+// app.use(express.static(path.resolve('build')))
 
-app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
+// app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
 
 app.use((req, res) => res.status(400).send({ success: false, message: 'INVALID_ROUTE' }))
 
