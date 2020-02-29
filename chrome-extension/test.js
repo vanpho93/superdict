@@ -6,7 +6,7 @@ for (let index = 1; index < MAXIMUM_TIPSTER_COUNT; index++) {
   try {
     const tr = $('.altrow tr')[index]
     const no = processNo($(tr).find('td').eq(0).text().split('\n')[1])
-    const name = $(tr).find('font').eq(2).text().trim()
+    const name = $(tr).find('td').eq(1).text().trim()
 
     // get id
     const link = $(tr).find('a').eq(0).attr('href')

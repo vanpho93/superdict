@@ -63,7 +63,7 @@ export const addRate = (table: CreateTableBuilder): void => {
 export const addCurrencyValue = async (tableName: string, columnName: string, knex: Knex) => {
   await knex.schema.alterTable(tableName, table => {
     table
-      .decimal(columnName, 18, 8)
+      .decimal(columnName, 10, 3)
       .notNullable()
       .defaultTo(0)
   })
