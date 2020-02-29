@@ -11,6 +11,7 @@ import { submitExamResultRoute } from '../models/exam/submit-exam-result/route'
 // lesson
 import { getLessonsRoute } from '../models/lesson/get-lessons/route'
 import { createLessonRoute } from '../models/lesson/create-lesson/route'
+import { route as getGamesRoute } from '../models/game/route'
 
 // tslint:disable-next-line: no-any
 export const routes: IApiRoute<any>[] = [
@@ -25,4 +26,6 @@ export const routes: IApiRoute<any>[] = [
   // lesson
   getLessonsRoute,
   createLessonRoute,
+  // games
+  getGamesRoute,
 ]

@@ -24,6 +24,7 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "camelcase-keys": "^5.2.0",
+    "cherio": "^1.0.0-rc.2",
     "cors": "^2.8.5",
     "cron": "^1.7.2",
     "decamelize": "^3.2.0",

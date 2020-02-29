@@ -43,4 +43,10 @@ export class TestUtilities {
     if (isNil(user)) throw 'CANNOT_FIND_USER'
     return { ...user, token: this.getToken(email) }
   }
+
+  public static getTestTitle(filename: string) {
+    const startIndex = filename.indexOf('/src/') + '/src/'.length
+    const dirnameTrimmed = filename.substring(startIndex, filename.length - '.test.ts'.length)
+    return dirnameTrimmed
+  }
 }
