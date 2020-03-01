@@ -1,11 +1,12 @@
 {
   "manifest_version": 2,
-  "name": "Superdict",
+  "name": "Lucky",
   "version": "0.1",
   "content_scripts": [
     {
       "matches": [
-        "https://dictionary.cambridge.org/**"
+        "https://tipsters.asianbookie.com/matchstat.cfm?id=**",
+        "https://tipsters.asianbookie.com/matchoustat.cfm?id=**"
       ],
       "js": [
         "jquery.js",

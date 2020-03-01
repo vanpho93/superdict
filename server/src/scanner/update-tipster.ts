@@ -57,7 +57,7 @@ export class UpdateTipster {
     }
 
     function removeComma(str: string) {
-      while (str.includes(',')) str = str.replace(',', '');
+      while (str.includes(',')) str = str.replace(',', '')
       return str
     }
 
