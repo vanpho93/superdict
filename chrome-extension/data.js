@@ -1,10 +1,10 @@
 // loadTipsterInfo()
 
-function getTipstersByNames(names) {
+function getTipstersResult(tipster) {
     return new Promise((resolve) => {
         $.ajax({
             type: 'GET',
-            url: `https://xtips.herokuapp.com/api/tipster?${$.param({ names })}`,
+            url: `https://xtips.herokuapp.com/api/tipster?${$.param({ names: tipster.map(tipster => tipster.name) })}`,
             success: function (data) { resolve(data.result) },
             dataType: 'json',
         });
@@ -12,15 +12,18 @@ function getTipstersByNames(names) {
 }
 
 async function loadTipsterInfo() {
-    const { leftNames, rightNames } = getTipsterNames()
-    const leftTipsters = await getTipstersByNames(leftNames)
-    const rightTipsters = await getTipstersByNames(rightNames)
-    addTable(leftTipsters, rightTipsters)
+    let tipsters = getTipstersInput()
+    const tipsterResults = await getTipstersResult(tipsters)
+    tipsters = tipsters.map(tipster => {
+        const tipsterResult = tipsterResults.find(({ name }) => name === tipster.name)
+        return { ...tipster, ...tipsterResult }
+    })
+    addTable(tipsters)
 }
 
-function getTipsterNames() {
+function getTipstersInput() {
     const loadNameBySide = (side) => {
-        const result = []
+        const tipsters = []
     
         const position = side === 'LEFT' ? 1 : 2
         const container = $($('table tbody tr td table tbody')[position])
@@ -32,18 +35,20 @@ function getTipsterNames() {
             if (!isOU && side === 'RIGHT') name = $(container.find('tr').eq(index).find('font')[2]).text().trim()
             if (isOU && side === 'LEFT') name = $(container.find('tr').eq(index).find('font')[2]).text().trim()
             if (isOU && side === 'RIGHT') name = $(container.find('tr').eq(index).find('font')[2]).text().trim()
-
-            result.push(name)
+            const isBigBet = container.find('tr').eq(index).find('img').length > 0
+            tipsters.push({ name, side, isBigBet })
         }
-        return result
+        return tipsters
     }
 
     const leftNames = loadNameBySide('LEFT')
     const rightNames = loadNameBySide('RIGHT')
-    return { leftNames, rightNames }
+    return [...leftNames, ...rightNames]
 }
 
-function addTable(leftTipsters, rightTipsters) {
+function addTable(tipsters) {
+    const leftTipsters = tipsters.filter(tipster => tipster.side === 'LEFT')
+    const rightTipsters = tipsters.filter(tipster => tipster.side === 'RIGHT')
     const style = `
         <style>
             .detail-container {
@@ -85,6 +90,15 @@ function addTable(leftTipsters, rightTipsters) {
             table.side tr.hightlight {
                 background-color: yellow;
             }
+
+            table.side tr.good {
+                background-color: green !important;
+            }
+
+            tr.good td {
+                color: white;
+                font-weight: bold;
+            }
         </style>
     `
     const html = `
@@ -98,16 +112,7 @@ function addTable(leftTipsters, rightTipsters) {
                     <th>Total Bet</th>
                     <th>Yield</th>
                 </tr>
-                ${leftTipsters.map(tipter => `
-                    <tr>
-                        <td>${tipter.no}</td>
-                        <td>${tipter.name}</td>
-                        <td>${(tipter.winRate * 100).toPrecision(2)}%</td>
-                        <td>${(tipter.bigBetWinRate * 100).toPrecision(2)}%</td>
-                        <td>${tipter.totalBet}</td>
-                        <td>${(tipter.yield * 100).toPrecision(2)}%</td>
-                        </tr>
-                `).join('\n')}
+                ${leftTipsters.map(renderTipster).join('\n')}
             </table>
             <table class="side">
                 <tr>
@@ -118,16 +123,7 @@ function addTable(leftTipsters, rightTipsters) {
                     <th>Total Bet</th>
                     <th>Yield</th>
                 </tr>
-                ${rightTipsters.map(tipter => `
-                    <tr>
-                        <td>${tipter.no}</td>
-                        <td>${tipter.name}</td>
-                        <td>${(tipter.winRate * 100).toPrecision(2)}%</td>
-                        <td>${(tipter.bigBetWinRate * 100).toPrecision(2)}%</td>
-                        <td>${tipter.totalBet}</td>
-                        <td>${(tipter.yield * 100).toPrecision(2)}%</td>
-                        </tr>
-                `).join('\n')}
+                ${rightTipsters.map(renderTipster).join('\n')}
             </table>
         </div>
     `
@@ -136,6 +132,20 @@ function addTable(leftTipsters, rightTipsters) {
     $('.side tr').click(function() {
         $(this).hasClass('hightlight') ? $(this).removeClass('hightlight') : $(this).addClass('hightlight')
     })
+
+    function renderTipster(tipster) {
+        const { winRate, no, name, bigBetWinRate, totalBet, yield, isBigBet } = tipster
+        return `
+            <tr ${winRate >= 0.6 || (isBigBet && bigBetWinRate >= 0.6) ? 'class="good"' : ''}>
+                <td>${no}</td>
+                <td>${name}</td>
+                <td>${(winRate * 100).toPrecision(2)}% ${isBigBet ? '' : '√'}</td>
+                <td>${(bigBetWinRate * 100).toPrecision(2)}% ${isBigBet ? '√' : ''}</td>
+                <td>${totalBet}</td>
+                <td>${(yield * 100).toPrecision(2)}%</td>
+            </tr>
+        `
+    }
 }
 
 loadTipsterInfo()
