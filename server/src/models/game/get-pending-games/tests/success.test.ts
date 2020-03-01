@@ -1,8 +1,8 @@
 import td from 'testdouble'
 import request from 'supertest'
 import { deepEqual } from 'assert'
-import { TestUtilities, Fetch } from '../../../global-refs'
-import { app } from '../../../app'
+import { TestUtilities, Fetch } from '../../../../global-refs'
+import { app } from '../../../../app'
 import { sampleHtml } from '../metadata'
 
 const TEST_TITLE = TestUtilities.getTestTitle(__filename)

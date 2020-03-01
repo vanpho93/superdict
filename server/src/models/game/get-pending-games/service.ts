@@ -1,6 +1,6 @@
 // tslint:disable-next-line: no-require-imports
 const cherio = require('cherio')
-import { ApiService, Fetch } from '../../global-refs'
+import { ApiService, Fetch } from '../../../global-refs'
 import { IInput, IOutput } from './metadata'
 
 export class Service extends ApiService<IInput, IOutput> {
