@@ -7,6 +7,6 @@ export const route: IApiRoute<IInput> = {
   Service,
   path: '/tipster',
   method: 'GET',
-  mapper: req => ({ names: flatten([req.query.names]) }),
+  mapper: req => ({ names: flatten(['', req.query.names]) }),
   isPrivateRoute: false,
 }

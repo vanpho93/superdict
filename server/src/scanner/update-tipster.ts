@@ -49,6 +49,7 @@ export class UpdateTipster {
       winCount,
       drawCount,
       loseCount,
+      totalBet: winCount + drawCount + loseCount,
 
       winRate: processRate(winRate),
       bigBetWinRate: processRate(bigBetWinRate),
