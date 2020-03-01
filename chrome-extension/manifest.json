@@ -5,8 +5,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://tipsters.asianbookie.com/matchstat.cfm?id=**",
-        "https://tipsters.asianbookie.com/matchoustat.cfm?id=**"
+        "https://tipsters.asianbookie.com/matchstat.cfm?**",
+        "https://tipsters.asianbookie.com/matchoustat.cfm?**"
       ],
       "js": [
         "jquery.js",
