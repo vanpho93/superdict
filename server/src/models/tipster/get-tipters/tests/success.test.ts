@@ -1,3 +1,4 @@
+import { flatten } from 'lodash'
 import request from 'supertest'
 import { equal } from 'assert'
 import { TestUtilities, Tipster } from '../../../../global-refs'
@@ -16,7 +17,7 @@ describe(TEST_TITLE, () => {
         winCount: 53,
         drawCount: 16,
         loseCount: 49.5,
-        totalBet: 0,
+        totalBet: 118.5,
         winRate: 0.52,
         bigBetWinRate: 0.54,
         yield: 0.034,
@@ -29,7 +30,7 @@ describe(TEST_TITLE, () => {
         winCount: 83.5,
         drawCount: 16,
         loseCount: 74.5,
-        totalBet: 0,
+        totalBet: 174,
         winRate: 0.53,
         bigBetWinRate: 0.62,
         yield: 0.043,
@@ -43,5 +44,8 @@ describe(TEST_TITLE, () => {
 
     const { body: body2 } = await request(app).get('/api/tipster').query({ names: ['Suria', 'Cruiser'] })
     equal(body2.result.length, 2)
+
+    const { body: body3 } = await request(app).get('/api/tipster')
+    equal(body3.result.length, 0)
   })
 })
