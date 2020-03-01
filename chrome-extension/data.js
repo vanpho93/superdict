@@ -23,11 +23,17 @@ function getTipsterNames() {
         const result = []
     
         const position = side === 'LEFT' ? 1 : 2
-        const container = $('table tbody tr td table tbody')[position]
-        const homeLength = $(container).find('tr').length
-        for (let index = 1; index < homeLength; index++) {
-            const row = $(container).find('tr').eq(index).find('font')
-            result.push(row.eq(position).text().trim())
+        const container = $($('table tbody tr td table tbody')[position])
+        const length = container.find('tr').length
+        for (let index = 1; index < length; index++) {
+            const isOU = location.href.includes('matchoustat')
+            let name
+            if (!isOU && side === 'LEFT') name = $(container.find('tr').eq(index).find('font')[1]).text().trim()
+            if (!isOU && side === 'RIGHT') name = $(container.find('tr').eq(index).find('font')[2]).text().trim()
+            if (isOU && side === 'LEFT') name = $(container.find('tr').eq(index).find('font')[2]).text().trim()
+            if (isOU && side === 'RIGHT') name = $(container.find('tr').eq(index).find('font')[2]).text().trim()
+
+            result.push(name)
         }
         return result
     }
@@ -75,6 +81,10 @@ function addTable(leftTipsters, rightTipsters) {
                 background-color: black;
                 color: white;
             }
+
+            table.side tr.hightlight {
+                background-color: yellow;
+            }
         </style>
     `
     const html = `
@@ -95,8 +105,8 @@ function addTable(leftTipsters, rightTipsters) {
                         <td>${(tipter.winRate * 100).toPrecision(2)}%</td>
                         <td>${(tipter.bigBetWinRate * 100).toPrecision(2)}%</td>
                         <td>${tipter.totalBet}</td>
-                        <td>${tipter.yield}</td>
-                    </tr>
+                        <td>${(tipter.yield * 100).toPrecision(2)}%</td>
+                        </tr>
                 `).join('\n')}
             </table>
             <table class="side">
@@ -115,14 +125,17 @@ function addTable(leftTipsters, rightTipsters) {
                         <td>${(tipter.winRate * 100).toPrecision(2)}%</td>
                         <td>${(tipter.bigBetWinRate * 100).toPrecision(2)}%</td>
                         <td>${tipter.totalBet}</td>
-                        <td>${tipter.yield}</td>
-                    </tr>
+                        <td>${(tipter.yield * 100).toPrecision(2)}%</td>
+                        </tr>
                 `).join('\n')}
             </table>
         </div>
     `
     $('body').append(style)
     $('body').append(html)
+    $('.side tr').click(function() {
+        $(this).hasClass('hightlight') ? $(this).removeClass('hightlight') : $(this).addClass('hightlight')
+    })
 }
 
 loadTipsterInfo()
