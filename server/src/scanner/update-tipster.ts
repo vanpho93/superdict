@@ -9,8 +9,9 @@ export class UpdateTipster {
     const $ = cherio.load(html)
 
     const MAXIMUM_TIPSTER_COUNT = 300
+    const MAX_LENGTH = Math.min(MAXIMUM_TIPSTER_COUNT, $('.altrow tr').length)
     const result = []
-    for (let index = 1; index < MAXIMUM_TIPSTER_COUNT; index++) {
+    for (let index = 1; index < MAXIMUM_TIPSTER_COUNT && index < MAX_LENGTH; index++) {
       try {
         result.push(this.parseTipser($, index))
       } catch (error) {

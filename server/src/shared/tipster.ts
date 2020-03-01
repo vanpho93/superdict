@@ -5,6 +5,7 @@ export interface ITipster {
   tipsterId: number
   name: string
   no: number
+  totalBet: number
   winCount: number
   drawCount: number
   loseCount: number

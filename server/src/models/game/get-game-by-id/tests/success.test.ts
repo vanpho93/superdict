@@ -12,7 +12,7 @@ describe(TEST_TITLE, () => {
     td.replace(Fetch, 'getText', () => sampleHtml)
   })
 
-  it(`${TEST_TITLE} Given SOMETHING THAT IS WEIRD, it should throw an error`, async () => {
+  it(`${TEST_TITLE} PENDING TASK IS HERE`, async () => {
     const { body } = await request(app).get('/api/game/44785')
     ok(body.result)
   })
