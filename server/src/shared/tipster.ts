@@ -16,4 +16,4 @@ export interface ITipster {
   created: Date | string
 }
 
-export class Tipster extends createModel<ITipster>(Tables.USER) {}
+export class Tipster extends createModel<ITipster>(Tables.TIPSTER) {}

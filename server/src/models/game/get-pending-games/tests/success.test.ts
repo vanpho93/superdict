@@ -12,7 +12,7 @@ describe(TEST_TITLE, () => {
     td.replace(Fetch, 'getText', () => sampleHtml)
   })
 
-  it(`${TEST_TITLE} Given SOMETHING THAT IS WEIRD, it should throw an error`, async () => {
+  it(`${TEST_TITLE} Can get pending games`, async () => {
     const { body } = await request(app).get('/api/pending-game')
     deepEqual(body, {
       success: true,

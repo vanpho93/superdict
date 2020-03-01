@@ -1,6 +1,4 @@
 export enum Tables {
+  TIPSTER = 'tipster',
   USER = 'user',
-  LESSON = 'lesson',
-  VOCABULARY = 'vocabulary',
-  WORD_TYPE = 'word_type',
 }
