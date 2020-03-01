@@ -91,8 +91,12 @@ function addTable(tipsters) {
                 background-color: yellow;
             }
 
-            table.side tr.good {
+            table.side tr.good-normal {
                 background-color: green !important;
+            }
+            
+            table.side tr.good-big {
+                background-color: blue !important;
             }
 
             tr.good td {
@@ -135,8 +139,15 @@ function addTable(tipsters) {
 
     function renderTipster(tipster) {
         const { winRate, no, name, bigBetWinRate, totalBet, yield, isBigBet } = tipster
+
+        function getClass() {
+            if (isBigBet && bigBetWinRate >= 0.6) return 'class="good good-big"'
+            if (!isBigBet && winRate >= 0.6) return 'class="good good-normal"'
+            return ''
+        }
+
         return `
-            <tr ${winRate >= 0.6 || (isBigBet && bigBetWinRate >= 0.6) ? 'class="good"' : ''}>
+            <tr ${getClass()}>
                 <td>${no}</td>
                 <td>${name}</td>
                 <td>${(winRate * 100).toPrecision(2)}% ${isBigBet ? '' : '√'}</td>
