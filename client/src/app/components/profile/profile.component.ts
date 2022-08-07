@@ -11,7 +11,7 @@ import { State, IUser, sendSignOutRequest } from '../../models'
 
 export class ProfileComponent implements OnInit {
   user$: Observable<IUser>
-  isSignOutLoading$: Observable<string>
+  isSignOutLoading$: Observable<boolean>
 
   constructor(private store: Store<State>) {
     this.user$ = this.store.pipe(select('user'), select('state'))

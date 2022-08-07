@@ -11,7 +11,7 @@ import { environment } from '../environments/environment'
 })
 
 export class AppComponent implements OnInit {
-  isCheckTokenDone$: Observable<number>
+  isCheckTokenDone$: Observable<boolean>
 
   constructor(private store: Store<State>) {
     this.isCheckTokenDone$ = store.pipe(select('user'), select('isCheckTokenDone'))

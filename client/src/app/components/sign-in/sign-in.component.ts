@@ -2,7 +2,7 @@ import { FormBuilder, Validators } from '@angular/forms'
 import { Component, OnInit } from '@angular/core'
 import { Store, select } from '@ngrx/store'
 import { Observable } from 'rxjs'
-import { signIn, IUser } from '../../models'
+import { signIn, IUser, UserState } from '../../models'
 
 @Component({
   selector: 'app-sign-in',
@@ -20,7 +20,7 @@ export class SignInComponent implements OnInit {
   user$: Observable<IUser>
   isLoading$: Observable<boolean>
 
-  constructor(private store: Store<{ user: IUser }>, private fb: FormBuilder) {
+  constructor(private store: Store<{ user: UserState }>, private fb: FormBuilder) {
     this.user$ = this.store.pipe(select('user'), select('state'))
     this.isLoading$ = this.store.pipe(select('user'), select('isLoading'))
   }
