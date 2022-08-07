@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2015",
     "module": "commonjs",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017"],
+    "types": ["node", "mocha"],
     "outDir": "./dist",
     "strict": true,
     "strictNullChecks": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
       "*": [
@@ -16,5 +17,6 @@
       ]
     },
     "esModuleInterop": true
-  }
+  },
+  "exclude": ["node_modules"]
 }

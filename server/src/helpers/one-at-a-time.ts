@@ -8,7 +8,7 @@ export class OneAtATime {
     this.isRunning = true
     try {
       await this.doWhenAvailable()
-    } catch (error) {
+    } catch (error: any) {
       handleUnexpectedError(error)
     }
     this.isRunning = false

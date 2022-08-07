@@ -11,7 +11,7 @@
     "deploy": "git push origin -f --no-verify HEAD:development"
   },
   "engines": {
-    "node": "12.22.12"
+    "node": ">=14.0.0"
   },
   "cacheDirectories": [
     "server/node_modules",

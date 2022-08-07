@@ -9,7 +9,7 @@ export function addRoute(app: Express, { Service, path, middlewares = [], mapper
       const serviceInstance = new Service(userContext, mapper(req))
       const result = await serviceInstance.process()
       res.send({ success: true, result })
-    } catch (error) {
+    } catch (error: any) {
       if (isNil(error.statusCode)) handleUnexpectedError(error)
       const statusCode = defaultTo(error.statusCode, 500)
       res.status(statusCode).send({ success: false, message: getErrorMessage(error) })
