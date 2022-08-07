@@ -27,7 +27,7 @@ export const knex = Knex({
     password : SUPER_DICT_POSTGRES_PASSWORD,
     database : SUPER_DICT_POSTGRES_DATABASE,
     port: toNumber(SUPER_DICT_POSTGRES_PORT),
-    ssl: SUPER_DICT_POSTGRES_SSL === 'true',
+    ssl: SUPER_DICT_POSTGRES_SSL === 'true' ? { rejectUnauthorized: false } : false,
   },
   pool: {
     min: 0,
