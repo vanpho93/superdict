@@ -25,7 +25,7 @@ const knexConfig: Config = {
     user: SUPER_DICT_POSTGRES_USERNAME,
     password: SUPER_DICT_POSTGRES_PASSWORD,
     port: Number(SUPER_DICT_POSTGRES_PORT),
-    ssl: SUPER_DICT_POSTGRES_SSL === 'true',
+    ssl: SUPER_DICT_POSTGRES_SSL === 'true' ? { rejectUnauthorized: false } : false,
   },
   pool: {
     min: 1,
